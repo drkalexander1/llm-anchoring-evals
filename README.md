@@ -10,7 +10,9 @@ Jacowitz and Kahneman (1995):
 The portfolio-ready scope is the **J&K bridge arm**: 15 published questions,
 each evaluated with an unanchored control and low/high anchors described as
 either arbitrary or plausible. The same numeric anchors were used in the human
-study, so model and published human anchoring indices can be compared.
+study, enabling an exploratory historical comparison. Several quantities have
+changed since 1995, so the full-set comparison is accompanied by a
+baseline-bracketing sensitivity analysis.
 
 ## What this demonstrates
 
@@ -26,6 +28,10 @@ two-turn treatment is a known protocol limitation.
 
 The completed four-model findings are summarized in [`RESULTS.md`](RESULTS.md);
 machine-readable summaries are under `results/`.
+Taxon-arm sizing and the recommended staged design are documented in
+[`POWER_ANALYSIS.md`](POWER_ANALYSIS.md).
+For a portfolio-ready narrative covering the motivation, implementation,
+findings, failures, and next iteration, see [`WRITEUP.md`](WRITEUP.md).
 
 ## Setup
 
@@ -126,8 +132,9 @@ narrower.
 
 ## Scope and limitations
 
-- The J&K arm is ready to run. The experimental taxon arm remains a future
-  extension and requires `data/items.yaml` and `data/prior_b.csv`.
+- The J&K arm has completed results. The harder 54-item taxon arm is staged
+  with `data/items.yaml` and model-specific anchors in `data/prior_b.csv`, but
+  has not been run.
 - Temperature 0 requests low-variance generation but does not guarantee
   identical output. Some reasoning models do not expose temperature controls.
 - `seeds > 1` creates repeated requests, not independently seeded samples.
@@ -145,3 +152,30 @@ narrower.
 - `prompts/` — control, comparison, and estimation prompts
 - `tests/` — focused correctness and dataset checks
 - `R6_HANDOFF.md` — notes for the larger future taxon evaluation
+
+## Optional harder taxon arm
+
+Rebuild its inputs from the original R3 project with:
+
+```powershell
+python scripts/import_r3.py `
+  --r3-root C:\Users\chaos\Projects\bird-taxonomy-evals `
+  --baseline "results/latest_inspect/by_prompt.csv=2026-07-02" `
+  --baseline "results/sonnet45_anchor_baseline/by_prompt.csv=2026-07-18"
+```
+
+The full 54-item arm contains 270 samples and 486 calls per model. The power
+analysis recommends starting with an 18-item exploratory stage (648 calls
+across four models), then expanding to 27 items only if useful. For example:
+
+```powershell
+inspect eval src/tasks/elicit_anchored.py `
+  --model anthropic/claude-sonnet-4-5-20250929 `
+  -T item_set=taxon `
+  -T baseline_model=taxonomy-r3/claude-sonnet-4-5-20250929@2026-07-18 `
+  -T seeds=1 `
+  -T temperature=0
+```
+
+The imported anchors collapse to the same low/high number for 0–3 items per
+model. Those items should be excluded from anchoring-index aggregation.

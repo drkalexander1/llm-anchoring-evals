@@ -1,8 +1,11 @@
 from __future__ import annotations
 
 import pytest
+import pandas as pd
 
 from scripts.analyze_jk import summarize
+from scripts.import_r3 import build_baselines
+from scripts.power_analysis import _required_n
 from src.anchoring_metrics import anchoring_index, beta_high, beta_low
 from src.anchors import derive_anchors, interp_quantile
 from src.schema import parse_ci_triple
@@ -93,3 +96,62 @@ def test_analysis_summary_computes_effects_and_consistency() -> None:
         assert values["mean_absolute_anchoring_index"] == pytest.approx(0.5)
         assert values["median_width_delta"] == pytest.approx(-0.2)
         assert values["human_ai_spearman"] is None
+
+
+def test_analysis_keeps_taxon_effects_without_human_ai() -> None:
+    rows = [
+        {
+            "item_id": "taxon",
+            "condition": "control",
+            "parsed": True,
+            "point": 50,
+            "value": 0.4,
+        },
+        {
+            "item_id": "taxon",
+            "condition": "low_arb",
+            "parsed": True,
+            "point": 25,
+            "value": 0.3,
+            "anchor": 0,
+        },
+        {
+            "item_id": "taxon",
+            "condition": "high_arb",
+            "parsed": True,
+            "point": 75,
+            "value": 0.3,
+            "anchor": 100,
+        },
+    ]
+
+    result = summarize(rows)["by_provenance"]["arb"]
+
+    assert result["items_with_complete_pairs"] == 1
+    assert result["mean_anchoring_index"] == pytest.approx(0.5)
+    assert result["human_ai_spearman"] is None
+
+
+def test_r3_baseline_import_prefers_later_duplicate() -> None:
+    first = pd.DataFrame(
+        [{"model": "model", "prompt_key": "item", "p10": 1, "p50": 2, "p90": 3}]
+    )
+    second = pd.DataFrame(
+        [{"model": "model", "prompt_key": "item", "p10": 4, "p50": 5, "p90": 6}]
+    )
+
+    result = build_baselines(
+        [
+            (first, "first.csv", "2026-07-01"),
+            (second, "second.csv", "2026-07-02"),
+        ]
+    )
+
+    assert len(result) == 1
+    assert result.iloc[0]["point"] == 5
+
+
+def test_power_calculation_scales_with_effect_retention() -> None:
+    assert _required_n(0.5, 0.8, 1.0) == 25
+    assert _required_n(0.5, 0.8, 0.5) == 99
+    assert _required_n(-0.1, 0.8, 1.0) is None

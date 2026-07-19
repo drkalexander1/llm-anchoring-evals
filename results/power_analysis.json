@@ -1,0 +1,387 @@
+{
+  "method": {
+    "test": "one-sided one-sample mean, normal approximation",
+    "alpha": 0.05,
+    "powers": [
+      0.8,
+      0.9
+    ],
+    "effect_retention": [
+      1.0,
+      0.75,
+      0.5,
+      0.25
+    ],
+    "experimental_unit": "item",
+    "taxon_calls_per_item_across_four_models": 36,
+    "note": "Pilot estimates use 15 J&K items; taxon transfer is uncertain."
+  },
+  "logs": {
+    "anthropic/claude-sonnet-4-5-20250929": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-07-19T00-16-00-00-00_elicit-anchored_nWZcPxM86ZNVhK9KEeQx9E.eval",
+    "anthropic/claude-haiku-4-5-20251001": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-07-19T00-16-01-00-00_elicit-anchored_8xfppijosgfPddtsh9kRAw.eval",
+    "openai/gpt-4o": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-07-19T00-16-00-00-00_elicit-anchored_5shGmD4FJVGuLNDUoHtRLp.eval",
+    "openai/gpt-4o-mini": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-07-19T00-16-00-00-00_elicit-anchored_9KocfCjQPAgdfqXFhXNGGL.eval"
+  },
+  "effects": {
+    "anthropic/claude-sonnet-4-5-20250929:arb": {
+      "pilot_items": 15,
+      "mean": 0.19786794343610037,
+      "sd": 0.6168161389765496,
+      "standardized_effect": 0.32078918000493983,
+      "required_items": {
+        "100pct": {
+          "power_80": 61,
+          "power_90": 84
+        },
+        "75pct": {
+          "power_80": 107,
+          "power_90": 148
+        },
+        "50pct": {
+          "power_80": 241,
+          "power_90": 333
+        },
+        "25pct": {
+          "power_80": 962,
+          "power_90": 1332
+        }
+      }
+    },
+    "anthropic/claude-sonnet-4-5-20250929:plaus": {
+      "pilot_items": 15,
+      "mean": 0.2747555228276878,
+      "sd": 1.1107974503335996,
+      "standardized_effect": 0.24734979608133958,
+      "required_items": {
+        "100pct": {
+          "power_80": 102,
+          "power_90": 140
+        },
+        "75pct": {
+          "power_80": 180,
+          "power_90": 249
+        },
+        "50pct": {
+          "power_80": 405,
+          "power_90": 560
+        },
+        "25pct": {
+          "power_80": 1617,
+          "power_90": 2240
+        }
+      }
+    },
+    "anthropic/claude-sonnet-4-5-20250929:provenance_delta": {
+      "pilot_items": 15,
+      "mean": 0.0768875793915874,
+      "sd": 1.443522497987212,
+      "standardized_effect": 0.05326385941251089,
+      "required_items": {
+        "100pct": {
+          "power_80": 2180,
+          "power_90": 3019
+        },
+        "75pct": {
+          "power_80": 3875,
+          "power_90": 5367
+        },
+        "50pct": {
+          "power_80": 8717,
+          "power_90": 12075
+        },
+        "25pct": {
+          "power_80": 34868,
+          "power_90": 48298
+        }
+      }
+    },
+    "anthropic/claude-haiku-4-5-20251001:arb": {
+      "pilot_items": 15,
+      "mean": 0.04365079365079365,
+      "sd": 0.14757423795069088,
+      "standardized_effect": 0.2957887112070247,
+      "required_items": {
+        "100pct": {
+          "power_80": 71,
+          "power_90": 98
+        },
+        "75pct": {
+          "power_80": 126,
+          "power_90": 175
+        },
+        "50pct": {
+          "power_80": 283,
+          "power_90": 392
+        },
+        "25pct": {
+          "power_80": 1131,
+          "power_90": 1567
+        }
+      }
+    },
+    "anthropic/claude-haiku-4-5-20251001:plaus": {
+      "pilot_items": 15,
+      "mean": 0.11571428571428571,
+      "sd": 0.25957186099500107,
+      "standardized_effect": 0.4457890207001836,
+      "required_items": {
+        "100pct": {
+          "power_80": 32,
+          "power_90": 44
+        },
+        "75pct": {
+          "power_80": 56,
+          "power_90": 77
+        },
+        "50pct": {
+          "power_80": 125,
+          "power_90": 173
+        },
+        "25pct": {
+          "power_80": 498,
+          "power_90": 690
+        }
+      }
+    },
+    "anthropic/claude-haiku-4-5-20251001:provenance_delta": {
+      "pilot_items": 15,
+      "mean": 0.07206349206349207,
+      "sd": 0.276867670064844,
+      "standardized_effect": 0.2602813540729201,
+      "required_items": {
+        "100pct": {
+          "power_80": 92,
+          "power_90": 127
+        },
+        "75pct": {
+          "power_80": 163,
+          "power_90": 225
+        },
+        "50pct": {
+          "power_80": 366,
+          "power_90": 506
+        },
+        "25pct": {
+          "power_80": 1461,
+          "power_90": 2023
+        }
+      }
+    },
+    "openai/gpt-4o:arb": {
+      "pilot_items": 15,
+      "mean": -0.044115967492315125,
+      "sd": 0.25750040039223804,
+      "standardized_effect": -0.17132387920607262,
+      "required_items": {
+        "100pct": {
+          "power_80": null,
+          "power_90": null
+        },
+        "75pct": {
+          "power_80": null,
+          "power_90": null
+        },
+        "50pct": {
+          "power_80": null,
+          "power_90": null
+        },
+        "25pct": {
+          "power_80": null,
+          "power_90": null
+        }
+      }
+    },
+    "openai/gpt-4o:plaus": {
+      "pilot_items": 15,
+      "mean": 0.0962251606155685,
+      "sd": 0.259187706156952,
+      "standardized_effect": 0.3712566542693156,
+      "required_items": {
+        "100pct": {
+          "power_80": 45,
+          "power_90": 63
+        },
+        "75pct": {
+          "power_80": 80,
+          "power_90": 111
+        },
+        "50pct": {
+          "power_80": 180,
+          "power_90": 249
+        },
+        "25pct": {
+          "power_80": 718,
+          "power_90": 995
+        }
+      }
+    },
+    "openai/gpt-4o:provenance_delta": {
+      "pilot_items": 15,
+      "mean": 0.14034112810788363,
+      "sd": 0.3074090315065702,
+      "standardized_effect": 0.4565289686516063,
+      "required_items": {
+        "100pct": {
+          "power_80": 30,
+          "power_90": 42
+        },
+        "75pct": {
+          "power_80": 53,
+          "power_90": 74
+        },
+        "50pct": {
+          "power_80": 119,
+          "power_90": 165
+        },
+        "25pct": {
+          "power_80": 475,
+          "power_90": 658
+        }
+      }
+    },
+    "openai/gpt-4o-mini:arb": {
+      "pilot_items": 15,
+      "mean": 0.05766363965094768,
+      "sd": 0.36713133035890777,
+      "standardized_effect": 0.1570654283157356,
+      "required_items": {
+        "100pct": {
+          "power_80": 251,
+          "power_90": 348
+        },
+        "75pct": {
+          "power_80": 446,
+          "power_90": 618
+        },
+        "50pct": {
+          "power_80": 1003,
+          "power_90": 1389
+        },
+        "25pct": {
+          "power_80": 4010,
+          "power_90": 5555
+        }
+      }
+    },
+    "openai/gpt-4o-mini:plaus": {
+      "pilot_items": 15,
+      "mean": 0.24185193137597946,
+      "sd": 0.402981312023376,
+      "standardized_effect": 0.6001566925315638,
+      "required_items": {
+        "100pct": {
+          "power_80": 18,
+          "power_90": 24
+        },
+        "75pct": {
+          "power_80": 31,
+          "power_90": 43
+        },
+        "50pct": {
+          "power_80": 69,
+          "power_90": 96
+        },
+        "25pct": {
+          "power_80": 275,
+          "power_90": 381
+        }
+      }
+    },
+    "openai/gpt-4o-mini:provenance_delta": {
+      "pilot_items": 15,
+      "mean": 0.1841882917250318,
+      "sd": 0.4668379185359239,
+      "standardized_effect": 0.3945444112652092,
+      "required_items": {
+        "100pct": {
+          "power_80": 40,
+          "power_90": 56
+        },
+        "75pct": {
+          "power_80": 71,
+          "power_90": 98
+        },
+        "50pct": {
+          "power_80": 159,
+          "power_90": 221
+        },
+        "25pct": {
+          "power_80": 636,
+          "power_90": 881
+        }
+      }
+    },
+    "all_models:arb": {
+      "pilot_items": 15,
+      "mean": 0.06376660231138165,
+      "sd": 0.12274868727015142,
+      "standardized_effect": 0.5194890774761683,
+      "required_items": {
+        "100pct": {
+          "power_80": 23,
+          "power_90": 32
+        },
+        "75pct": {
+          "power_80": 41,
+          "power_90": 57
+        },
+        "50pct": {
+          "power_80": 92,
+          "power_90": 127
+        },
+        "25pct": {
+          "power_80": 367,
+          "power_90": 508
+        }
+      }
+    },
+    "all_models:plaus": {
+      "pilot_items": 15,
+      "mean": 0.18213672513338036,
+      "sd": 0.3676263441943201,
+      "standardized_effect": 0.4954398073199739,
+      "required_items": {
+        "100pct": {
+          "power_80": 26,
+          "power_90": 35
+        },
+        "75pct": {
+          "power_80": 45,
+          "power_90": 63
+        },
+        "50pct": {
+          "power_80": 101,
+          "power_90": 140
+        },
+        "25pct": {
+          "power_80": 404,
+          "power_90": 559
+        }
+      }
+    },
+    "all_models:provenance_delta": {
+      "pilot_items": 15,
+      "mean": 0.11837012282199873,
+      "sd": 0.3395041380523264,
+      "standardized_effect": 0.34865590593701346,
+      "required_items": {
+        "100pct": {
+          "power_80": 51,
+          "power_90": 71
+        },
+        "75pct": {
+          "power_80": 91,
+          "power_90": 126
+        },
+        "50pct": {
+          "power_80": 204,
+          "power_90": 282
+        },
+        "25pct": {
+          "power_80": 814,
+          "power_90": 1128
+        }
+      }
+    }
+  }
+}

@@ -111,6 +111,7 @@ def summarize(rows: list[dict[str, Any]]) -> dict[str, Any]:
 
     for provenance in PROVENANCES:
         item_ais: list[float] = []
+        correlated_item_ais: list[float] = []
         human_ais: list[float] = []
         width_deltas: list[float] = []
 
@@ -144,9 +145,8 @@ def summarize(rows: list[dict[str, Any]]) -> dict[str, Any]:
                         [row.get("human_ai") for row in low_rows + high_rows]
                     )
                     if human_values:
+                        correlated_item_ais.append(ai)
                         human_ais.append(median(human_values))
-                    else:
-                        item_ais.pop()
 
             if control_width is not None:
                 for condition_rows in (low_rows, high_rows):
@@ -179,7 +179,7 @@ def summarize(rows: list[dict[str, Any]]) -> dict[str, Any]:
                 if item_ais
                 else None
             ),
-            "human_ai_spearman": _spearman(item_ais, human_ais),
+            "human_ai_spearman": _spearman(correlated_item_ais, human_ais),
             "median_width_delta": median(width_deltas) if width_deltas else None,
         }
 

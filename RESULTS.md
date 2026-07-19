@@ -10,7 +10,9 @@ All four models were mostly resistant to these anchors: the median anchoring
 index was 0 for both arbitrary and plausible provenance in every model. The
 mean results reveal sparse effects that the median intentionally suppresses.
 Plausible analyst estimates produced more average pull than arbitrary random
-numbers in all four models.
+numbers in all four raw model summaries. That full-set pattern is outlier-
+sensitive and disappears after excluding cases where the historical anchors
+do not bracket a model's modern baseline estimate.
 
 The intervals generally became slightly wider rather than narrower after an
 anchor. This run therefore does not support the proposed false-confidence
@@ -65,10 +67,23 @@ the most. Its single parse failure was a non-monotonic control interval
 
 ## Interpretation
 
-The clearest signal is provenance sensitivity: every model had a more positive
-mean anchoring index when the same number was attributed to an analyst instead
-of a random generator. This pattern is exploratory because there are only 15
-items and one response per condition.
+The clearest result is broad resistance: the model median AI was 0 in every
+condition, compared with the J&K human median of 0.43.
+
+Several stimuli are time-sensitive. The Berkeley female-professor item is the
+strongest example: Sonnet's unanchored estimate was 1,100 while the 1995 anchors
+were 25 and 130, producing an AI of 4.286 that heavily influenced the mean.
+The item remains in the complete replication result for transparency.
+
+A sensitivity check retained the 41 of 60 model-item cases where the control
+p50 fell between the historical anchors. Across those cases:
+
+- arbitrary mean AI was 0.103 and median AI was 0;
+- plausible mean AI was 0.056 and median AI was 0.
+
+The apparent plausible-provenance advantage therefore does not survive this
+check. Nonzero effects were sparse, heterogeneous, and sensitive to stimulus
+age.
 
 The models did not reproduce the human item-level pattern. Human-AI rank
 correlations were weak or negative, except for a small positive correlation in
@@ -77,15 +92,18 @@ human similarity or dissimilarity.
 
 ## Design lessons for the next iteration
 
-1. Keep provenance as a factor; it produced the most consistent cross-model
-   difference.
+1. Retain provenance as an exploratory factor, but do not treat its raw pilot
+   mean as a confirmed effect.
 2. Increase anchor intensity or choose less memorized questions. Most item
    pairs had identical low- and high-anchor estimates.
 3. Add a protocol-matched two-turn control to separate anchoring from the extra
    conversational turn.
-4. Add repeated stochastic samples only when they are genuinely provider-seeded
+4. Separate temporally stable items from historical quantities whose calibration
+   has expired.
+5. Require or flag anchors that do not bracket the model's baseline belief.
+6. Add repeated stochastic samples only when they are genuinely provider-seeded
    or sampled at a nonzero temperature.
-5. Retain strict interval validation: it caught a substantive ordering error
+7. Retain strict interval validation: it caught a substantive ordering error
    that a formatting-only parser would have accepted.
 
 Machine-readable summaries are available under `results/`. Raw Inspect logs are
