@@ -1,0 +1,33 @@
+{
+  "run": {
+    "log": "logs\\2026-07-19T00-16-00-00-00_elicit-anchored_5shGmD4FJVGuLNDUoHtRLp.eval",
+    "model": "openai/gpt-4o",
+    "created": "2026-07-19T00:16:00+00:00",
+    "samples": 75
+  },
+  "summary": {
+    "parse_rate": 1.0,
+    "comparative_consistency": 0.8833333333333333,
+    "comparisons_scored": 60,
+    "by_provenance": {
+      "arb": {
+        "items_with_complete_pairs": 15,
+        "items_with_nonzero_effect": 4,
+        "median_anchoring_index": 0.0,
+        "mean_anchoring_index": -0.04411596749231513,
+        "mean_absolute_anchoring_index": 0.08286815949181185,
+        "human_ai_spearman": 0.004604092555161308,
+        "median_width_delta": 0.008453954428196967
+      },
+      "plaus": {
+        "items_with_complete_pairs": 15,
+        "items_with_nonzero_effect": 4,
+        "median_anchoring_index": 0.0,
+        "mean_anchoring_index": 0.0962251606155685,
+        "mean_absolute_anchoring_index": 0.0962251606155685,
+        "human_ai_spearman": -0.2693394144769365,
+        "median_width_delta": 0.002669801177263865
+      }
+    }
+  }
+}

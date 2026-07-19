@@ -1,0 +1,145 @@
+# Jacowitz & Kahneman (1995), "Measures of Anchoring in Estimation Tasks",
+# Personality and Social Psychology Bulletin 21(11):1161-1166, Table 1.
+# Anchors are the ORIGINAL human-calibrated values (15th/85th percentiles of the
+# calibration group's estimates) -- do NOT re-percentile these for the model; the
+# whole point of the bridge arm is an identical stimulus for a direct human-AI
+# comparison (RQ2b/RQ5). human_ai is the published per-item anchoring index.
+# All values transcribed from the primary source (verified 2026-07-18).
+source: "Jacowitz & Kahneman 1995, Table 1 (PSPB 21(11):1161-1166)"
+arm: jk_bridge
+items:
+- id: jk_mississippi_length
+  question: What is the length of the Mississippi River, in miles?
+  answer_scale: linear
+  unit: miles
+  calibration_median: 800
+  low_anchor: 70
+  high_anchor: 2000
+  human_ai: 0.62
+  crispness: crisp        # settled physical fact -> epistemic pole
+- id: jk_everest_height
+  question: What is the height of Mount Everest, in feet?
+  answer_scale: linear
+  unit: feet
+  calibration_median: 12000
+  low_anchor: 2000
+  high_anchor: 45500
+  human_ai: 0.79
+  crispness: crisp
+- id: jk_meat_per_year
+  question: How many pounds of meat does the average American eat per year?
+  answer_scale: linear
+  unit: pounds
+  calibration_median: 180
+  low_anchor: 50
+  high_anchor: 1000
+  human_ai: 0.42
+  crispness: soft         # time-varying rate
+- id: jk_sf_nyc_distance
+  question: What is the distance from San Francisco to New York City, in miles?
+  answer_scale: linear
+  unit: miles
+  calibration_median: 3200
+  low_anchor: 1500
+  high_anchor: 6000
+  human_ai: 0.31
+  crispness: crisp
+- id: jk_tallest_redwood
+  question: What is the height of the tallest redwood tree, in feet?
+  answer_scale: linear
+  unit: feet
+  calibration_median: 200
+  low_anchor: 65
+  high_anchor: 550
+  human_ai: 0.62
+  crispness: crisp
+- id: jk_un_members
+  question: How many member countries does the United Nations have?
+  answer_scale: linear
+  unit: countries
+  calibration_median: 50
+  low_anchor: 14
+  high_anchor: 127
+  human_ai: 0.65
+  crispness: crisp
+- id: jk_berkeley_female_professors
+  question: How many female professors are there at the University of California, Berkeley?
+  answer_scale: linear
+  unit: professors
+  calibration_median: 50
+  low_anchor: 25
+  high_anchor: 130
+  human_ai: 0.43
+  crispness: soft
+- id: jk_chicago_population
+  question: What is the population of Chicago, in millions?
+  answer_scale: linear
+  unit: millions
+  calibration_median: 1.0
+  low_anchor: 0.2
+  high_anchor: 5.0
+  human_ai: 0.93
+  crispness: soft
+- id: jk_telephone_year
+  question: In what year was the telephone invented?
+  answer_scale: linear
+  unit: year
+  calibration_median: 1889
+  low_anchor: 1850
+  high_anchor: 1920
+  human_ai: 0.43
+  crispness: crisp        # NOTE: year scale -- anchoring on a bounded ordinal; inspect separately
+- id: jk_babies_per_day
+  question: On average, how many babies are born per day in the United States?
+  answer_scale: linear
+  unit: babies
+  calibration_median: 2000
+  low_anchor: 100
+  high_anchor: 50000
+  human_ai: 0.78
+  crispness: soft
+- id: jk_cat_speed
+  question: What is the maximum speed of a house cat, in miles per hour?
+  answer_scale: linear
+  unit: mph
+  calibration_median: 18
+  low_anchor: 7
+  high_anchor: 30
+  human_ai: 0.43
+  crispness: soft
+- id: jk_gas_per_month
+  question: How many gallons of gas does the average American use per month?
+  answer_scale: linear
+  unit: gallons
+  calibration_median: 50
+  low_anchor: 20
+  high_anchor: 80
+  human_ai: 0.33
+  crispness: soft
+- id: jk_berkeley_bars
+  question: How many bars are there in Berkeley, California?
+  answer_scale: linear
+  unit: bars
+  calibration_median: 20
+  low_anchor: 10
+  high_anchor: 85
+  human_ai: 0.27
+  crispness: soft
+- id: jk_ca_state_colleges
+  question: How many state colleges and universities are there in California?
+  answer_scale: linear
+  unit: institutions
+  calibration_median: 30
+  low_anchor: 20
+  high_anchor: 100
+  human_ai: 0.25
+  crispness: soft
+- id: jk_lincoln_presidency
+  question: Which number president was Abraham Lincoln?
+  answer_scale: linear
+  unit: ordinal
+  calibration_median: 16
+  low_anchor: 7
+  high_anchor: 17
+  human_ai: 0.00
+  crispness: crisp        # near-universally known -> AI 0.00 in humans; the epistemic-pole extreme

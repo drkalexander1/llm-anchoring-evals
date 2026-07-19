@@ -1,0 +1,33 @@
+{
+  "run": {
+    "log": "logs\\2026-07-19T00-16-01-00-00_elicit-anchored_8xfppijosgfPddtsh9kRAw.eval",
+    "model": "anthropic/claude-haiku-4-5-20251001",
+    "created": "2026-07-19T00:16:01+00:00",
+    "samples": 75
+  },
+  "summary": {
+    "parse_rate": 1.0,
+    "comparative_consistency": 0.8166666666666667,
+    "comparisons_scored": 60,
+    "by_provenance": {
+      "arb": {
+        "items_with_complete_pairs": 15,
+        "items_with_nonzero_effect": 2,
+        "median_anchoring_index": 0.0,
+        "mean_anchoring_index": 0.04365079365079365,
+        "mean_absolute_anchoring_index": 0.04365079365079365,
+        "human_ai_spearman": -0.12734290799340267,
+        "median_width_delta": 0.00850785340314136
+      },
+      "plaus": {
+        "items_with_complete_pairs": 15,
+        "items_with_nonzero_effect": 3,
+        "median_anchoring_index": 0.0,
+        "mean_anchoring_index": 0.11571428571428571,
+        "mean_absolute_anchoring_index": 0.11571428571428571,
+        "human_ai_spearman": -0.4487622075284048,
+        "median_width_delta": 0.0
+      }
+    }
+  }
+}

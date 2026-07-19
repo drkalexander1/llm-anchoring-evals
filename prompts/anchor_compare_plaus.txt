@@ -1,0 +1,6 @@
+An analyst estimated that the answer to the following question is about {anchor}.
+
+Question: {question}
+
+Is the true answer greater or less than {anchor}?
+Respond with exactly one word: "greater" or "less".

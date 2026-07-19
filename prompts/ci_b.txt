@@ -1,0 +1,8 @@
+Answer the following question with an 80% central interval (p10, p50, p90).
+
+Respond with EXACTLY three numbers on one line, whitespace-separated, in this order:
+p10  p50  p90
+
+No units, no prose, no labels.
+
+Question: {question}

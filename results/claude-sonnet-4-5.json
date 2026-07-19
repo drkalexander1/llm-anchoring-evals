@@ -1,0 +1,33 @@
+{
+  "run": {
+    "log": "logs\\2026-07-19T00-16-00-00-00_elicit-anchored_nWZcPxM86ZNVhK9KEeQx9E.eval",
+    "model": "anthropic/claude-sonnet-4-5-20250929",
+    "created": "2026-07-19T00:16:00+00:00",
+    "samples": 75
+  },
+  "summary": {
+    "parse_rate": 1.0,
+    "comparative_consistency": 0.85,
+    "comparisons_scored": 60,
+    "by_provenance": {
+      "arb": {
+        "items_with_complete_pairs": 15,
+        "items_with_nonzero_effect": 6,
+        "median_anchoring_index": 0.0,
+        "mean_anchoring_index": 0.19786794343610037,
+        "mean_absolute_anchoring_index": 0.26269601227218525,
+        "human_ai_spearman": -0.47959596017093903,
+        "median_width_delta": 0.03788922568200606
+      },
+      "plaus": {
+        "items_with_complete_pairs": 15,
+        "items_with_nonzero_effect": 5,
+        "median_anchoring_index": 0.0,
+        "mean_anchoring_index": 0.2747555228276878,
+        "mean_absolute_anchoring_index": 0.3091999672721322,
+        "human_ai_spearman": 0.22745975571981447,
+        "median_width_delta": 0.023286793061649318
+      }
+    }
+  }
+}

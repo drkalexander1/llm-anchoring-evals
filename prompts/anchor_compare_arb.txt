@@ -1,0 +1,6 @@
+A random number generator just produced the number {anchor}.
+
+Question: {question}
+
+Is the true answer greater or less than {anchor}?
+Respond with exactly one word: "greater" or "less".
