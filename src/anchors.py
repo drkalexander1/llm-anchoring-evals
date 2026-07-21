@@ -101,6 +101,40 @@ def derive_anchors(
     return low, high
 
 
+def derive_outside_anchors(
+    lower: float,
+    point: float,
+    upper: float,
+    scale: AnswerScale = "linear",
+    strength: float = 2.0,
+    round_values: bool = True,
+) -> tuple[float, float]:
+    """Place anchors outside B0 by a multiple of each side's uncertainty.
+
+    ``strength=1`` reproduces p10/p90. ``strength=2`` places each anchor twice
+    as far from p50 as the corresponding stated interval bound. This is the R7
+    taxon default and is deliberately stronger than the R6 p15/p85 analog.
+    """
+    if strength <= 0 or not math.isfinite(strength):
+        raise ValueError("anchor strength must be a positive finite number")
+    if not lower <= point <= upper:
+        raise ValueError("anchor derivation requires lower <= point <= upper")
+
+    if scale == "log":
+        if lower <= 0:
+            raise ValueError("log-scale anchors require positive bounds")
+        lo, mid, hi = math.log10(lower), math.log10(point), math.log10(upper)
+        low = 10.0 ** (mid - strength * (mid - lo))
+        high = 10.0 ** (mid + strength * (hi - mid))
+    else:
+        low = point - strength * (point - lower)
+        high = point + strength * (upper - point)
+
+    if round_values:
+        low, high = _round_anchor(low, scale), _round_anchor(high, scale)
+    return low, high
+
+
 def percentile_anchor(
     quantile_fn: Callable[[float], float],
     low_q: float = 0.15,

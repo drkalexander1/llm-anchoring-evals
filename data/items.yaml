@@ -5,365 +5,365 @@ items:
   answer_scale: linear
   true_value: 9.0
   unit: species
-  notes: R3 taxon arm; level=genus
+  notes: R3 taxon arm; level=genus; familiarity=well_known; dispute=disputed
 - id: amazona_psittacidae_genus
   question: How many bird species are currently recognized in the genus Amazona worldwide?
   answer_scale: linear
   true_value: 32.0
   unit: species
-  notes: R3 taxon arm; level=genus
+  notes: R3 taxon arm; level=genus; familiarity=well_known; dispute=disputed
 - id: anas_anatidae_genus
   question: How many bird species are currently recognized in the genus Anas worldwide?
   answer_scale: linear
   true_value: 32.0
   unit: species
-  notes: R3 taxon arm; level=genus
+  notes: R3 taxon arm; level=genus; familiarity=well_known; dispute=disputed
 - id: aptenodytes_spheniscidae_genus
   question: How many bird species are currently recognized in the genus Aptenodytes
     worldwide?
   answer_scale: linear
   true_value: 2.0
   unit: species
-  notes: R3 taxon arm; level=genus
+  notes: R3 taxon arm; level=genus; familiarity=well_known; dispute=undisputed
 - id: archilochus_trochilidae_genus
   question: How many bird species are currently recognized in the genus Archilochus
     worldwide?
   answer_scale: linear
   true_value: 2.0
   unit: species
-  notes: R3 taxon arm; level=genus
+  notes: R3 taxon arm; level=genus; familiarity=well_known; dispute=undisputed
 - id: bolborhynchus_psittacidae_genus
   question: How many bird species are currently recognized in the genus Bolborhynchus
     worldwide?
   answer_scale: linear
   true_value: 3.0
   unit: species
-  notes: R3 taxon arm; level=genus
+  notes: R3 taxon arm; level=genus; familiarity=obscure; dispute=undisputed
 - id: bubo_strigidae_genus
   question: How many bird species are currently recognized in the genus Bubo worldwide?
   answer_scale: linear
   true_value: 12.0
   unit: species
-  notes: R3 taxon arm; level=genus
+  notes: R3 taxon arm; level=genus; familiarity=well_known; dispute=disputed
 - id: carpodacus_fringillidae_genus
   question: How many bird species are currently recognized in the genus Carpodacus
     worldwide?
   answer_scale: linear
   true_value: 28.0
   unit: species
-  notes: R3 taxon arm; level=genus
+  notes: R3 taxon arm; level=genus; familiarity=obscure; dispute=disputed
 - id: chaetocercus_trochilidae_genus
   question: How many bird species are currently recognized in the genus Chaetocercus
     worldwide?
   answer_scale: linear
   true_value: 6.0
   unit: species
-  notes: R3 taxon arm; level=genus
+  notes: R3 taxon arm; level=genus; familiarity=obscure; dispute=undisputed
 - id: claravis_columbidae_genus
   question: How many bird species are currently recognized in the genus Claravis worldwide?
   answer_scale: linear
   true_value: 1.0
   unit: species
-  notes: R3 taxon arm; level=genus
+  notes: R3 taxon arm; level=genus; familiarity=obscure; dispute=undisputed
 - id: columba_columbidae_genus
   question: How many bird species are currently recognized in the genus Columba worldwide?
   answer_scale: linear
   true_value: 34.0
   unit: species
-  notes: R3 taxon arm; level=genus
+  notes: R3 taxon arm; level=genus; familiarity=well_known; dispute=undisputed
 - id: corvus_corvidae_genus
   question: How many bird species are currently recognized in the genus Corvus worldwide?
   answer_scale: linear
   true_value: 50.0
   unit: species
-  notes: R3 taxon arm; level=genus
+  notes: R3 taxon arm; level=genus; familiarity=well_known; dispute=disputed
 - id: erythropitta_pittidae_genus
   question: How many bird species are currently recognized in the genus Erythropitta
     worldwide?
   answer_scale: linear
   true_value: 13.0
   unit: species
-  notes: R3 taxon arm; level=genus
+  notes: R3 taxon arm; level=genus; familiarity=obscure; dispute=disputed
 - id: eudyptula_spheniscidae_genus
   question: How many bird species are currently recognized in the genus Eudyptula
     worldwide?
   answer_scale: linear
   true_value: 1.0
   unit: species
-  notes: R3 taxon arm; level=genus
+  notes: R3 taxon arm; level=genus; familiarity=obscure; dispute=undisputed
 - id: falco_falconidae_genus
   question: How many bird species are currently recognized in the genus Falco worldwide?
   answer_scale: linear
   true_value: 39.0
   unit: species
-  notes: R3 taxon arm; level=genus
+  notes: R3 taxon arm; level=genus; familiarity=well_known; dispute=disputed
 - id: family_accipitridae
   question: How many bird species are currently recognized in the family Accipitridae
     worldwide?
   answer_scale: linear
   true_value: 254.0
   unit: species
-  notes: R3 taxon arm; level=family
+  notes: R3 taxon arm; level=family; familiarity=not_applicable; dispute=disputed
 - id: family_alcidae
   question: How many bird species are currently recognized in the family Alcidae worldwide?
   answer_scale: linear
   true_value: 25.0
   unit: species
-  notes: R3 taxon arm; level=family
+  notes: R3 taxon arm; level=family; familiarity=not_applicable; dispute=undisputed
 - id: family_anatidae
   question: How many bird species are currently recognized in the family Anatidae
     worldwide?
   answer_scale: linear
   true_value: 174.0
   unit: species
-  notes: R3 taxon arm; level=family
+  notes: R3 taxon arm; level=family; familiarity=not_applicable; dispute=disputed
 - id: family_columbidae
   question: How many bird species are currently recognized in the family Columbidae
     worldwide?
   answer_scale: linear
   true_value: 352.0
   unit: species
-  notes: R3 taxon arm; level=family
+  notes: R3 taxon arm; level=family; familiarity=not_applicable; dispute=disputed
 - id: family_corvidae
   question: How many bird species are currently recognized in the family Corvidae
     worldwide?
   answer_scale: linear
   true_value: 138.0
   unit: species
-  notes: R3 taxon arm; level=family
+  notes: R3 taxon arm; level=family; familiarity=not_applicable; dispute=disputed
 - id: family_falconidae
   question: How many bird species are currently recognized in the family Falconidae
     worldwide?
   answer_scale: linear
   true_value: 65.0
   unit: species
-  notes: R3 taxon arm; level=family
+  notes: R3 taxon arm; level=family; familiarity=not_applicable; dispute=disputed
 - id: family_fringillidae
   question: How many bird species are currently recognized in the family Fringillidae
     worldwide?
   answer_scale: linear
   true_value: 238.0
   unit: species
-  notes: R3 taxon arm; level=family
+  notes: R3 taxon arm; level=family; familiarity=not_applicable; dispute=disputed
 - id: family_phasianidae
   question: How many bird species are currently recognized in the family Phasianidae
     worldwide?
   answer_scale: linear
   true_value: 187.0
   unit: species
-  notes: R3 taxon arm; level=family
+  notes: R3 taxon arm; level=family; familiarity=not_applicable; dispute=disputed
 - id: family_pittidae
   question: How many bird species are currently recognized in the family Pittidae
     worldwide?
   answer_scale: linear
   true_value: 46.0
   unit: species
-  notes: R3 taxon arm; level=family
+  notes: R3 taxon arm; level=family; familiarity=not_applicable; dispute=disputed
 - id: family_psittacidae
   question: How many bird species are currently recognized in the family Psittacidae
     worldwide?
   answer_scale: linear
   true_value: 181.0
   unit: species
-  notes: R3 taxon arm; level=family
+  notes: R3 taxon arm; level=family; familiarity=not_applicable; dispute=disputed
 - id: family_ramphastidae
   question: How many bird species are currently recognized in the family Ramphastidae
     worldwide?
   answer_scale: linear
   true_value: 38.0
   unit: species
-  notes: R3 taxon arm; level=family
+  notes: R3 taxon arm; level=family; familiarity=not_applicable; dispute=disputed
 - id: family_spheniscidae
   question: How many bird species are currently recognized in the family Spheniscidae
     worldwide?
   answer_scale: linear
   true_value: 19.0
   unit: species
-  notes: R3 taxon arm; level=family
+  notes: R3 taxon arm; level=family; familiarity=not_applicable; dispute=disputed
 - id: family_strigidae
   question: How many bird species are currently recognized in the family Strigidae
     worldwide?
   answer_scale: linear
   true_value: 236.0
   unit: species
-  notes: R3 taxon arm; level=family
+  notes: R3 taxon arm; level=family; familiarity=not_applicable; dispute=disputed
 - id: family_trochilidae
   question: How many bird species are currently recognized in the family Trochilidae
     worldwide?
   answer_scale: linear
   true_value: 366.0
   unit: species
-  notes: R3 taxon arm; level=family
+  notes: R3 taxon arm; level=family; familiarity=not_applicable; dispute=disputed
 - id: fratercula_alcidae_genus
   question: How many bird species are currently recognized in the genus Fratercula
     worldwide?
   answer_scale: linear
   true_value: 3.0
   unit: species
-  notes: R3 taxon arm; level=genus
+  notes: R3 taxon arm; level=genus; familiarity=well_known; dispute=undisputed
 - id: fringilla_fringillidae_genus
   question: How many bird species are currently recognized in the genus Fringilla
     worldwide?
   answer_scale: linear
   true_value: 8.0
   unit: species
-  notes: R3 taxon arm; level=genus
+  notes: R3 taxon arm; level=genus; familiarity=well_known; dispute=disputed
 - id: ithaginis_phasianidae_genus
   question: How many bird species are currently recognized in the genus Ithaginis
     worldwide?
   answer_scale: linear
   true_value: 1.0
   unit: species
-  notes: R3 taxon arm; level=genus
+  notes: R3 taxon arm; level=genus; familiarity=obscure; dispute=undisputed
 - id: microhierax_falconidae_genus
   question: How many bird species are currently recognized in the genus Microhierax
     worldwide?
   answer_scale: linear
   true_value: 5.0
   unit: species
-  notes: R3 taxon arm; level=genus
+  notes: R3 taxon arm; level=genus; familiarity=obscure; dispute=undisputed
 - id: nucifraga_corvidae_genus
   question: How many bird species are currently recognized in the genus Nucifraga
     worldwide?
   answer_scale: linear
   true_value: 4.0
   unit: species
-  notes: R3 taxon arm; level=genus
+  notes: R3 taxon arm; level=genus; familiarity=obscure; dispute=disputed
 - id: order_accipitriformes
   question: How many bird species are currently recognized in the order Accipitriformes
     worldwide?
   answer_scale: linear
   true_value: 263.0
   unit: species
-  notes: R3 taxon arm; level=order
+  notes: R3 taxon arm; level=order; familiarity=not_applicable; dispute=disputed
 - id: order_anseriformes
   question: How many bird species are currently recognized in the order Anseriformes
     worldwide?
   answer_scale: linear
   true_value: 178.0
   unit: species
-  notes: R3 taxon arm; level=order
+  notes: R3 taxon arm; level=order; familiarity=not_applicable; dispute=disputed
 - id: order_apodiformes
   question: How many bird species are currently recognized in the order Apodiformes
     worldwide?
   answer_scale: linear
   true_value: 478.0
   unit: species
-  notes: R3 taxon arm; level=order
+  notes: R3 taxon arm; level=order; familiarity=not_applicable; dispute=disputed
 - id: order_charadriiformes
   question: How many bird species are currently recognized in the order Charadriiformes
     worldwide?
   answer_scale: linear
   true_value: 394.0
   unit: species
-  notes: R3 taxon arm; level=order
+  notes: R3 taxon arm; level=order; familiarity=not_applicable; dispute=disputed
 - id: order_columbiformes
   question: How many bird species are currently recognized in the order Columbiformes
     worldwide?
   answer_scale: linear
   true_value: 352.0
   unit: species
-  notes: R3 taxon arm; level=order
+  notes: R3 taxon arm; level=order; familiarity=not_applicable; dispute=disputed
 - id: order_falconiformes
   question: How many bird species are currently recognized in the order Falconiformes
     worldwide?
   answer_scale: linear
   true_value: 65.0
   unit: species
-  notes: R3 taxon arm; level=order
+  notes: R3 taxon arm; level=order; familiarity=not_applicable; dispute=disputed
 - id: order_galliformes
   question: How many bird species are currently recognized in the order Galliformes
     worldwide?
   answer_scale: linear
   true_value: 307.0
   unit: species
-  notes: R3 taxon arm; level=order
+  notes: R3 taxon arm; level=order; familiarity=not_applicable; dispute=disputed
 - id: order_passeriformes
   question: How many bird species are currently recognized in the order Passeriformes
     worldwide?
   answer_scale: linear
   true_value: 6758.0
   unit: species
-  notes: R3 taxon arm; level=order
+  notes: R3 taxon arm; level=order; familiarity=not_applicable; dispute=disputed
 - id: order_piciformes
   question: How many bird species are currently recognized in the order Piciformes
     worldwide?
   answer_scale: linear
   true_value: 444.0
   unit: species
-  notes: R3 taxon arm; level=order
+  notes: R3 taxon arm; level=order; familiarity=not_applicable; dispute=disputed
 - id: order_psittaciformes
   question: How many bird species are currently recognized in the order Psittaciformes
     worldwide?
   answer_scale: linear
   true_value: 409.0
   unit: species
-  notes: R3 taxon arm; level=order
+  notes: R3 taxon arm; level=order; familiarity=not_applicable; dispute=disputed
 - id: order_sphenisciformes
   question: How many bird species are currently recognized in the order Sphenisciformes
     worldwide?
   answer_scale: linear
   true_value: 19.0
   unit: species
-  notes: R3 taxon arm; level=order
+  notes: R3 taxon arm; level=order; familiarity=not_applicable; dispute=disputed
 - id: order_strigiformes
   question: How many bird species are currently recognized in the order Strigiformes
     worldwide?
   answer_scale: linear
   true_value: 256.0
   unit: species
-  notes: R3 taxon arm; level=order
+  notes: R3 taxon arm; level=order; familiarity=not_applicable; dispute=disputed
 - id: pavo_phasianidae_genus
   question: How many bird species are currently recognized in the genus Pavo worldwide?
   answer_scale: linear
   true_value: 2.0
   unit: species
-  notes: R3 taxon arm; level=genus
+  notes: R3 taxon arm; level=genus; familiarity=well_known; dispute=undisputed
 - id: pitta_pittidae_genus
   question: How many bird species are currently recognized in the genus Pitta worldwide?
   answer_scale: linear
   true_value: 20.0
   unit: species
-  notes: R3 taxon arm; level=genus
+  notes: R3 taxon arm; level=genus; familiarity=well_known; dispute=disputed
 - id: ramphastos_ramphastidae_genus
   question: How many bird species are currently recognized in the genus Ramphastos
     worldwide?
   answer_scale: linear
   true_value: 8.0
   unit: species
-  notes: R3 taxon arm; level=genus
+  notes: R3 taxon arm; level=genus; familiarity=well_known; dispute=disputed
 - id: sarkidiornis_anatidae_genus
   question: How many bird species are currently recognized in the genus Sarkidiornis
     worldwide?
   answer_scale: linear
   true_value: 2.0
   unit: species
-  notes: R3 taxon arm; level=genus
+  notes: R3 taxon arm; level=genus; familiarity=obscure; dispute=disputed
 - id: selenidera_ramphastidae_genus
   question: How many bird species are currently recognized in the genus Selenidera
     worldwide?
   answer_scale: linear
   true_value: 6.0
   unit: species
-  notes: R3 taxon arm; level=genus
+  notes: R3 taxon arm; level=genus; familiarity=obscure; dispute=undisputed
 - id: synthliboramphus_alcidae_genus
   question: How many bird species are currently recognized in the genus Synthliboramphus
     worldwide?
   answer_scale: linear
   true_value: 5.0
   unit: species
-  notes: R3 taxon arm; level=genus
+  notes: R3 taxon arm; level=genus; familiarity=obscure; dispute=undisputed
 - id: urotriorchis_accipitridae_genus
   question: How many bird species are currently recognized in the genus Urotriorchis
     worldwide?
   answer_scale: linear
   true_value: 1.0
   unit: species
-  notes: R3 taxon arm; level=genus
+  notes: R3 taxon arm; level=genus; familiarity=obscure; dispute=undisputed
 - id: xenoglaux_strigidae_genus
   question: How many bird species are currently recognized in the genus Xenoglaux
     worldwide?
   answer_scale: linear
   true_value: 1.0
   unit: species
-  notes: R3 taxon arm; level=genus
+  notes: R3 taxon arm; level=genus; familiarity=obscure; dispute=undisputed

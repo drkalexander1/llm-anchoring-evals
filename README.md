@@ -1,8 +1,8 @@
-# Anchoring in LLM interval estimates
+# LLM anchoring evaluations
 
-This small Inspect AI evaluation asks whether an irrelevant number shifts an
-LLM's estimate and confidence interval. It adapts the two-step procedure from
-Jacowitz and Kahneman (1995):
+This Inspect AI evaluation series asks whether an irrelevant number shifts an
+LLM's estimate and confidence interval. The preserved `r6-jk-v1` release adapts
+the two-step procedure from Jacowitz and Kahneman (1995):
 
 1. Ask whether the answer is greater or less than an anchor.
 2. Ask for the model's own p10, p50, and p90 estimate.
@@ -32,6 +32,7 @@ Taxon-arm sizing and the recommended staged design are documented in
 [`POWER_ANALYSIS.md`](POWER_ANALYSIS.md).
 For a portfolio-ready narrative covering the motivation, implementation,
 findings, failures, and next iteration, see [`WRITEUP.md`](WRITEUP.md).
+The active R7 follow-up is specified in [`R7_TAXON_PLAN.md`](R7_TAXON_PLAN.md).
 
 ## Setup
 
@@ -164,18 +165,23 @@ python scripts/import_r3.py `
   --baseline "results/sonnet45_anchor_baseline/by_prompt.csv=2026-07-18"
 ```
 
-The full 54-item arm contains 270 samples and 486 calls per model. The power
-analysis recommends starting with an 18-item exploratory stage (648 calls
-across four models), then expanding to 27 items only if useful. For example:
+The full 54-item arm would contain 270 samples and 540 calls per model with the
+matched two-turn control. R7 starts with an 18-item exploratory stage: 90
+samples and 180 calls per model, or 720 calls across four models. For example:
 
 ```powershell
 inspect eval src/tasks/elicit_anchored.py `
   --model anthropic/claude-sonnet-4-5-20250929 `
   -T item_set=taxon `
   -T baseline_model=taxonomy-r3/claude-sonnet-4-5-20250929@2026-07-18 `
+  -T subset_path=data/taxon_subset_r7.yaml `
+  -T anchor_method=outside `
+  -T anchor_strength=2 `
+  -T matched_control=true `
   -T seeds=1 `
   -T temperature=0
 ```
 
-The imported anchors collapse to the same low/high number for 0–3 items per
-model. Those items should be excluded from anchoring-index aggregation.
+The predeclared subset excludes items with collapsed anchors for any target
+model. Fresh controls that drift outside their model-specific anchors are
+flagged and excluded from the primary aggregate.

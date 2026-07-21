@@ -70,17 +70,25 @@ def _question(row: Any) -> str:
 
 def build_items(frame: pd.DataFrame) -> list[dict[str, Any]]:
     unique = frame.sort_values("prompt_key").drop_duplicates("prompt_key")
-    items = [
-        {
+    items = []
+    for row in unique.itertuples(index=False):
+        familiarity = getattr(row, "familiarity", None)
+        if pd.isna(familiarity) or not familiarity:
+            familiarity = "not_applicable"
+        dispute = getattr(row, "dispute_block", None)
+        if pd.isna(dispute) or not dispute:
+            dispute = "unknown"
+        items.append({
             "id": str(row.prompt_key),
             "question": _question(row),
             "answer_scale": "linear",
             "true_value": float(row.ioc_count),
             "unit": "species",
-            "notes": f"R3 taxon arm; level={row.taxonomic_level}",
-        }
-        for row in unique.itertuples(index=False)
-    ]
+            "notes": (
+                f"R3 taxon arm; level={row.taxonomic_level}; "
+                f"familiarity={familiarity}; dispute={dispute}"
+            ),
+        })
     if len(items) != 54:
         raise ValueError(f"expected 54 current taxon items, found {len(items)}")
     return items

@@ -40,11 +40,11 @@ not robust claims about every model separately.
 Use a staged design:
 
 1. Run 18 preselected, stratified taxon items as an exploratory diagnostic.
-   This costs 648 calls across four models.
+   This costs 720 calls across four models with the matched two-turn control.
 2. Use the run to identify prompt failures, collapsed anchors, and whether the
    taxon effect transfers at all.
 3. If a confirmatory pooled effect is still worthwhile, expand the predeclared
-   sample to 27 items (972 cumulative calls). This slightly exceeds the
+   sample to 27 items (1,080 cumulative calls). This slightly exceeds the
    optimistic 26-item estimate.
 4. Do not claim the provenance contrast is powered unless approximately 51
    items are run.
