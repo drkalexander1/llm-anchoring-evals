@@ -4,6 +4,7 @@ import pytest
 import pandas as pd
 
 from scripts.analyze_jk import summarize
+from scripts.build_human_audit import CONDITIONS, MODEL_PAIRS, MODELS
 from scripts.import_r3 import build_baselines
 from scripts.power_analysis import _required_n
 from src.anchoring_metrics import anchoring_index, beta_high, beta_low
@@ -184,3 +185,15 @@ def test_power_calculation_scales_with_effect_retention() -> None:
     assert _required_n(0.5, 0.8, 1.0) == 25
     assert _required_n(0.5, 0.8, 0.5) == 99
     assert _required_n(-0.1, 0.8, 1.0) is None
+
+
+def test_human_audit_schedule_is_balanced() -> None:
+    model_counts = {model: 0 for model in MODELS}
+    for pairs in MODEL_PAIRS.values():
+        assert len(pairs) == len(CONDITIONS)
+        for pair in pairs:
+            assert len(set(pair)) == 2
+            for model_index in pair:
+                model_counts[MODELS[model_index]] += 1
+
+    assert set(model_counts.values()) == {5}

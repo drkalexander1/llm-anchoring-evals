@@ -1,0 +1,39 @@
+{
+  "run": {
+    "log": "logs\\2026-07-21T14-57-28-00-00_elicit-anchored_V6cv4eq36JtDsAzYnDMwiR.eval",
+    "model": "anthropic/claude-sonnet-4-5-20250929",
+    "created": "2026-07-21T14:57:28+00:00",
+    "samples": 90
+  },
+  "summary": {
+    "parse_rate": 1.0,
+    "comparative_consistency": 0.6805555555555556,
+    "comparisons_scored": 72,
+    "by_provenance": {
+      "arb": {
+        "items_with_complete_pairs": 18,
+        "items_with_valid_baseline": 17,
+        "items_with_nonzero_effect": 6,
+        "median_anchoring_index": 0.0,
+        "mean_anchoring_index": -0.5300264550264551,
+        "mean_absolute_anchoring_index": 0.5903439153439154,
+        "valid_baseline_median_anchoring_index": 0.0,
+        "valid_baseline_mean_anchoring_index": -0.0023809523809523825,
+        "human_ai_spearman": null,
+        "median_width_delta": -0.0584622140756864
+      },
+      "plaus": {
+        "items_with_complete_pairs": 18,
+        "items_with_valid_baseline": 17,
+        "items_with_nonzero_effect": 5,
+        "median_anchoring_index": 0.0,
+        "mean_anchoring_index": 0.1287157287157287,
+        "mean_absolute_anchoring_index": 0.13241943241943244,
+        "valid_baseline_median_anchoring_index": 0.0,
+        "valid_baseline_mean_anchoring_index": 0.02256175197351668,
+        "human_ai_spearman": null,
+        "median_width_delta": -0.08176175302060033
+      }
+    }
+  }
+}

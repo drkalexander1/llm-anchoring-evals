@@ -1,0 +1,39 @@
+{
+  "run": {
+    "log": "logs\\2026-07-21T14-57-24-00-00_elicit-anchored_dQFmaFtH8DpjEdquqBPUub.eval",
+    "model": "openai/gpt-4o-mini",
+    "created": "2026-07-21T14:57:24+00:00",
+    "samples": 90
+  },
+  "summary": {
+    "parse_rate": 1.0,
+    "comparative_consistency": 0.625,
+    "comparisons_scored": 72,
+    "by_provenance": {
+      "arb": {
+        "items_with_complete_pairs": 18,
+        "items_with_valid_baseline": 14,
+        "items_with_nonzero_effect": 11,
+        "median_anchoring_index": 0.1,
+        "mean_anchoring_index": 0.17777777777777776,
+        "mean_absolute_anchoring_index": 0.3333333333333333,
+        "valid_baseline_median_anchoring_index": 0.1,
+        "valid_baseline_mean_anchoring_index": 0.22142857142857145,
+        "human_ai_spearman": null,
+        "median_width_delta": 0.0
+      },
+      "plaus": {
+        "items_with_complete_pairs": 18,
+        "items_with_valid_baseline": 14,
+        "items_with_nonzero_effect": 16,
+        "median_anchoring_index": 0.5,
+        "mean_anchoring_index": 0.5152777777777778,
+        "mean_absolute_anchoring_index": 0.5152777777777778,
+        "valid_baseline_median_anchoring_index": 0.5,
+        "valid_baseline_mean_anchoring_index": 0.5267857142857143,
+        "human_ai_spearman": null,
+        "median_width_delta": 0.0
+      }
+    }
+  }
+}

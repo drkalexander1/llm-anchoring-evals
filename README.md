@@ -99,6 +99,17 @@ Or analyze a specific log and save a machine-readable summary:
 python scripts/analyze_jk.py logs/<run>.eval --output results/jk_summary.json
 ```
 
+Build the fixed human-verification worksheet from the completed full runs:
+
+```powershell
+python scripts/build_human_audit.py
+```
+
+This writes a 20-output stratified review sample plus every parser exception to
+`results/human_audit_2026-07-21.md` and a machine-readable JSON companion. A
+human reviewer should compare each raw transcript with its parsed values and
+complete the included checklist, name, timestamp, verdict, and notes.
+
 Run the checks with:
 
 ```powershell
@@ -133,9 +144,8 @@ narrower.
 
 ## Scope and limitations
 
-- The J&K arm has completed results. The harder 54-item taxon arm is staged
-  with `data/items.yaml` and model-specific anchors in `data/prior_b.csv`, but
-  has not been run.
+- The J&K bridge and 18-item staged taxon pilot have completed results. Both
+  remain exploratory rather than powered model comparisons.
 - Temperature 0 requests low-variance generation but does not guarantee
   identical output. Some reasoning models do not expose temperature controls.
 - `seeds > 1` creates repeated requests, not independently seeded samples.
@@ -149,7 +159,9 @@ narrower.
 - `src/tasks/elicit_anchored.py` — Inspect task and two-turn solver
 - `src/anchoring_metrics.py` — anchoring and interval-width metrics
 - `scripts/analyze_jk.py` — log extraction and compact analysis
+- `scripts/build_human_audit.py` — reproducible raw-output verification sample
 - `data/jk_items.yaml` — published J&K items and human indices
+- `results/human_audit_2026-07-21.md` — human review worksheet
 - `prompts/` — control, comparison, and estimation prompts
 - `tests/` — focused correctness and dataset checks
 - `R6_HANDOFF.md` — notes for the larger future taxon evaluation
