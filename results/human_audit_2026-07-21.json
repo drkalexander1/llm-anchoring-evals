@@ -1,0 +1,1261 @@
+{
+  "audit_version": 1,
+  "selection_seed": 20260721,
+  "selection_method": "Fixed arm/condition/model strata; seeded random item within each stratum",
+  "sample_count": 20,
+  "exception_count": 1,
+  "stratum_counts": {
+    "arm:jk": 10,
+    "arm:taxon": 10,
+    "condition:jk:control": 2,
+    "condition:jk:high_arb": 2,
+    "condition:jk:high_plaus": 2,
+    "condition:jk:low_arb": 2,
+    "condition:jk:low_plaus": 2,
+    "condition:taxon:control": 2,
+    "condition:taxon:high_arb": 2,
+    "condition:taxon:high_plaus": 2,
+    "condition:taxon:low_arb": 2,
+    "condition:taxon:low_plaus": 2,
+    "model:claude-haiku-4-5-20251001": 5,
+    "model:claude-sonnet-4-5-20250929": 5,
+    "model:gpt-4o": 5,
+    "model:gpt-4o-mini": 5
+  },
+  "records": [
+    {
+      "audit_id": "A01",
+      "exception": false,
+      "arm": "R6 J&K",
+      "item_set": "jk",
+      "model": "Claude Sonnet 4.5",
+      "model_id": "claude-sonnet-4-5-20250929",
+      "source_log": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-07-19T00-16-00-00-00_elicit-anchored_nWZcPxM86ZNVhK9KEeQx9E.eval",
+      "sample_id": "jk_meat_per_year::control::s0",
+      "sample_uuid": "bJ4BH4LQB8PSHSqEN3ts3H",
+      "item_id": "jk_meat_per_year",
+      "condition": "control",
+      "anchor": null,
+      "provenance": null,
+      "direction": null,
+      "raw_completion": "180 220 260",
+      "completion_sha256": "c619062480675ae95179c190c1dc30a3dcb6e64b01fde34be8c8f0c91198eafc",
+      "comparative_answer": null,
+      "control_acknowledgement": null,
+      "scorer_parsed": true,
+      "scorer_lower": 180.0,
+      "scorer_point": 220.0,
+      "scorer_upper": 260.0,
+      "scorer_relative_width": 0.36363636363636365,
+      "fresh_reparse": [
+        180.0,
+        220.0,
+        260.0
+      ],
+      "automatic_reparse_agreement": true,
+      "score_explanation": "p50=220 rel_width=0.363636",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Answer the following question with an 80% central interval (p10, p50, p90).\n\nRespond with EXACTLY three numbers on one line, whitespace-separated, in this order:\np10  p50  p90\n\nNo units, no prose, no labels.\n\nQuestion: How many pounds of meat does the average American eat per year?\n"
+        },
+        {
+          "role": "assistant",
+          "content": "180 220 260"
+        }
+      ],
+      "human_review": {
+        "raw_response_matches_log": null,
+        "parsed_values_correct": null,
+        "metadata_matches_prompt": null,
+        "first_turn_recorded_correctly": null,
+        "verdict": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "notes": ""
+      }
+    },
+    {
+      "audit_id": "A02",
+      "exception": false,
+      "arm": "R6 J&K",
+      "item_set": "jk",
+      "model": "Claude Haiku 4.5",
+      "model_id": "claude-haiku-4-5-20251001",
+      "source_log": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-07-19T00-16-01-00-00_elicit-anchored_8xfppijosgfPddtsh9kRAw.eval",
+      "sample_id": "jk_berkeley_female_professors::control::s0",
+      "sample_uuid": "3HUbLKe93DuABT8v9sDZc3",
+      "item_id": "jk_berkeley_female_professors",
+      "condition": "control",
+      "anchor": null,
+      "provenance": null,
+      "direction": null,
+      "raw_completion": "320 420 520",
+      "completion_sha256": "2997e6dc99a17ee842c91dba97fb4b4382157fc07060a76bb6976660ae43a146",
+      "comparative_answer": null,
+      "control_acknowledgement": null,
+      "scorer_parsed": true,
+      "scorer_lower": 320.0,
+      "scorer_point": 420.0,
+      "scorer_upper": 520.0,
+      "scorer_relative_width": 0.47619047619047616,
+      "fresh_reparse": [
+        320.0,
+        420.0,
+        520.0
+      ],
+      "automatic_reparse_agreement": true,
+      "score_explanation": "p50=420 rel_width=0.47619",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Answer the following question with an 80% central interval (p10, p50, p90).\n\nRespond with EXACTLY three numbers on one line, whitespace-separated, in this order:\np10  p50  p90\n\nNo units, no prose, no labels.\n\nQuestion: How many female professors are there at the University of California, Berkeley?\n"
+        },
+        {
+          "role": "assistant",
+          "content": "320 420 520"
+        }
+      ],
+      "human_review": {
+        "raw_response_matches_log": null,
+        "parsed_values_correct": null,
+        "metadata_matches_prompt": null,
+        "first_turn_recorded_correctly": null,
+        "verdict": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "notes": ""
+      }
+    },
+    {
+      "audit_id": "A03",
+      "exception": false,
+      "arm": "R6 J&K",
+      "item_set": "jk",
+      "model": "GPT-4o",
+      "model_id": "gpt-4o",
+      "source_log": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-07-19T00-16-00-00-00_elicit-anchored_5shGmD4FJVGuLNDUoHtRLp.eval",
+      "sample_id": "jk_everest_height::low_arb::s0",
+      "sample_uuid": "84yFGUxpNcuSLpyNwkpGZp",
+      "item_id": "jk_everest_height",
+      "condition": "low_arb",
+      "anchor": 2000.0,
+      "provenance": "arb",
+      "direction": "low",
+      "raw_completion": "28700 29029 29200",
+      "completion_sha256": "14a649d23934f4d7f882bb51557b58862d29afeb907bce7325aee3c41d5e6cc4",
+      "comparative_answer": "Greater",
+      "control_acknowledgement": null,
+      "scorer_parsed": true,
+      "scorer_lower": 28700.0,
+      "scorer_point": 29029.0,
+      "scorer_upper": 29200.0,
+      "scorer_relative_width": 0.017224155155189637,
+      "fresh_reparse": [
+        28700.0,
+        29029.0,
+        29200.0
+      ],
+      "automatic_reparse_agreement": true,
+      "score_explanation": "p50=29029 rel_width=0.0172242",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "A random number generator just produced the number 2000.\n\nQuestion: What is the height of Mount Everest, in feet?\n\nIs the true answer greater or less than 2000?\nRespond with exactly one word: \"greater\" or \"less\".\n"
+        },
+        {
+          "role": "assistant",
+          "content": "Greater"
+        },
+        {
+          "role": "user",
+          "content": "Now give your own answer to that question as an 80% central interval (p10, p50, p90).\n\nRespond with EXACTLY three numbers on one line, whitespace-separated, in this order:\np10  p50  p90\n\nNo units, no prose, no labels.\n"
+        },
+        {
+          "role": "assistant",
+          "content": "28700 29029 29200"
+        }
+      ],
+      "human_review": {
+        "raw_response_matches_log": null,
+        "parsed_values_correct": null,
+        "metadata_matches_prompt": null,
+        "first_turn_recorded_correctly": null,
+        "verdict": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "notes": ""
+      }
+    },
+    {
+      "audit_id": "A04",
+      "exception": false,
+      "arm": "R6 J&K",
+      "item_set": "jk",
+      "model": "GPT-4o mini",
+      "model_id": "gpt-4o-mini",
+      "source_log": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-07-19T00-16-00-00-00_elicit-anchored_9KocfCjQPAgdfqXFhXNGGL.eval",
+      "sample_id": "jk_sf_nyc_distance::low_arb::s0",
+      "sample_uuid": "92ZLZkgbQTCEcZ9XvRUDQo",
+      "item_id": "jk_sf_nyc_distance",
+      "condition": "low_arb",
+      "anchor": 1500.0,
+      "provenance": "arb",
+      "direction": "low",
+      "raw_completion": "250  2800  3200",
+      "completion_sha256": "db669de1e1e15805020ebd3e9bf15ad2199b4cb77b32d2caabd0b2d1801db66a",
+      "comparative_answer": "less",
+      "control_acknowledgement": null,
+      "scorer_parsed": true,
+      "scorer_lower": 250.0,
+      "scorer_point": 2800.0,
+      "scorer_upper": 3200.0,
+      "scorer_relative_width": 1.0535714285714286,
+      "fresh_reparse": [
+        250.0,
+        2800.0,
+        3200.0
+      ],
+      "automatic_reparse_agreement": true,
+      "score_explanation": "p50=2800 rel_width=1.05357",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "A random number generator just produced the number 1500.\n\nQuestion: What is the distance from San Francisco to New York City, in miles?\n\nIs the true answer greater or less than 1500?\nRespond with exactly one word: \"greater\" or \"less\".\n"
+        },
+        {
+          "role": "assistant",
+          "content": "less"
+        },
+        {
+          "role": "user",
+          "content": "Now give your own answer to that question as an 80% central interval (p10, p50, p90).\n\nRespond with EXACTLY three numbers on one line, whitespace-separated, in this order:\np10  p50  p90\n\nNo units, no prose, no labels.\n"
+        },
+        {
+          "role": "assistant",
+          "content": "250  2800  3200"
+        }
+      ],
+      "human_review": {
+        "raw_response_matches_log": null,
+        "parsed_values_correct": null,
+        "metadata_matches_prompt": null,
+        "first_turn_recorded_correctly": null,
+        "verdict": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "notes": ""
+      }
+    },
+    {
+      "audit_id": "A05",
+      "exception": false,
+      "arm": "R6 J&K",
+      "item_set": "jk",
+      "model": "Claude Sonnet 4.5",
+      "model_id": "claude-sonnet-4-5-20250929",
+      "source_log": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-07-19T00-16-00-00-00_elicit-anchored_nWZcPxM86ZNVhK9KEeQx9E.eval",
+      "sample_id": "jk_un_members::high_arb::s0",
+      "sample_uuid": "Y5SqLan57JmWJBo5mpww8F",
+      "item_id": "jk_un_members",
+      "condition": "high_arb",
+      "anchor": 127.0,
+      "provenance": "arb",
+      "direction": "high",
+      "raw_completion": "190 193 195",
+      "completion_sha256": "4d1b05e24caba1ac4da4a1fdcfdb3c0a08d4c8ebfc76e43366b5d9399c2e481d",
+      "comparative_answer": "greater",
+      "control_acknowledgement": null,
+      "scorer_parsed": true,
+      "scorer_lower": 190.0,
+      "scorer_point": 193.0,
+      "scorer_upper": 195.0,
+      "scorer_relative_width": 0.025906735751295335,
+      "fresh_reparse": [
+        190.0,
+        193.0,
+        195.0
+      ],
+      "automatic_reparse_agreement": true,
+      "score_explanation": "p50=193 rel_width=0.0259067",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "A random number generator just produced the number 127.\n\nQuestion: How many member countries does the United Nations have?\n\nIs the true answer greater or less than 127?\nRespond with exactly one word: \"greater\" or \"less\".\n"
+        },
+        {
+          "role": "assistant",
+          "content": "greater"
+        },
+        {
+          "role": "user",
+          "content": "Now give your own answer to that question as an 80% central interval (p10, p50, p90).\n\nRespond with EXACTLY three numbers on one line, whitespace-separated, in this order:\np10  p50  p90\n\nNo units, no prose, no labels.\n"
+        },
+        {
+          "role": "assistant",
+          "content": "190 193 195"
+        }
+      ],
+      "human_review": {
+        "raw_response_matches_log": null,
+        "parsed_values_correct": null,
+        "metadata_matches_prompt": null,
+        "first_turn_recorded_correctly": null,
+        "verdict": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "notes": ""
+      }
+    },
+    {
+      "audit_id": "A06",
+      "exception": false,
+      "arm": "R6 J&K",
+      "item_set": "jk",
+      "model": "GPT-4o",
+      "model_id": "gpt-4o",
+      "source_log": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-07-19T00-16-00-00-00_elicit-anchored_5shGmD4FJVGuLNDUoHtRLp.eval",
+      "sample_id": "jk_tallest_redwood::high_arb::s0",
+      "sample_uuid": "YHNWDBRrWqJhRNQQ3C33pj",
+      "item_id": "jk_tallest_redwood",
+      "condition": "high_arb",
+      "anchor": 550.0,
+      "provenance": "arb",
+      "direction": "high",
+      "raw_completion": "310 360 380",
+      "completion_sha256": "d67523493586a985efd1f9a6da1fce63d13980061d89287d94d3f0632befb143",
+      "comparative_answer": "Greater",
+      "control_acknowledgement": null,
+      "scorer_parsed": true,
+      "scorer_lower": 310.0,
+      "scorer_point": 360.0,
+      "scorer_upper": 380.0,
+      "scorer_relative_width": 0.19444444444444445,
+      "fresh_reparse": [
+        310.0,
+        360.0,
+        380.0
+      ],
+      "automatic_reparse_agreement": true,
+      "score_explanation": "p50=360 rel_width=0.194444",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "A random number generator just produced the number 550.\n\nQuestion: What is the height of the tallest redwood tree, in feet?\n\nIs the true answer greater or less than 550?\nRespond with exactly one word: \"greater\" or \"less\".\n"
+        },
+        {
+          "role": "assistant",
+          "content": "Greater"
+        },
+        {
+          "role": "user",
+          "content": "Now give your own answer to that question as an 80% central interval (p10, p50, p90).\n\nRespond with EXACTLY three numbers on one line, whitespace-separated, in this order:\np10  p50  p90\n\nNo units, no prose, no labels.\n"
+        },
+        {
+          "role": "assistant",
+          "content": "310 360 380"
+        }
+      ],
+      "human_review": {
+        "raw_response_matches_log": null,
+        "parsed_values_correct": null,
+        "metadata_matches_prompt": null,
+        "first_turn_recorded_correctly": null,
+        "verdict": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "notes": ""
+      }
+    },
+    {
+      "audit_id": "A07",
+      "exception": false,
+      "arm": "R6 J&K",
+      "item_set": "jk",
+      "model": "Claude Haiku 4.5",
+      "model_id": "claude-haiku-4-5-20251001",
+      "source_log": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-07-19T00-16-01-00-00_elicit-anchored_8xfppijosgfPddtsh9kRAw.eval",
+      "sample_id": "jk_everest_height::low_plaus::s0",
+      "sample_uuid": "e3SYGoU6QMdHsPb2em8wfk",
+      "item_id": "jk_everest_height",
+      "condition": "low_plaus",
+      "anchor": 2000.0,
+      "provenance": "plaus",
+      "direction": "low",
+      "raw_completion": "28500 29032 29500",
+      "completion_sha256": "f431d8f1984bcf8edbc4cde34428f74299cffd0fa4eb898168f395898d45873f",
+      "comparative_answer": "greater",
+      "control_acknowledgement": null,
+      "scorer_parsed": true,
+      "scorer_lower": 28500.0,
+      "scorer_point": 29032.0,
+      "scorer_upper": 29500.0,
+      "scorer_relative_width": 0.03444475062000551,
+      "fresh_reparse": [
+        28500.0,
+        29032.0,
+        29500.0
+      ],
+      "automatic_reparse_agreement": true,
+      "score_explanation": "p50=29032 rel_width=0.0344448",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "An analyst estimated that the answer to the following question is about 2000.\n\nQuestion: What is the height of Mount Everest, in feet?\n\nIs the true answer greater or less than 2000?\nRespond with exactly one word: \"greater\" or \"less\".\n"
+        },
+        {
+          "role": "assistant",
+          "content": "greater"
+        },
+        {
+          "role": "user",
+          "content": "Now give your own answer to that question as an 80% central interval (p10, p50, p90).\n\nRespond with EXACTLY three numbers on one line, whitespace-separated, in this order:\np10  p50  p90\n\nNo units, no prose, no labels.\n"
+        },
+        {
+          "role": "assistant",
+          "content": "28500 29032 29500"
+        }
+      ],
+      "human_review": {
+        "raw_response_matches_log": null,
+        "parsed_values_correct": null,
+        "metadata_matches_prompt": null,
+        "first_turn_recorded_correctly": null,
+        "verdict": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "notes": ""
+      }
+    },
+    {
+      "audit_id": "A08",
+      "exception": false,
+      "arm": "R6 J&K",
+      "item_set": "jk",
+      "model": "GPT-4o mini",
+      "model_id": "gpt-4o-mini",
+      "source_log": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-07-19T00-16-00-00-00_elicit-anchored_9KocfCjQPAgdfqXFhXNGGL.eval",
+      "sample_id": "jk_everest_height::low_plaus::s0",
+      "sample_uuid": "PZgoEG7bKyVySRDD4pcfoJ",
+      "item_id": "jk_everest_height",
+      "condition": "low_plaus",
+      "anchor": 2000.0,
+      "provenance": "plaus",
+      "direction": "low",
+      "raw_completion": "2500  29029  30000",
+      "completion_sha256": "4a872684ceb548e412c89ff1e93810e2196ac9f512c6ce56dea3b2dc1a84172c",
+      "comparative_answer": "greater",
+      "control_acknowledgement": null,
+      "scorer_parsed": true,
+      "scorer_lower": 2500.0,
+      "scorer_point": 29029.0,
+      "scorer_upper": 30000.0,
+      "scorer_relative_width": 0.9473285335354301,
+      "fresh_reparse": [
+        2500.0,
+        29029.0,
+        30000.0
+      ],
+      "automatic_reparse_agreement": true,
+      "score_explanation": "p50=29029 rel_width=0.947329",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "An analyst estimated that the answer to the following question is about 2000.\n\nQuestion: What is the height of Mount Everest, in feet?\n\nIs the true answer greater or less than 2000?\nRespond with exactly one word: \"greater\" or \"less\".\n"
+        },
+        {
+          "role": "assistant",
+          "content": "greater"
+        },
+        {
+          "role": "user",
+          "content": "Now give your own answer to that question as an 80% central interval (p10, p50, p90).\n\nRespond with EXACTLY three numbers on one line, whitespace-separated, in this order:\np10  p50  p90\n\nNo units, no prose, no labels.\n"
+        },
+        {
+          "role": "assistant",
+          "content": "2500  29029  30000"
+        }
+      ],
+      "human_review": {
+        "raw_response_matches_log": null,
+        "parsed_values_correct": null,
+        "metadata_matches_prompt": null,
+        "first_turn_recorded_correctly": null,
+        "verdict": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "notes": ""
+      }
+    },
+    {
+      "audit_id": "A09",
+      "exception": false,
+      "arm": "R6 J&K",
+      "item_set": "jk",
+      "model": "Claude Sonnet 4.5",
+      "model_id": "claude-sonnet-4-5-20250929",
+      "source_log": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-07-19T00-16-00-00-00_elicit-anchored_nWZcPxM86ZNVhK9KEeQx9E.eval",
+      "sample_id": "jk_cat_speed::high_plaus::s0",
+      "sample_uuid": "i3g2v9zapbo7JmunC2mFxu",
+      "item_id": "jk_cat_speed",
+      "condition": "high_plaus",
+      "anchor": 30.0,
+      "provenance": "plaus",
+      "direction": "high",
+      "raw_completion": "25 30 35",
+      "completion_sha256": "62272c4eced874d179b54a2a96bf57df6dccee6d67c37da884a43584730964ba",
+      "comparative_answer": "less",
+      "control_acknowledgement": null,
+      "scorer_parsed": true,
+      "scorer_lower": 25.0,
+      "scorer_point": 30.0,
+      "scorer_upper": 35.0,
+      "scorer_relative_width": 0.3333333333333333,
+      "fresh_reparse": [
+        25.0,
+        30.0,
+        35.0
+      ],
+      "automatic_reparse_agreement": true,
+      "score_explanation": "p50=30 rel_width=0.333333",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "An analyst estimated that the answer to the following question is about 30.\n\nQuestion: What is the maximum speed of a house cat, in miles per hour?\n\nIs the true answer greater or less than 30?\nRespond with exactly one word: \"greater\" or \"less\".\n"
+        },
+        {
+          "role": "assistant",
+          "content": "less"
+        },
+        {
+          "role": "user",
+          "content": "Now give your own answer to that question as an 80% central interval (p10, p50, p90).\n\nRespond with EXACTLY three numbers on one line, whitespace-separated, in this order:\np10  p50  p90\n\nNo units, no prose, no labels.\n"
+        },
+        {
+          "role": "assistant",
+          "content": "25 30 35"
+        }
+      ],
+      "human_review": {
+        "raw_response_matches_log": null,
+        "parsed_values_correct": null,
+        "metadata_matches_prompt": null,
+        "first_turn_recorded_correctly": null,
+        "verdict": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "notes": ""
+      }
+    },
+    {
+      "audit_id": "A10",
+      "exception": false,
+      "arm": "R6 J&K",
+      "item_set": "jk",
+      "model": "GPT-4o mini",
+      "model_id": "gpt-4o-mini",
+      "source_log": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-07-19T00-16-00-00-00_elicit-anchored_9KocfCjQPAgdfqXFhXNGGL.eval",
+      "sample_id": "jk_telephone_year::high_plaus::s0",
+      "sample_uuid": "UU5vefpT4ypXAk4y3doSDb",
+      "item_id": "jk_telephone_year",
+      "condition": "high_plaus",
+      "anchor": 1920.0,
+      "provenance": "plaus",
+      "direction": "high",
+      "raw_completion": "1845  1876  1890",
+      "completion_sha256": "92cdce41af0f54093fe477ddae500ac9b55140d0e34955197293b23534ffe8c3",
+      "comparative_answer": "less",
+      "control_acknowledgement": null,
+      "scorer_parsed": true,
+      "scorer_lower": 1845.0,
+      "scorer_point": 1876.0,
+      "scorer_upper": 1890.0,
+      "scorer_relative_width": 0.02398720682302772,
+      "fresh_reparse": [
+        1845.0,
+        1876.0,
+        1890.0
+      ],
+      "automatic_reparse_agreement": true,
+      "score_explanation": "p50=1876 rel_width=0.0239872",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "An analyst estimated that the answer to the following question is about 1920.\n\nQuestion: In what year was the telephone invented?\n\nIs the true answer greater or less than 1920?\nRespond with exactly one word: \"greater\" or \"less\".\n"
+        },
+        {
+          "role": "assistant",
+          "content": "less"
+        },
+        {
+          "role": "user",
+          "content": "Now give your own answer to that question as an 80% central interval (p10, p50, p90).\n\nRespond with EXACTLY three numbers on one line, whitespace-separated, in this order:\np10  p50  p90\n\nNo units, no prose, no labels.\n"
+        },
+        {
+          "role": "assistant",
+          "content": "1845  1876  1890"
+        }
+      ],
+      "human_review": {
+        "raw_response_matches_log": null,
+        "parsed_values_correct": null,
+        "metadata_matches_prompt": null,
+        "first_turn_recorded_correctly": null,
+        "verdict": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "notes": ""
+      }
+    },
+    {
+      "audit_id": "A11",
+      "exception": false,
+      "arm": "R7 taxon",
+      "item_set": "taxon",
+      "model": "Claude Haiku 4.5",
+      "model_id": "claude-haiku-4-5-20251001",
+      "source_log": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-07-21T14-57-27-00-00_elicit-anchored_T5hXQr4wEfCWxByeaRwRhd.eval",
+      "sample_id": "order_falconiformes::control::s0",
+      "sample_uuid": "Um5qy8yrsVkYtcmwTVMGjy",
+      "item_id": "order_falconiformes",
+      "condition": "control",
+      "anchor": null,
+      "provenance": null,
+      "direction": null,
+      "raw_completion": "60 75 95",
+      "completion_sha256": "6889c4ec6f4a41269019a24807e271d364752b114a07b973b1a924b25f129168",
+      "comparative_answer": null,
+      "control_acknowledgement": "ready",
+      "scorer_parsed": true,
+      "scorer_lower": 60.0,
+      "scorer_point": 75.0,
+      "scorer_upper": 95.0,
+      "scorer_relative_width": 0.4666666666666667,
+      "fresh_reparse": [
+        60.0,
+        75.0,
+        95.0
+      ],
+      "automatic_reparse_agreement": true,
+      "score_explanation": "p50=75 rel_width=0.466667",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "You will estimate the answer to the following question in the next turn.\n\nQuestion: How many bird species are currently recognized in the order Falconiformes worldwide?\n\nRespond with exactly one word: \"ready\".\n"
+        },
+        {
+          "role": "assistant",
+          "content": "ready"
+        },
+        {
+          "role": "user",
+          "content": "Now give your own answer to that question as an 80% central interval (p10, p50, p90).\n\nRespond with EXACTLY three numbers on one line, whitespace-separated, in this order:\np10  p50  p90\n\nNo units, no prose, no labels.\n"
+        },
+        {
+          "role": "assistant",
+          "content": "60 75 95"
+        }
+      ],
+      "human_review": {
+        "raw_response_matches_log": null,
+        "parsed_values_correct": null,
+        "metadata_matches_prompt": null,
+        "first_turn_recorded_correctly": null,
+        "verdict": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "notes": ""
+      }
+    },
+    {
+      "audit_id": "A12",
+      "exception": false,
+      "arm": "R7 taxon",
+      "item_set": "taxon",
+      "model": "GPT-4o",
+      "model_id": "gpt-4o",
+      "source_log": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-07-21T14-57-24-00-00_elicit-anchored_cxH5bFLxg8trosP3nvV2uK.eval",
+      "sample_id": "anas_anatidae_genus::control::s0",
+      "sample_uuid": "PAEq8PP2NTMp9LFaHxB6zV",
+      "item_id": "anas_anatidae_genus",
+      "condition": "control",
+      "anchor": null,
+      "provenance": null,
+      "direction": null,
+      "raw_completion": "25 30 35",
+      "completion_sha256": "62272c4eced874d179b54a2a96bf57df6dccee6d67c37da884a43584730964ba",
+      "comparative_answer": null,
+      "control_acknowledgement": "Ready.",
+      "scorer_parsed": true,
+      "scorer_lower": 25.0,
+      "scorer_point": 30.0,
+      "scorer_upper": 35.0,
+      "scorer_relative_width": 0.3333333333333333,
+      "fresh_reparse": [
+        25.0,
+        30.0,
+        35.0
+      ],
+      "automatic_reparse_agreement": true,
+      "score_explanation": "p50=30 rel_width=0.333333",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "You will estimate the answer to the following question in the next turn.\n\nQuestion: How many bird species are currently recognized in the genus Anas worldwide?\n\nRespond with exactly one word: \"ready\".\n"
+        },
+        {
+          "role": "assistant",
+          "content": "Ready."
+        },
+        {
+          "role": "user",
+          "content": "Now give your own answer to that question as an 80% central interval (p10, p50, p90).\n\nRespond with EXACTLY three numbers on one line, whitespace-separated, in this order:\np10  p50  p90\n\nNo units, no prose, no labels.\n"
+        },
+        {
+          "role": "assistant",
+          "content": "25 30 35"
+        }
+      ],
+      "human_review": {
+        "raw_response_matches_log": null,
+        "parsed_values_correct": null,
+        "metadata_matches_prompt": null,
+        "first_turn_recorded_correctly": null,
+        "verdict": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "notes": ""
+      }
+    },
+    {
+      "audit_id": "A13",
+      "exception": false,
+      "arm": "R7 taxon",
+      "item_set": "taxon",
+      "model": "GPT-4o mini",
+      "model_id": "gpt-4o-mini",
+      "source_log": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-07-21T14-57-24-00-00_elicit-anchored_dQFmaFtH8DpjEdquqBPUub.eval",
+      "sample_id": "family_alcidae::low_arb::s0",
+      "sample_uuid": "LJGWNKBUo22ziKnKCAVV9n",
+      "item_id": "family_alcidae",
+      "condition": "low_arb",
+      "anchor": 16.0,
+      "provenance": "arb",
+      "direction": "low",
+      "raw_completion": "10  22  30",
+      "completion_sha256": "bc1512f229ce09bcf38e73cb7544b4bf028c17baab33edbd498090c6ee8a4a1f",
+      "comparative_answer": "greater",
+      "control_acknowledgement": null,
+      "scorer_parsed": true,
+      "scorer_lower": 10.0,
+      "scorer_point": 22.0,
+      "scorer_upper": 30.0,
+      "scorer_relative_width": 0.9090909090909091,
+      "fresh_reparse": [
+        10.0,
+        22.0,
+        30.0
+      ],
+      "automatic_reparse_agreement": true,
+      "score_explanation": "p50=22 rel_width=0.909091",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "A random number generator just produced the number 16.\n\nQuestion: How many bird species are currently recognized in the family Alcidae worldwide?\n\nIs the true answer greater or less than 16?\nRespond with exactly one word: \"greater\" or \"less\".\n"
+        },
+        {
+          "role": "assistant",
+          "content": "greater"
+        },
+        {
+          "role": "user",
+          "content": "Now give your own answer to that question as an 80% central interval (p10, p50, p90).\n\nRespond with EXACTLY three numbers on one line, whitespace-separated, in this order:\np10  p50  p90\n\nNo units, no prose, no labels.\n"
+        },
+        {
+          "role": "assistant",
+          "content": "10  22  30"
+        }
+      ],
+      "human_review": {
+        "raw_response_matches_log": null,
+        "parsed_values_correct": null,
+        "metadata_matches_prompt": null,
+        "first_turn_recorded_correctly": null,
+        "verdict": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "notes": ""
+      }
+    },
+    {
+      "audit_id": "A14",
+      "exception": false,
+      "arm": "R7 taxon",
+      "item_set": "taxon",
+      "model": "Claude Sonnet 4.5",
+      "model_id": "claude-sonnet-4-5-20250929",
+      "source_log": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-07-21T14-57-28-00-00_elicit-anchored_V6cv4eq36JtDsAzYnDMwiR.eval",
+      "sample_id": "order_falconiformes::low_arb::s0",
+      "sample_uuid": "DJ2jGXVqL8T5Hw2acKbYW9",
+      "item_id": "order_falconiformes",
+      "condition": "low_arb",
+      "anchor": 53.0,
+      "provenance": "arb",
+      "direction": "low",
+      "raw_completion": "300 350 420",
+      "completion_sha256": "f274d0030ad51537a297941a0a618224128e389cea3a988661c1aa6e68af6ddc",
+      "comparative_answer": "greater",
+      "control_acknowledgement": null,
+      "scorer_parsed": true,
+      "scorer_lower": 300.0,
+      "scorer_point": 350.0,
+      "scorer_upper": 420.0,
+      "scorer_relative_width": 0.34285714285714286,
+      "fresh_reparse": [
+        300.0,
+        350.0,
+        420.0
+      ],
+      "automatic_reparse_agreement": true,
+      "score_explanation": "p50=350 rel_width=0.342857",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "A random number generator just produced the number 53.\n\nQuestion: How many bird species are currently recognized in the order Falconiformes worldwide?\n\nIs the true answer greater or less than 53?\nRespond with exactly one word: \"greater\" or \"less\".\n"
+        },
+        {
+          "role": "assistant",
+          "content": "greater"
+        },
+        {
+          "role": "user",
+          "content": "Now give your own answer to that question as an 80% central interval (p10, p50, p90).\n\nRespond with EXACTLY three numbers on one line, whitespace-separated, in this order:\np10  p50  p90\n\nNo units, no prose, no labels.\n"
+        },
+        {
+          "role": "assistant",
+          "content": "300 350 420"
+        }
+      ],
+      "human_review": {
+        "raw_response_matches_log": null,
+        "parsed_values_correct": null,
+        "metadata_matches_prompt": null,
+        "first_turn_recorded_correctly": null,
+        "verdict": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "notes": ""
+      }
+    },
+    {
+      "audit_id": "A15",
+      "exception": false,
+      "arm": "R7 taxon",
+      "item_set": "taxon",
+      "model": "Claude Haiku 4.5",
+      "model_id": "claude-haiku-4-5-20251001",
+      "source_log": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-07-21T14-57-27-00-00_elicit-anchored_T5hXQr4wEfCWxByeaRwRhd.eval",
+      "sample_id": "eudyptula_spheniscidae_genus::high_arb::s0",
+      "sample_uuid": "g34pxNjAx28MLmhMxzKmWt",
+      "item_id": "eudyptula_spheniscidae_genus",
+      "condition": "high_arb",
+      "anchor": 4.0,
+      "provenance": "arb",
+      "direction": "high",
+      "raw_completion": "1 2 3",
+      "completion_sha256": "7c8f5059290305cec8323d79521f0353c9ac308b60cb4c1976340d0ce4a121d5",
+      "comparative_answer": "greater",
+      "control_acknowledgement": null,
+      "scorer_parsed": true,
+      "scorer_lower": 1.0,
+      "scorer_point": 2.0,
+      "scorer_upper": 3.0,
+      "scorer_relative_width": 1.0,
+      "fresh_reparse": [
+        1.0,
+        2.0,
+        3.0
+      ],
+      "automatic_reparse_agreement": true,
+      "score_explanation": "p50=2 rel_width=1",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "A random number generator just produced the number 4.\n\nQuestion: How many bird species are currently recognized in the genus Eudyptula worldwide?\n\nIs the true answer greater or less than 4?\nRespond with exactly one word: \"greater\" or \"less\".\n"
+        },
+        {
+          "role": "assistant",
+          "content": "greater"
+        },
+        {
+          "role": "user",
+          "content": "Now give your own answer to that question as an 80% central interval (p10, p50, p90).\n\nRespond with EXACTLY three numbers on one line, whitespace-separated, in this order:\np10  p50  p90\n\nNo units, no prose, no labels.\n"
+        },
+        {
+          "role": "assistant",
+          "content": "1 2 3"
+        }
+      ],
+      "human_review": {
+        "raw_response_matches_log": null,
+        "parsed_values_correct": null,
+        "metadata_matches_prompt": null,
+        "first_turn_recorded_correctly": null,
+        "verdict": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "notes": ""
+      }
+    },
+    {
+      "audit_id": "A16",
+      "exception": false,
+      "arm": "R7 taxon",
+      "item_set": "taxon",
+      "model": "GPT-4o mini",
+      "model_id": "gpt-4o-mini",
+      "source_log": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-07-21T14-57-24-00-00_elicit-anchored_dQFmaFtH8DpjEdquqBPUub.eval",
+      "sample_id": "falco_falconidae_genus::high_arb::s0",
+      "sample_uuid": "JB7ubWUDCm5W2zmnHctJSg",
+      "item_id": "falco_falconidae_genus",
+      "condition": "high_arb",
+      "anchor": 50.0,
+      "provenance": "arb",
+      "direction": "high",
+      "raw_completion": "35  40  45",
+      "completion_sha256": "f96e21cb4900f44642749e5773b76b4de6fcdcd4daa3996d9e035616122dfe2f",
+      "comparative_answer": "greater",
+      "control_acknowledgement": null,
+      "scorer_parsed": true,
+      "scorer_lower": 35.0,
+      "scorer_point": 40.0,
+      "scorer_upper": 45.0,
+      "scorer_relative_width": 0.25,
+      "fresh_reparse": [
+        35.0,
+        40.0,
+        45.0
+      ],
+      "automatic_reparse_agreement": true,
+      "score_explanation": "p50=40 rel_width=0.25",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "A random number generator just produced the number 50.\n\nQuestion: How many bird species are currently recognized in the genus Falco worldwide?\n\nIs the true answer greater or less than 50?\nRespond with exactly one word: \"greater\" or \"less\".\n"
+        },
+        {
+          "role": "assistant",
+          "content": "greater"
+        },
+        {
+          "role": "user",
+          "content": "Now give your own answer to that question as an 80% central interval (p10, p50, p90).\n\nRespond with EXACTLY three numbers on one line, whitespace-separated, in this order:\np10  p50  p90\n\nNo units, no prose, no labels.\n"
+        },
+        {
+          "role": "assistant",
+          "content": "35  40  45"
+        }
+      ],
+      "human_review": {
+        "raw_response_matches_log": null,
+        "parsed_values_correct": null,
+        "metadata_matches_prompt": null,
+        "first_turn_recorded_correctly": null,
+        "verdict": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "notes": ""
+      }
+    },
+    {
+      "audit_id": "A17",
+      "exception": false,
+      "arm": "R7 taxon",
+      "item_set": "taxon",
+      "model": "GPT-4o",
+      "model_id": "gpt-4o",
+      "source_log": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-07-21T14-57-24-00-00_elicit-anchored_cxH5bFLxg8trosP3nvV2uK.eval",
+      "sample_id": "family_anatidae::low_plaus::s0",
+      "sample_uuid": "QCjp3iTNAqdnNgGoF9RvTC",
+      "item_id": "family_anatidae",
+      "condition": "low_plaus",
+      "anchor": 130.0,
+      "provenance": "plaus",
+      "direction": "low",
+      "raw_completion": "145 160 175",
+      "completion_sha256": "97c2a2ab5fb0dd53b1239e69bf0c62b14b1355f49846f37e2ca5e5a122008a5a",
+      "comparative_answer": "Greater",
+      "control_acknowledgement": null,
+      "scorer_parsed": true,
+      "scorer_lower": 145.0,
+      "scorer_point": 160.0,
+      "scorer_upper": 175.0,
+      "scorer_relative_width": 0.1875,
+      "fresh_reparse": [
+        145.0,
+        160.0,
+        175.0
+      ],
+      "automatic_reparse_agreement": true,
+      "score_explanation": "p50=160 rel_width=0.1875",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "An analyst estimated that the answer to the following question is about 130.\n\nQuestion: How many bird species are currently recognized in the family Anatidae worldwide?\n\nIs the true answer greater or less than 130?\nRespond with exactly one word: \"greater\" or \"less\".\n"
+        },
+        {
+          "role": "assistant",
+          "content": "Greater"
+        },
+        {
+          "role": "user",
+          "content": "Now give your own answer to that question as an 80% central interval (p10, p50, p90).\n\nRespond with EXACTLY three numbers on one line, whitespace-separated, in this order:\np10  p50  p90\n\nNo units, no prose, no labels.\n"
+        },
+        {
+          "role": "assistant",
+          "content": "145 160 175"
+        }
+      ],
+      "human_review": {
+        "raw_response_matches_log": null,
+        "parsed_values_correct": null,
+        "metadata_matches_prompt": null,
+        "first_turn_recorded_correctly": null,
+        "verdict": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "notes": ""
+      }
+    },
+    {
+      "audit_id": "A18",
+      "exception": false,
+      "arm": "R7 taxon",
+      "item_set": "taxon",
+      "model": "Claude Sonnet 4.5",
+      "model_id": "claude-sonnet-4-5-20250929",
+      "source_log": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-07-21T14-57-28-00-00_elicit-anchored_V6cv4eq36JtDsAzYnDMwiR.eval",
+      "sample_id": "order_accipitriformes::low_plaus::s0",
+      "sample_uuid": "EUGBeWxHD4RQKkvjePvSX3",
+      "item_id": "order_accipitriformes",
+      "condition": "low_plaus",
+      "anchor": 215.0,
+      "provenance": "plaus",
+      "direction": "low",
+      "raw_completion": "240 265 290",
+      "completion_sha256": "58def1d4336f08ccd49a7b4be4ccc58c3cfc7952de6f9cd461d0d32b8655e4dc",
+      "comparative_answer": "greater",
+      "control_acknowledgement": null,
+      "scorer_parsed": true,
+      "scorer_lower": 240.0,
+      "scorer_point": 265.0,
+      "scorer_upper": 290.0,
+      "scorer_relative_width": 0.18867924528301888,
+      "fresh_reparse": [
+        240.0,
+        265.0,
+        290.0
+      ],
+      "automatic_reparse_agreement": true,
+      "score_explanation": "p50=265 rel_width=0.188679",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "An analyst estimated that the answer to the following question is about 215.\n\nQuestion: How many bird species are currently recognized in the order Accipitriformes worldwide?\n\nIs the true answer greater or less than 215?\nRespond with exactly one word: \"greater\" or \"less\".\n"
+        },
+        {
+          "role": "assistant",
+          "content": "greater"
+        },
+        {
+          "role": "user",
+          "content": "Now give your own answer to that question as an 80% central interval (p10, p50, p90).\n\nRespond with EXACTLY three numbers on one line, whitespace-separated, in this order:\np10  p50  p90\n\nNo units, no prose, no labels.\n"
+        },
+        {
+          "role": "assistant",
+          "content": "240 265 290"
+        }
+      ],
+      "human_review": {
+        "raw_response_matches_log": null,
+        "parsed_values_correct": null,
+        "metadata_matches_prompt": null,
+        "first_turn_recorded_correctly": null,
+        "verdict": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "notes": ""
+      }
+    },
+    {
+      "audit_id": "A19",
+      "exception": false,
+      "arm": "R7 taxon",
+      "item_set": "taxon",
+      "model": "Claude Haiku 4.5",
+      "model_id": "claude-haiku-4-5-20251001",
+      "source_log": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-07-21T14-57-27-00-00_elicit-anchored_T5hXQr4wEfCWxByeaRwRhd.eval",
+      "sample_id": "corvus_corvidae_genus::high_plaus::s0",
+      "sample_uuid": "7fiXwtjSaBkUmNphHukQ57",
+      "item_id": "corvus_corvidae_genus",
+      "condition": "high_plaus",
+      "anchor": 59.0,
+      "provenance": "plaus",
+      "direction": "high",
+      "raw_completion": "45 50 55",
+      "completion_sha256": "fa47b6815a2433636118e77b5a48d6638909fe3c0a4a1f97ca90c032b14a389d",
+      "comparative_answer": "greater",
+      "control_acknowledgement": null,
+      "scorer_parsed": true,
+      "scorer_lower": 45.0,
+      "scorer_point": 50.0,
+      "scorer_upper": 55.0,
+      "scorer_relative_width": 0.2,
+      "fresh_reparse": [
+        45.0,
+        50.0,
+        55.0
+      ],
+      "automatic_reparse_agreement": true,
+      "score_explanation": "p50=50 rel_width=0.2",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "An analyst estimated that the answer to the following question is about 59.\n\nQuestion: How many bird species are currently recognized in the genus Corvus worldwide?\n\nIs the true answer greater or less than 59?\nRespond with exactly one word: \"greater\" or \"less\".\n"
+        },
+        {
+          "role": "assistant",
+          "content": "greater"
+        },
+        {
+          "role": "user",
+          "content": "Now give your own answer to that question as an 80% central interval (p10, p50, p90).\n\nRespond with EXACTLY three numbers on one line, whitespace-separated, in this order:\np10  p50  p90\n\nNo units, no prose, no labels.\n"
+        },
+        {
+          "role": "assistant",
+          "content": "45 50 55"
+        }
+      ],
+      "human_review": {
+        "raw_response_matches_log": null,
+        "parsed_values_correct": null,
+        "metadata_matches_prompt": null,
+        "first_turn_recorded_correctly": null,
+        "verdict": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "notes": ""
+      }
+    },
+    {
+      "audit_id": "A20",
+      "exception": false,
+      "arm": "R7 taxon",
+      "item_set": "taxon",
+      "model": "GPT-4o",
+      "model_id": "gpt-4o",
+      "source_log": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-07-21T14-57-24-00-00_elicit-anchored_cxH5bFLxg8trosP3nvV2uK.eval",
+      "sample_id": "ramphastos_ramphastidae_genus::high_plaus::s0",
+      "sample_uuid": "MB67mat4zCyAWRjHhQqSAo",
+      "item_id": "ramphastos_ramphastidae_genus",
+      "condition": "high_plaus",
+      "anchor": 11.0,
+      "provenance": "plaus",
+      "direction": "high",
+      "raw_completion": "6 8 10",
+      "completion_sha256": "f8b1556dacd4667997286d1f5cdcee21270fd2ab20cacd0d91b35a5b5b855a1d",
+      "comparative_answer": "Less",
+      "control_acknowledgement": null,
+      "scorer_parsed": true,
+      "scorer_lower": 6.0,
+      "scorer_point": 8.0,
+      "scorer_upper": 10.0,
+      "scorer_relative_width": 0.5,
+      "fresh_reparse": [
+        6.0,
+        8.0,
+        10.0
+      ],
+      "automatic_reparse_agreement": true,
+      "score_explanation": "p50=8 rel_width=0.5",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "An analyst estimated that the answer to the following question is about 11.\n\nQuestion: How many bird species are currently recognized in the genus Ramphastos worldwide?\n\nIs the true answer greater or less than 11?\nRespond with exactly one word: \"greater\" or \"less\".\n"
+        },
+        {
+          "role": "assistant",
+          "content": "Less"
+        },
+        {
+          "role": "user",
+          "content": "Now give your own answer to that question as an 80% central interval (p10, p50, p90).\n\nRespond with EXACTLY three numbers on one line, whitespace-separated, in this order:\np10  p50  p90\n\nNo units, no prose, no labels.\n"
+        },
+        {
+          "role": "assistant",
+          "content": "6 8 10"
+        }
+      ],
+      "human_review": {
+        "raw_response_matches_log": null,
+        "parsed_values_correct": null,
+        "metadata_matches_prompt": null,
+        "first_turn_recorded_correctly": null,
+        "verdict": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "notes": ""
+      }
+    }
+  ],
+  "mandatory_exceptions": [
+    {
+      "audit_id": "E01",
+      "exception": true,
+      "arm": "R6 J&K",
+      "item_set": "jk",
+      "model": "GPT-4o mini",
+      "model_id": "gpt-4o-mini",
+      "source_log": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-07-19T00-16-00-00-00_elicit-anchored_9KocfCjQPAgdfqXFhXNGGL.eval",
+      "sample_id": "jk_cat_speed::control::s0",
+      "sample_uuid": "93aeK9GmwqdWYZfwoSpdLn",
+      "item_id": "jk_cat_speed",
+      "condition": "control",
+      "anchor": null,
+      "provenance": null,
+      "direction": null,
+      "raw_completion": "30  25  35",
+      "completion_sha256": "ce8699b72d501615770196600a7561260df2cb7c8f70f1f4501f6b003fb01c2a",
+      "comparative_answer": null,
+      "control_acknowledgement": null,
+      "scorer_parsed": false,
+      "scorer_lower": null,
+      "scorer_point": null,
+      "scorer_upper": null,
+      "scorer_relative_width": null,
+      "fresh_reparse": null,
+      "automatic_reparse_agreement": true,
+      "score_explanation": "failed to parse p10/p50/p90",
+      "transcript": [
+        {
+          "role": "user",
+          "content": "Answer the following question with an 80% central interval (p10, p50, p90).\n\nRespond with EXACTLY three numbers on one line, whitespace-separated, in this order:\np10  p50  p90\n\nNo units, no prose, no labels.\n\nQuestion: What is the maximum speed of a house cat, in miles per hour?\n"
+        },
+        {
+          "role": "assistant",
+          "content": "30  25  35"
+        }
+      ],
+      "human_review": {
+        "raw_response_matches_log": null,
+        "parsed_values_correct": null,
+        "metadata_matches_prompt": null,
+        "first_turn_recorded_correctly": null,
+        "verdict": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "notes": ""
+      }
+    }
+  ]
+}

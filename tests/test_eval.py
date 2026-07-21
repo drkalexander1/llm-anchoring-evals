@@ -4,10 +4,11 @@ import pytest
 import pandas as pd
 
 from scripts.analyze_jk import summarize
+from scripts.build_human_audit import CONDITIONS, MODEL_PAIRS, MODELS
 from scripts.import_r3 import build_baselines
 from scripts.power_analysis import _required_n
 from src.anchoring_metrics import anchoring_index, beta_high, beta_low
-from src.anchors import derive_anchors, interp_quantile
+from src.anchors import derive_anchors, derive_outside_anchors, interp_quantile
 from src.schema import parse_ci_triple
 from src.tasks.elicit_anchored import anchored_dataset
 
@@ -23,6 +24,12 @@ def test_anchor_interpolation_and_pull_metrics() -> None:
     assert derive_anchors(220, 240, 260) == (222, 258)
     assert beta_low(50, 25, 0) == pytest.approx(0.5)
     assert beta_high(50, 75, 100) == pytest.approx(0.5)
+
+
+def test_strong_anchors_extend_beyond_stated_interval() -> None:
+    assert derive_outside_anchors(220, 240, 260, strength=2) == (200, 280)
+    with pytest.raises(ValueError, match="positive finite"):
+        derive_outside_anchors(220, 240, 260, strength=0)
 
 
 def test_ci_parser_requires_ordered_triple() -> None:
@@ -45,6 +52,26 @@ def test_jk_dataset_has_expected_factorial_structure() -> None:
 def test_dataset_rejects_nonpositive_repeat_count() -> None:
     with pytest.raises(ValueError, match="at least 1"):
         anchored_dataset("jk", None, 0)
+
+
+def test_r7_taxon_subset_uses_matched_control_and_strong_anchors() -> None:
+    dataset = anchored_dataset(
+        "taxon",
+        "taxonomy-r3/claude-haiku-4-5@2026-07-02",
+        1,
+        anchor_method="outside",
+        anchor_strength=2,
+        matched_control=True,
+        subset_path="data/taxon_subset_r7.yaml",
+    )
+
+    assert len(dataset) == 90
+    controls = [sample for sample in dataset if sample.metadata["condition"] == "control"]
+    anchored = [sample for sample in dataset if sample.metadata["anchor"] is not None]
+    assert len(controls) == 18
+    assert all(sample.metadata["matched_control"] for sample in controls)
+    assert all(sample.metadata["estimate_prompt"] for sample in controls)
+    assert all(sample.metadata["anchor_method"] == "outside" for sample in anchored)
 
 
 def test_analysis_summary_computes_effects_and_consistency() -> None:
@@ -90,10 +117,12 @@ def test_analysis_summary_computes_effects_and_consistency() -> None:
     assert result["comparisons_scored"] == 4
     for provenance in ("arb", "plaus"):
         values = result["by_provenance"][provenance]
+        assert values["items_with_valid_baseline"] == 1
         assert values["items_with_nonzero_effect"] == 1
         assert values["median_anchoring_index"] == pytest.approx(0.5)
         assert values["mean_anchoring_index"] == pytest.approx(0.5)
         assert values["mean_absolute_anchoring_index"] == pytest.approx(0.5)
+        assert values["valid_baseline_mean_anchoring_index"] == pytest.approx(0.5)
         assert values["median_width_delta"] == pytest.approx(-0.2)
         assert values["human_ai_spearman"] is None
 
@@ -128,6 +157,7 @@ def test_analysis_keeps_taxon_effects_without_human_ai() -> None:
     result = summarize(rows)["by_provenance"]["arb"]
 
     assert result["items_with_complete_pairs"] == 1
+    assert result["items_with_valid_baseline"] == 1
     assert result["mean_anchoring_index"] == pytest.approx(0.5)
     assert result["human_ai_spearman"] is None
 
@@ -155,3 +185,15 @@ def test_power_calculation_scales_with_effect_retention() -> None:
     assert _required_n(0.5, 0.8, 1.0) == 25
     assert _required_n(0.5, 0.8, 0.5) == 99
     assert _required_n(-0.1, 0.8, 1.0) is None
+
+
+def test_human_audit_schedule_is_balanced() -> None:
+    model_counts = {model: 0 for model in MODELS}
+    for pairs in MODEL_PAIRS.values():
+        assert len(pairs) == len(CONDITIONS)
+        for pair in pairs:
+            assert len(set(pair)) == 2
+            for model_index in pair:
+                model_counts[MODELS[model_index]] += 1
+
+    assert set(model_counts.values()) == {5}

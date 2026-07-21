@@ -111,6 +111,7 @@ def summarize(rows: list[dict[str, Any]]) -> dict[str, Any]:
 
     for provenance in PROVENANCES:
         item_ais: list[float] = []
+        valid_baseline_ais: list[float] = []
         correlated_item_ais: list[float] = []
         human_ais: list[float] = []
         width_deltas: list[float] = []
@@ -133,14 +134,21 @@ def summarize(rows: list[dict[str, Any]]) -> dict[str, Any]:
                 and low_anchor_values
                 and high_anchor_values
             ):
+                low_anchor = median(low_anchor_values)
+                high_anchor = median(high_anchor_values)
                 ai = anchoring_index(
                     high_point,
                     low_point,
-                    median(high_anchor_values),
-                    median(low_anchor_values),
+                    high_anchor,
+                    low_anchor,
                 )
                 if math.isfinite(ai):
                     item_ais.append(ai)
+                    if (
+                        control_point is not None
+                        and low_anchor < control_point < high_anchor
+                    ):
+                        valid_baseline_ais.append(ai)
                     human_values = _finite(
                         [row.get("human_ai") for row in low_rows + high_rows]
                     )
@@ -169,6 +177,7 @@ def summarize(rows: list[dict[str, Any]]) -> dict[str, Any]:
 
         provenance_summaries[provenance] = {
             "items_with_complete_pairs": len(item_ais),
+            "items_with_valid_baseline": len(valid_baseline_ais),
             "items_with_nonzero_effect": sum(abs(value) > 1e-12 for value in item_ais),
             "median_anchoring_index": median(item_ais) if item_ais else None,
             "mean_anchoring_index": (
@@ -177,6 +186,14 @@ def summarize(rows: list[dict[str, Any]]) -> dict[str, Any]:
             "mean_absolute_anchoring_index": (
                 sum(abs(value) for value in item_ais) / len(item_ais)
                 if item_ais
+                else None
+            ),
+            "valid_baseline_median_anchoring_index": (
+                median(valid_baseline_ais) if valid_baseline_ais else None
+            ),
+            "valid_baseline_mean_anchoring_index": (
+                sum(valid_baseline_ais) / len(valid_baseline_ais)
+                if valid_baseline_ais
                 else None
             ),
             "human_ai_spearman": _spearman(correlated_item_ais, human_ais),
@@ -214,12 +231,17 @@ def print_summary(run: dict[str, Any], summary: dict[str, Any]) -> None:
     for provenance, values in summary["by_provenance"].items():
         print(f"\n{provenance.upper()} provenance")
         print(f"  Complete item pairs: {values['items_with_complete_pairs']}")
+        print(f"  Valid-baseline items: {values['items_with_valid_baseline']}")
         print(f"  Nonzero item effects: {values['items_with_nonzero_effect']}")
         print(f"  Median anchoring index: {_format(values['median_anchoring_index'])}")
         print(f"  Mean anchoring index: {_format(values['mean_anchoring_index'])}")
         print(
             "  Mean absolute anchoring index: "
             f"{_format(values['mean_absolute_anchoring_index'])}"
+        )
+        print(
+            "  Valid-baseline mean AI: "
+            f"{_format(values['valid_baseline_mean_anchoring_index'])}"
         )
         print(f"  Human-AI Spearman: {_format(values['human_ai_spearman'])}")
         print(f"  Median width delta: {_format(values['median_width_delta'])}")

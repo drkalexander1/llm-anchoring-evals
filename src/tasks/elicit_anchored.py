@@ -1,20 +1,17 @@
-"""R6 anchored-CI elicitation (the interventional core of R6).
+"""Anchored-CI elicitation shared by the R6 J&K and R7 taxon arms.
 
 Faithful Tversky-Kahneman two-step: Turn 1 asks a comparative greater/less
 judgment against an anchor; Turn 2 elicits the model's own p10/p50/p90 in the
-same context. The `control` condition is a single-turn unanchored CI (== R3/R5
-signal B) so every model contributes its own within-subject baseline B0.
+same context. R7 can use a matched two-turn control whose first response is a
+neutral `ready` acknowledgement.
 
 Conditions per item: control, low_arb, high_arb, low_plaus, high_plaus.
 Anchors:
-  * taxon arm  -> derived per-model from B0 (src.anchors.derive_anchors)
+  * taxon arm  -> stronger out-of-interval anchors derived per-model from B0
   * jk_bridge  -> original human-calibrated anchors from data/jk_items.yaml
 
 Run (taxon arm; anchors come from prior_b for the SAME model):
-    inspect eval src/tasks/elicit_anchored.py \
-        --model anthropic/claude-sonnet-4-6 \
-        -T item_set=taxon \
-        -T baseline_model=taxonomy-r3/claude-sonnet-4-6@2026-06-21
+    See R7_TAXON_PLAN.md for the predeclared model-specific commands.
 
 Run (J&K bridge arm; fixed anchors, model-independent):
     inspect eval src/tasks/elicit_anchored.py \
@@ -33,8 +30,8 @@ from inspect_ai.model import ChatMessageUser, GenerateConfig
 from inspect_ai.scorer import Score, Scorer, Target, mean, scorer, stderr
 from inspect_ai.solver import Generate, TaskState, generate, solver
 
-from src import DATA_DIR, DEFAULT_PRIOR_B_PATH
-from src.anchors import derive_anchors
+from src import DATA_DIR, DEFAULT_PRIOR_B_PATH, ROOT
+from src.anchors import derive_anchors, derive_outside_anchors
 from src.inspect_util import load_prompt
 from src.schema import canonical_model_id, load_items, parse_ci_triple, relative_width
 
@@ -45,7 +42,11 @@ DIRECTIONS = ("low", "high")
 # --------------------------------------------------------------------------- #
 # Dataset
 # --------------------------------------------------------------------------- #
-def _taxon_anchors(baseline_model: str) -> dict[str, tuple[float, float, str]]:
+def _taxon_anchors(
+    baseline_model: str,
+    anchor_method: str,
+    anchor_strength: float,
+) -> dict[str, tuple[float, float, str]]:
     """item_id -> (low_anchor, high_anchor, answer_scale) from a model's B0.
 
     baseline_model is matched by canonical id, so
@@ -60,7 +61,22 @@ def _taxon_anchors(baseline_model: str) -> dict[str, tuple[float, float, str]]:
         if canonical_model_id(str(row.model_snapshot)) != want:
             continue
         scale = scales.get(str(row.item_id), "linear")
-        low, high = derive_anchors(float(row.lower), float(row.point), float(row.upper), scale)
+        if anchor_method == "outside":
+            low, high = derive_outside_anchors(
+                float(row.lower),
+                float(row.point),
+                float(row.upper),
+                scale,
+                strength=anchor_strength,
+            )
+        elif anchor_method == "quantile":
+            low, high = derive_anchors(
+                float(row.lower), float(row.point), float(row.upper), scale
+            )
+        else:
+            raise ValueError(
+                f"anchor_method must be 'outside' or 'quantile', got {anchor_method!r}"
+            )
         out[str(row.item_id)] = (low, high, scale)
     if not out:
         raise ValueError(
@@ -73,6 +89,19 @@ def _taxon_anchors(baseline_model: str) -> dict[str, tuple[float, float, str]]:
 def _load_jk() -> list[dict]:
     payload = yaml.safe_load((DATA_DIR / "jk_items.yaml").read_text(encoding="utf-8"))
     return payload["items"]
+
+
+def _load_subset(path: str | None) -> set[str] | None:
+    if path is None:
+        return None
+    subset_path = Path(path)
+    if not subset_path.is_absolute():
+        subset_path = ROOT / subset_path
+    payload = yaml.safe_load(subset_path.read_text(encoding="utf-8"))
+    item_ids = payload.get("item_ids") if isinstance(payload, dict) else None
+    if not isinstance(item_ids, list) or not item_ids:
+        raise ValueError(f"{path} must contain a non-empty item_ids list")
+    return {str(item_id) for item_id in item_ids}
 
 
 def _anchor_str(value: float) -> str:
@@ -90,6 +119,7 @@ def _sample(
     anchor: float | None,
     provenance: str | None,
     direction: str | None,
+    matched_control: bool = False,
     extra: dict | None = None,
 ) -> Sample:
     base_meta = {
@@ -100,14 +130,29 @@ def _sample(
         "anchor": anchor,
         "provenance": provenance,
         "direction": direction,
+        "matched_control": matched_control,
         **(extra or {}),
     }
     if condition == "control":
-        # single-turn unanchored CI (signal B baseline)
+        if matched_control:
+            return Sample(
+                input=load_prompt("control_ready.txt").format(question=question),
+                id=f"{item_id}::control::s{seed}",
+                metadata={
+                    **base_meta,
+                    "estimate_prompt": load_prompt("anchor_estimate.txt"),
+                    "matched_control": True,
+                },
+            )
+        # R6-compatible single-turn unanchored CI (signal B baseline).
         return Sample(
             input=load_prompt("ci_b.txt").format(question=question),
             id=f"{item_id}::control::s{seed}",
-            metadata={**base_meta, "estimate_prompt": None},
+            metadata={
+                **base_meta,
+                "estimate_prompt": None,
+                "matched_control": False,
+            },
         )
     # anchored: Turn 1 = comparative; Turn 2 prompt carried in metadata
     compare_tmpl = load_prompt(f"anchor_compare_{provenance}.txt")
@@ -122,6 +167,11 @@ def anchored_dataset(
     item_set: str,
     baseline_model: str | None,
     seeds: int,
+    *,
+    anchor_method: str = "outside",
+    anchor_strength: float = 2.0,
+    matched_control: bool = False,
+    subset_path: str | None = None,
 ) -> MemoryDataset:
     if seeds < 1:
         raise ValueError(f"seeds must be at least 1, got {seeds}")
@@ -131,21 +181,46 @@ def anchored_dataset(
     if item_set == "taxon":
         if not baseline_model:
             raise ValueError("taxon arm requires -T baseline_model=<snapshot in prior_b.csv>")
-        anchors = _taxon_anchors(baseline_model)
-        items = {it.id: it for it in load_items() if it.id in anchors}
+        anchors = _taxon_anchors(baseline_model, anchor_method, anchor_strength)
+        subset = _load_subset(subset_path)
+        available_items = {it.id: it for it in load_items() if it.id in anchors}
+        if subset is not None:
+            missing = subset - set(available_items)
+            if missing:
+                raise ValueError(f"subset contains unknown item ids: {sorted(missing)}")
+            items = {
+                item_id: item
+                for item_id, item in available_items.items()
+                if item_id in subset
+            }
+        else:
+            items = available_items
         for seed in range(seeds):
             for item_id, item in items.items():
                 low, high, scale = anchors[item_id]
                 samples.append(_sample(item_id=item_id, question=item.question,
                                        condition="control", scale=scale, seed=seed,
-                                       anchor=None, provenance=None, direction=None))
+                                       anchor=None, provenance=None, direction=None,
+                                       matched_control=matched_control,
+                                       extra={
+                                           "baseline_model": canonical_model_id(baseline_model),
+                                           "anchor_method": anchor_method,
+                                           "anchor_strength": anchor_strength,
+                                           "subset_path": subset_path,
+                                       }))
                 for prov in PROVENANCES:
                     for dirn, aval in (("low", low), ("high", high)):
                         samples.append(_sample(
                             item_id=item_id, question=item.question,
                             condition=f"{dirn}_{prov}", scale=scale, seed=seed,
                             anchor=aval, provenance=prov, direction=dirn,
-                            extra={"baseline_model": canonical_model_id(baseline_model)},
+                            matched_control=matched_control,
+                            extra={
+                                "baseline_model": canonical_model_id(baseline_model),
+                                "anchor_method": anchor_method,
+                                "anchor_strength": anchor_strength,
+                                "subset_path": subset_path,
+                            },
                         ))
 
     elif item_set == "jk":
@@ -172,7 +247,7 @@ def anchored_dataset(
 
 
 # --------------------------------------------------------------------------- #
-# Solver: two-turn for anchored conditions, single-turn for control
+# Solver: two-turn for anchors and optionally for the matched control
 # --------------------------------------------------------------------------- #
 @solver
 def anchored_two_turn():
@@ -180,8 +255,11 @@ def anchored_two_turn():
         # Turn 1 (comparative) is already the sample input; generate greater/less.
         state = await generate(state)
         if state.metadata.get("condition") == "control":
-            return state  # single-turn; the completion is the CI triple
-        state.metadata["comparative_answer"] = state.output.completion.strip()
+            if not state.metadata.get("estimate_prompt"):
+                return state  # R6 single-turn control.
+            state.metadata["control_acknowledgement"] = state.output.completion.strip()
+        else:
+            state.metadata["comparative_answer"] = state.output.completion.strip()
         # Turn 2: elicit the model's own CI in the same context.
         state.messages.append(ChatMessageUser(content=state.metadata["estimate_prompt"]))
         state = await generate(state)
@@ -210,6 +288,11 @@ def anchored_ci_scorer() -> Scorer:
             "answer_scale": m["answer_scale"],
             "baseline_model": m.get("baseline_model"),
             "human_ai": m.get("human_ai"),
+            "matched_control": m.get("matched_control", False),
+            "control_acknowledgement": m.get("control_acknowledgement"),
+            "anchor_method": m.get("anchor_method"),
+            "anchor_strength": m.get("anchor_strength"),
+            "subset_path": m.get("subset_path"),
         }
         if triple is None:
             return Score(value=0.0, answer=state.output.completion,
@@ -233,6 +316,10 @@ def elicit_anchored(
     baseline_model: str | None = None,
     seeds: int = 1,
     temperature: float | None = None,
+    anchor_method: str = "outside",
+    anchor_strength: float = 2.0,
+    matched_control: bool = False,
+    subset_path: str | None = None,
 ) -> Task:
     """Build the anchoring task.
 
@@ -241,9 +328,24 @@ def elicit_anchored(
     at 1 for the deterministic portfolio run.
     """
     return Task(
-        dataset=anchored_dataset(item_set, baseline_model, seeds),
+        dataset=anchored_dataset(
+            item_set,
+            baseline_model,
+            seeds,
+            anchor_method=anchor_method,
+            anchor_strength=anchor_strength,
+            matched_control=matched_control,
+            subset_path=subset_path,
+        ),
         solver=anchored_two_turn(),
         scorer=anchored_ci_scorer(),
         config=GenerateConfig(temperature=temperature),
-        metadata={"eval": "anchoring-r6", "item_set": item_set},
+        metadata={
+            "eval": "anchoring-r7" if item_set == "taxon" else "anchoring-r6",
+            "item_set": item_set,
+            "anchor_method": anchor_method if item_set == "taxon" else None,
+            "anchor_strength": anchor_strength if item_set == "taxon" else None,
+            "matched_control": matched_control,
+            "subset_path": subset_path,
+        },
     )

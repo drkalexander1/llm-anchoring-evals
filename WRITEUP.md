@@ -236,8 +236,9 @@ four target models. Sonnet 4.5 was absent from the original baseline run, so I
 generated its missing 54-item baseline rather than substituting another model's
 uncertainty estimates.
 
-I did not run the full anchored taxon arm. At 486 generations per model, the
-four-model version would require 1,944 additional generations.
+I did not run the full anchored taxon arm. At 540 generations per model, the
+four-model version would require 2,160 additional generations with the new
+matched two-turn control.
 
 ## Power and staged sampling
 
@@ -257,7 +258,7 @@ planning heuristic, not a final powered design. Taxon anchor strength is
 configurable and should be chosen before rerunning the calculation. The
 practical recommendation remains a staged design:
 
-1. Run 18 stratified items as an exploratory diagnostic, costing 648
+1. Run 18 stratified items as an exploratory diagnostic, costing 720
    generations across four models.
 2. Check whether the effect transfers and whether new protocol flaws appear.
 3. Expand to a predeclared 27-item set only if a pooled confirmatory result is

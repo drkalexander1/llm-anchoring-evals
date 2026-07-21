@@ -1,0 +1,53 @@
+name: r7_taxon_pilot
+selection:
+  seed: 20260720
+  anchor_method: outside
+  anchor_strength: 2.0
+  models:
+  - claude-sonnet-4-5-20250929
+  - claude-haiku-4-5
+  - gpt-4o
+  - gpt-4o-mini
+  eligible_items: 46
+  strata:
+    genus_well_known:
+    - anas_anatidae_genus
+    - corvus_corvidae_genus
+    - falco_falconidae_genus
+    - pitta_pittidae_genus
+    - ramphastos_ramphastidae_genus
+    genus_obscure:
+    - carpodacus_fringillidae_genus
+    - claravis_columbidae_genus
+    - eudyptula_spheniscidae_genus
+    - microhierax_falconidae_genus
+    family:
+    - family_alcidae
+    - family_anatidae
+    - family_columbidae
+    - family_spheniscidae
+    - family_strigidae
+    order:
+    - order_accipitriformes
+    - order_columbiformes
+    - order_falconiformes
+    - order_strigiformes
+item_ids:
+- anas_anatidae_genus
+- carpodacus_fringillidae_genus
+- claravis_columbidae_genus
+- corvus_corvidae_genus
+- eudyptula_spheniscidae_genus
+- falco_falconidae_genus
+- family_alcidae
+- family_anatidae
+- family_columbidae
+- family_spheniscidae
+- family_strigidae
+- microhierax_falconidae_genus
+- order_accipitriformes
+- order_columbiformes
+- order_falconiformes
+- order_strigiformes
+- pitta_pittidae_genus
+- ramphastos_ramphastidae_genus

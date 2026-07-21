@@ -153,7 +153,7 @@ def analyze(log_dir: str) -> dict[str, Any]:
             "powers": list(Z_POWER),
             "effect_retention": list(RETENTION),
             "experimental_unit": "item",
-            "taxon_calls_per_item_across_four_models": 36,
+            "taxon_calls_per_item_across_four_models": 40,
             "note": "Pilot estimates use 15 J&K items; taxon transfer is uncertain.",
         },
         "logs": logs,

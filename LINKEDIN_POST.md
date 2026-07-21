@@ -42,6 +42,6 @@ Next week: strengthen the anchor design, add a protocol-matched control, and run
 a staged taxon pilot before testing newer frontier models.
 
 Code, results, and full write-up:
-https://github.com/drkalexander1/eval-anchoring-r6
+https://github.com/drkalexander1/llm-anchoring-evals
 
 #AI #LLMEvals #AIEngineering
