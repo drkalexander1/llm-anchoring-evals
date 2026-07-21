@@ -41,6 +41,7 @@ bird-taxonomy questions with model-calibrated anchors.
 Next week: strengthen the anchor design, add a protocol-matched control, and run
 a staged taxon pilot before testing newer frontier models.
 
-[Repository or write-up link]
+Code, results, and full write-up:
+https://github.com/drkalexander1/eval-anchoring-r6
 
 #AI #LLMEvals #AIEngineering
