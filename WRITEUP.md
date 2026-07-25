@@ -25,6 +25,13 @@ confidence. Intervals generally widened slightly after anchoring instead of
 narrowing. More broadly, it showed that a 30-year-old behavioral benchmark can
 be useful as a protocol bridge while still needing modernized stimuli.
 
+A later human audit exposed another protocol question. In some cases, a model's
+first-turn “greater” or “less” response was contradicted by the interval it gave
+immediately afterward. This is an interesting output-level inconsistency, but it
+does not by itself show that the model misunderstood the task or that the
+inconsistency caused the measured estimate shifts. Those possibilities require
+a separate robustness test.
+
 ## Why this question?
 
 LLMs are often asked to produce estimates under uncertainty. In realistic use,
@@ -96,10 +103,14 @@ false-confidence hypothesis.
 The analysis also reports:
 
 - parse rate;
-- first-turn comparative consistency;
+- first-turn comparative consistency against the separate control p50;
 - the number of items with nonzero anchor effects;
 - whether the model's control estimate falls between the low and high anchors;
 - Spearman correlation with published human item-level anchoring indices.
+
+After the run, I also audited whether each first-turn comparison agreed with
+the interval produced in the same conversation. This is distinct from the
+original comparative-consistency measure.
 
 ## Results
 
@@ -156,6 +167,39 @@ It reacted on the most items: eight arbitrary and seven plausible pairs. Mean
 anchoring indices were 0.058 and 0.242. It also widened its intervals the most,
 with median deltas of +0.100 and +0.119.
 
+## When the two turns disagree
+
+Human review found cases where the categorical comparison and the subsequent
+interval pointed in opposite directions. For example, a model could say that
+the true answer was “greater” than a high anchor and then provide a p10–p90
+interval entirely below that anchor.
+
+Across the 240 anchored R6 responses:
+
+- 192 comparisons, or 80.0%, agreed with the p50 produced in the same
+  conversation;
+- 29 responses, or 12.1%, placed the entire interval on the opposite side of
+  the anchor from the first-turn answer;
+- hard contradictions occurred in 17 of 60 high-arbitrary and 10 of 60
+  high-analyst-source responses, compared with 2 of 60 low-arbitrary and none
+  of the 60 low-analyst-source responses.
+
+The high-versus-low asymmetry makes this more than a formatting footnote, but
+the current run cannot identify its cause. A model may reverse the comparison's
+referent, treat the forced one-word answer as a weak local output rather than a
+stable commitment, reconsider the question on the second turn, or be influenced
+by having generated the token “greater” or “less.” The data do not distinguish
+among these explanations.
+
+This finding also does not automatically invalidate the anchoring index. The
+index is computed from the second-turn p50 estimates under low and high anchors,
+not from the categorical answers. However, if producing “greater” or “less”
+changes the following estimate, then part of the measured effect could come
+from self-generated language rather than the numeric anchor alone. A causal
+test needs direction-neutral `ready`, forced-`greater`, and forced-`less` sham
+controls, plus less ambiguous comparison labels such as `TRUE_GREATER` and
+`TRUE_LESS`.
+
 ## When a historical benchmark ages
 
 The Berkeley female-professor question produced the clearest mismatch. Its
@@ -186,7 +230,7 @@ age.
 
 ## What the run suggests
 
-Three findings are worth carrying forward.
+Four findings are worth carrying forward.
 
 First, the models anchored much less than the J&K human sample. Human item-level
 AI had a mean of 0.484 and median of 0.43. The model medians were zero, including
@@ -204,6 +248,11 @@ additional uncertainty. Another is that conversation structure—not anchoring
 alone—changed the response. A protocol-matched control is needed to distinguish
 those explanations.
 
+Fourth, the two turns should not be assumed to express one internally stable
+judgment. The same-conversation contradictions are a meaningful protocol
+finding, but they are not, on their own, evidence of task misunderstanding or
+of a particular anchoring mechanism.
+
 ## What the evaluation exposed
 
 The project was useful even where the hypothesis was not supported.
@@ -212,6 +261,9 @@ The project was useful even where the hypothesis was not supported.
   anchoring indices plus counts of nonzero item pairs.
 - **Exact-string scoring was too brittle.** Punctuation normalization fixed the
   comparative-consistency metric.
+- **Human review exposed cross-turn contradictions.** The original aggregate
+  metric did not show when a first-turn answer was opposed by the entire
+  interval generated immediately afterward.
 - **Strict interval validation was valuable.** It caught a substantive quantile
   ordering error from GPT-4o mini.
 - **The repeat parameter was misleading.** The original `seeds` value created
@@ -280,6 +332,9 @@ reserve larger runs for a stronger second iteration.
 - Several J&K quantities and their human-calibrated anchors are time-sensitive.
 - Full-set means are sensitive to cases where both anchors fall on the same
   side of a model's baseline belief.
+- First-turn categorical answers can conflict with same-conversation intervals;
+  the current data cannot determine whether this reflects referent ambiguity,
+  token priming, reconsideration, or another generation effect.
 - Control and treatment differ in conversation length.
 - The power analysis uses the unfiltered, zero-inflated pilot and a normal
   approximation; it should be revised before a confirmatory run.
@@ -296,12 +351,18 @@ The next version should prioritize design improvements over raw scale:
 4. Preselect a stratified 18-item taxon pilot and exclude collapsed anchors.
 5. Preserve provenance as a factor, without assuming its pilot mean will
    replicate.
-6. Analyze first-turn compliance and second-turn movement separately.
+6. Analyze first-turn/control consistency and same-conversation consistency
+   separately.
 7. Decide in advance whether the primary endpoint is plausible anchoring,
    arbitrary anchoring, or their difference.
-8. Run current frontier models only after the revised protocol survives the
+8. Add direction-neutral, forced-`greater`, and forced-`less` sham controls to
+   test whether the model's own token changes its subsequent estimate.
+9. Use unambiguous `TRUE_GREATER` and `TRUE_LESS` labels in a small protocol
+   check before changing the main task.
+10. Run current frontier models only after the revised protocol survives the
    cheaper pilot.
 
 The main lesson is that a useful evaluation does not need a positive headline.
 This run found limited anchoring, no evidence of false confidence, an aging-
-stimulus confound, and several concrete ways to improve the protocol.
+stimulus confound, cross-turn inconsistency, and several concrete ways to
+improve the protocol.
