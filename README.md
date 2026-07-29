@@ -1,18 +1,27 @@
 # LLM anchoring evaluations
 
 This Inspect AI evaluation series asks whether an irrelevant number shifts an
-LLM's estimate and confidence interval. The preserved `r6-jk-v1` release adapts
-the two-step procedure from Jacowitz and Kahneman (1995):
+LLM's estimate and confidence interval. Frozen checkpoints are tagged for
+checkout without browsing branches:
+
+- `r6-jk-v1` — Jacowitz and Kahneman (1995) bridge arm
+- `r7-taxon-v1` — staged taxon pilot (stronger anchors, matched two-turn control)
+
+Both arms use the two-step procedure:
 
 1. Ask whether the answer is greater or less than an anchor.
 2. Ask for the model's own p10, p50, and p90 estimate.
 
-The portfolio-ready scope is the **J&K bridge arm**: 15 published questions,
-each evaluated with an unanchored control and low/high anchors described as
-either arbitrary or plausible. The same numeric anchors were used in the human
-study, enabling an exploratory historical comparison. Several quantities have
-changed since 1995, so the full-set comparison is accompanied by a
-baseline-bracketing sensitivity analysis.
+The portfolio-ready **J&K bridge arm** covers 15 published questions, each
+evaluated with an unanchored control and low/high anchors described as either
+arbitrary or plausible. The same numeric anchors were used in the human study,
+enabling an exploratory historical comparison. Several quantities have changed
+since 1995, so the full-set comparison is accompanied by a baseline-bracketing
+sensitivity analysis.
+
+The completed **taxon pilot** (`r7-taxon-v1`) uses an 18-item bird-taxonomy
+subset with model-specific out-of-interval anchors. See
+[`R7_TAXON_PLAN.md`](R7_TAXON_PLAN.md) and [`WRITEUP.md`](WRITEUP.md).
 
 ## What this demonstrates
 
@@ -28,11 +37,11 @@ two-turn treatment is a known protocol limitation.
 
 The completed four-model findings are summarized in [`RESULTS.md`](RESULTS.md);
 machine-readable summaries are under `results/`.
-Taxon-arm sizing and the recommended staged design are documented in
-[`POWER_ANALYSIS.md`](POWER_ANALYSIS.md).
-For a portfolio-ready narrative covering the motivation, implementation,
-findings, failures, and next iteration, see [`WRITEUP.md`](WRITEUP.md).
-The active R7 follow-up is specified in [`R7_TAXON_PLAN.md`](R7_TAXON_PLAN.md).
+Taxon-arm sizing is documented in [`POWER_ANALYSIS.md`](POWER_ANALYSIS.md).
+For a portfolio-ready narrative covering motivation, implementation, findings,
+failures, and next iteration, see [`WRITEUP.md`](WRITEUP.md).
+To reproduce a frozen run without git archaeology, check out the matching tag
+(`r6-jk-v1` or `r7-taxon-v1`) or download the GitHub Release zip.
 
 ## Setup
 
