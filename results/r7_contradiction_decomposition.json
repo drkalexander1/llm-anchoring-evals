@@ -1,0 +1,176 @@
+{
+  "models": [
+    {
+      "run": {
+        "log": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-07-21T14-57-28-00-00_elicit-anchored_V6cv4eq36JtDsAzYnDMwiR.eval",
+        "model": "anthropic/claude-sonnet-4-5-20250929",
+        "created": "2026-07-21T14:57:28+00:00",
+        "samples": 90
+      },
+      "anchored_comparisons": 72,
+      "p50_consistent": 52,
+      "whole_interval_contradicted": 16,
+      "by_direction": {
+        "high": {
+          "n": 36,
+          "p50_consistent": 18,
+          "whole_interval_contradicted": 15
+        },
+        "low": {
+          "n": 36,
+          "p50_consistent": 34,
+          "whole_interval_contradicted": 1
+        }
+      },
+      "by_provenance": {
+        "arb": {
+          "full_item_n": 18,
+          "full_mean_ai": -0.5300264550264551,
+          "full_median_ai": 0.0,
+          "consistent_pair_n": 6,
+          "consistent_mean_ai": -1.6805555555555556,
+          "consistent_median_ai": -0.16666666666666669,
+          "mean_ai_drop_when_restricted_to_consistent": 1.1505291005291005
+        },
+        "plaus": {
+          "full_item_n": 18,
+          "full_mean_ai": 0.1287157287157287,
+          "full_median_ai": 0.0,
+          "consistent_pair_n": 10,
+          "consistent_mean_ai": 0.21000000000000002,
+          "consistent_median_ai": 0.0,
+          "mean_ai_drop_when_restricted_to_consistent": -0.08128427128427132
+        }
+      }
+    },
+    {
+      "run": {
+        "log": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-07-21T14-57-24-00-00_elicit-anchored_cxH5bFLxg8trosP3nvV2uK.eval",
+        "model": "openai/gpt-4o",
+        "created": "2026-07-21T14:57:24+00:00",
+        "samples": 90
+      },
+      "anchored_comparisons": 72,
+      "p50_consistent": 57,
+      "whole_interval_contradicted": 15,
+      "by_direction": {
+        "high": {
+          "n": 36,
+          "p50_consistent": 25,
+          "whole_interval_contradicted": 11
+        },
+        "low": {
+          "n": 36,
+          "p50_consistent": 32,
+          "whole_interval_contradicted": 4
+        }
+      },
+      "by_provenance": {
+        "arb": {
+          "full_item_n": 18,
+          "full_mean_ai": 0.1439814814814815,
+          "full_median_ai": 0.0,
+          "consistent_pair_n": 11,
+          "consistent_mean_ai": 0.21666666666666667,
+          "consistent_median_ai": 0.0,
+          "mean_ai_drop_when_restricted_to_consistent": -0.07268518518518519
+        },
+        "plaus": {
+          "full_item_n": 18,
+          "full_mean_ai": 0.3657407407407407,
+          "full_median_ai": 0.0875,
+          "consistent_pair_n": 10,
+          "consistent_mean_ai": 0.595,
+          "consistent_median_ai": 0.125,
+          "mean_ai_drop_when_restricted_to_consistent": -0.22925925925925927
+        }
+      }
+    },
+    {
+      "run": {
+        "log": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-07-21T14-57-27-00-00_elicit-anchored_T5hXQr4wEfCWxByeaRwRhd.eval",
+        "model": "anthropic/claude-haiku-4-5-20251001",
+        "created": "2026-07-21T14:57:27+00:00",
+        "samples": 90
+      },
+      "anchored_comparisons": 72,
+      "p50_consistent": 48,
+      "whole_interval_contradicted": 19,
+      "by_direction": {
+        "high": {
+          "n": 36,
+          "p50_consistent": 16,
+          "whole_interval_contradicted": 15
+        },
+        "low": {
+          "n": 36,
+          "p50_consistent": 32,
+          "whole_interval_contradicted": 4
+        }
+      },
+      "by_provenance": {
+        "arb": {
+          "full_item_n": 18,
+          "full_mean_ai": 0.3460648148148148,
+          "full_median_ai": 0.0,
+          "consistent_pair_n": 5,
+          "consistent_mean_ai": 0.22833333333333336,
+          "consistent_median_ai": 0.125,
+          "mean_ai_drop_when_restricted_to_consistent": 0.11773148148148146
+        },
+        "plaus": {
+          "full_item_n": 18,
+          "full_mean_ai": 0.2689484126984127,
+          "full_median_ai": 0.15833333333333333,
+          "consistent_pair_n": 7,
+          "consistent_mean_ai": 0.4517857142857143,
+          "consistent_median_ai": 0.375,
+          "mean_ai_drop_when_restricted_to_consistent": -0.1828373015873016
+        }
+      }
+    },
+    {
+      "run": {
+        "log": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-07-21T14-57-24-00-00_elicit-anchored_dQFmaFtH8DpjEdquqBPUub.eval",
+        "model": "openai/gpt-4o-mini",
+        "created": "2026-07-21T14:57:24+00:00",
+        "samples": 90
+      },
+      "anchored_comparisons": 72,
+      "p50_consistent": 47,
+      "whole_interval_contradicted": 5,
+      "by_direction": {
+        "high": {
+          "n": 36,
+          "p50_consistent": 18,
+          "whole_interval_contradicted": 3
+        },
+        "low": {
+          "n": 36,
+          "p50_consistent": 29,
+          "whole_interval_contradicted": 2
+        }
+      },
+      "by_provenance": {
+        "arb": {
+          "full_item_n": 18,
+          "full_mean_ai": 0.17777777777777776,
+          "full_median_ai": 0.1,
+          "consistent_pair_n": 8,
+          "consistent_mean_ai": 0.1875,
+          "consistent_median_ai": 0.0,
+          "mean_ai_drop_when_restricted_to_consistent": -0.009722222222222243
+        },
+        "plaus": {
+          "full_item_n": 18,
+          "full_mean_ai": 0.5152777777777778,
+          "full_median_ai": 0.5,
+          "consistent_pair_n": 5,
+          "consistent_mean_ai": 0.4,
+          "consistent_median_ai": 0.5,
+          "mean_ai_drop_when_restricted_to_consistent": 0.11527777777777781
+        }
+      }
+    }
+  ]
+}

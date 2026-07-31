@@ -1,0 +1,8 @@
+An analyst estimated that the answer to the following question is about {anchor}.
+
+Question: {question}
+
+Is the true answer greater or less than {anchor}?
+Respond with exactly one token: "TRUE_GREATER" if the true answer is greater
+than {anchor}, or "TRUE_LESS" if the true answer is less than {anchor}.
+Do not answer about whether the analyst's number itself is large or small.

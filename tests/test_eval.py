@@ -8,7 +8,17 @@ from scripts.build_human_audit import CONDITIONS, MODEL_PAIRS, MODELS
 from scripts.import_r3 import build_baselines
 from scripts.power_analysis import _required_n
 from src.anchoring_metrics import anchoring_index, beta_high, beta_low
-from src.anchors import derive_anchors, derive_outside_anchors, interp_quantile
+from src.anchors import (
+    derive_anchors,
+    derive_matched_distance_anchors,
+    derive_outside_anchors,
+    interp_quantile,
+)
+from src.consistency import (
+    classify_same_turn_consistency,
+    parse_comparative_direction,
+)
+from src.inspect_util import load_prompt
 from src.schema import parse_ci_triple
 from src.tasks.elicit_anchored import anchored_dataset
 
@@ -30,6 +40,36 @@ def test_strong_anchors_extend_beyond_stated_interval() -> None:
     assert derive_outside_anchors(220, 240, 260, strength=2) == (200, 280)
     with pytest.raises(ValueError, match="positive finite"):
         derive_outside_anchors(220, 240, 260, strength=0)
+
+
+def test_matched_distance_anchors_are_symmetric_around_p50() -> None:
+    low, high = derive_matched_distance_anchors(200, 240, 300, strength=2)
+    assert high - 240 == pytest.approx(240 - low)
+    # Outside anchors are asymmetric (160 vs 360); matched uses mean distance.
+    assert derive_outside_anchors(200, 240, 300, strength=2) == (160, 360)
+    assert (low, high) == (140, 340)
+
+
+def test_comparative_direction_parser_accepts_true_labels() -> None:
+    assert parse_comparative_direction("TRUE_GREATER") == "greater"
+    assert parse_comparative_direction("true_less") == "less"
+    assert parse_comparative_direction("Greater.") == "greater"
+    assert parse_comparative_direction("nope") is None
+
+
+def test_same_turn_consistency_flags_whole_interval_contradictions() -> None:
+    assert (
+        classify_same_turn_consistency("greater", 100, 10, 20, 30)
+        == "whole_interval_contradicted"
+    )
+    assert (
+        classify_same_turn_consistency("TRUE_LESS", 10, 20, 30, 40)
+        == "whole_interval_contradicted"
+    )
+    assert classify_same_turn_consistency("greater", 10, 20, 30, 40) == "consistent"
+    assert (
+        classify_same_turn_consistency("less", 50, 10, 60, 90) == "p50_inconsistent"
+    )
 
 
 def test_ci_parser_requires_ordered_triple() -> None:
@@ -72,6 +112,67 @@ def test_r7_taxon_subset_uses_matched_control_and_strong_anchors() -> None:
     assert all(sample.metadata["matched_control"] for sample in controls)
     assert all(sample.metadata["estimate_prompt"] for sample in controls)
     assert all(sample.metadata["anchor_method"] == "outside" for sample in anchored)
+
+
+def test_r8_true_labels_and_matched_distance_scaffold() -> None:
+    arm_a = anchored_dataset(
+        "taxon",
+        "taxonomy-r3/claude-haiku-4-5@2026-07-02",
+        1,
+        anchor_method="outside",
+        anchor_strength=2,
+        matched_control=True,
+        subset_path="data/contradiction_subset_r8.yaml",
+        comparative_labels="true_greater_less",
+    )
+    arm_b = anchored_dataset(
+        "taxon",
+        "taxonomy-r3/claude-haiku-4-5@2026-07-02",
+        1,
+        anchor_method="matched_distance",
+        anchor_strength=2,
+        matched_control=True,
+        subset_path="data/contradiction_subset_r8.yaml",
+        comparative_labels="greater_less",
+    )
+
+    assert len(arm_a) == 40
+    assert len(arm_b) == 40
+    assert all(
+        sample.metadata["comparative_labels"] == "true_greater_less" for sample in arm_a
+    )
+    assert all(
+        sample.metadata["anchor_method"] == "matched_distance"
+        for sample in arm_b
+        if sample.metadata["anchor"] is not None
+    )
+
+    high_a = next(s for s in arm_a if s.metadata["condition"] == "high_arb")
+    high_b = next(
+        s
+        for s in arm_b
+        if s.metadata["item_id"] == high_a.metadata["item_id"]
+        and s.metadata["condition"] == "high_arb"
+    )
+    assert "TRUE_GREATER" in str(high_a.input)
+    assert "TRUE_LESS" in str(high_a.input)
+    assert "greater" in str(high_b.input).lower()
+    assert "TRUE_GREATER" not in str(high_b.input)
+
+    true_arb = load_prompt("anchor_compare_arb_true.txt")
+    true_plaus = load_prompt("anchor_compare_plaus_true.txt")
+    assert "TRUE_GREATER" in true_arb and "TRUE_LESS" in true_arb
+    assert "TRUE_GREATER" in true_plaus and "TRUE_LESS" in true_plaus
+
+
+def test_dataset_rejects_unknown_comparative_labels() -> None:
+    with pytest.raises(ValueError, match="comparative_labels"):
+        anchored_dataset(
+            "taxon",
+            "taxonomy-r3/claude-haiku-4-5@2026-07-02",
+            1,
+            comparative_labels="not_a_label",
+        )
 
 
 def test_analysis_summary_computes_effects_and_consistency() -> None:

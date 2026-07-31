@@ -1,0 +1,8 @@
+A random number generator just produced the number {anchor}.
+
+Question: {question}
+
+Is the true answer greater or less than {anchor}?
+Respond with exactly one token: "TRUE_GREATER" if the true answer is greater
+than {anchor}, or "TRUE_LESS" if the true answer is less than {anchor}.
+Do not answer about whether the random number itself is large or small.

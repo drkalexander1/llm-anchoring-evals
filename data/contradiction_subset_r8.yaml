@@ -1,0 +1,28 @@
+name: r8_contradiction_pilot
+selection:
+  source_subset: data\taxon_subset_r7.yaml
+  min_truth: 20.0
+  min_prior_point: 20.0
+  models:
+  - claude-haiku-4-5
+  - gpt-4o-mini
+  eligible_from_r7:
+  - corvus_corvidae_genus
+  - falco_falconidae_genus
+  - family_alcidae
+  - family_anatidae
+  - family_columbidae
+  - family_strigidae
+  - order_accipitriformes
+  - order_columbiformes
+  - order_falconiformes
+  - order_strigiformes
+item_ids:
+- corvus_corvidae_genus
+- falco_falconidae_genus
+- family_alcidae
+- family_anatidae
+- family_columbidae
+- family_strigidae
+- order_accipitriformes
+- order_columbiformes

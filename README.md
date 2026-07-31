@@ -6,6 +6,8 @@ checkout without browsing branches:
 
 - `r6-jk-v1` — Jacowitz and Kahneman (1995) bridge arm
 - `r7-taxon-v1` — staged taxon pilot (stronger anchors, matched two-turn control)
+- `r8-contradiction-v1` — same-turn contradiction follow-up (`TRUE_*` labels,
+  matched-distance anchors)
 
 Both arms use the two-step procedure:
 
@@ -22,6 +24,12 @@ sensitivity analysis.
 The completed **taxon pilot** (`r7-taxon-v1`) uses an 18-item bird-taxonomy
 subset with model-specific out-of-interval anchors. See
 [`R7_TAXON_PLAN.md`](R7_TAXON_PLAN.md) and [`WRITEUP.md`](WRITEUP.md).
+
+The **contradiction follow-up** (`r8-contradiction-v1`) tests whether clearer
+comparative labels collapse same-turn contradictions and whether high-side
+asymmetry survives matched-distance anchors. See
+[`R8_CONTRADICTION_PLAN.md`](R8_CONTRADICTION_PLAN.md) and the Round 8 section
+of [`WRITEUP.md`](WRITEUP.md).
 
 ## What this demonstrates
 
@@ -41,7 +49,8 @@ Taxon-arm sizing is documented in [`POWER_ANALYSIS.md`](POWER_ANALYSIS.md).
 For a portfolio-ready narrative covering motivation, implementation, findings,
 failures, and next iteration, see [`WRITEUP.md`](WRITEUP.md).
 To reproduce a frozen run without git archaeology, check out the matching tag
-(`r6-jk-v1` or `r7-taxon-v1`) or download the GitHub Release zip.
+(`r6-jk-v1`, `r7-taxon-v1`, or `r8-contradiction-v1`) or download the GitHub
+Release zip.
 
 ## Setup
 

@@ -27,10 +27,10 @@ be useful as a protocol bridge while still needing modernized stimuli.
 
 A later human audit exposed another protocol question. In some cases, a model's
 first-turn “greater” or “less” response was contradicted by the interval it gave
-immediately afterward. This is an interesting output-level inconsistency, but it
-does not by itself show that the model misunderstood the task or that the
-inconsistency caused the measured estimate shifts. Those possibilities require
-a separate robustness test.
+immediately afterward. Round 8 tested whether clearer labels collapse that
+pattern. The answer is model-heterogeneous: Sonnet 4.5 and Opus 4.5 went to
+zero contradictions under `TRUE_GREATER` / `TRUE_LESS`, while Haiku 4.5 and
+GPT-4o largely did not.
 
 ## Why this question?
 
@@ -195,10 +195,52 @@ This finding also does not automatically invalidate the anchoring index. The
 index is computed from the second-turn p50 estimates under low and high anchors,
 not from the categorical answers. However, if producing “greater” or “less”
 changes the following estimate, then part of the measured effect could come
-from self-generated language rather than the numeric anchor alone. A causal
-test needs direction-neutral `ready`, forced-`greater`, and forced-`less` sham
-controls, plus less ambiguous comparison labels such as `TRUE_GREATER` and
-`TRUE_LESS`.
+from self-generated language rather than the numeric anchor alone. Round 8
+tested the label-ambiguity piece; sham-token controls remain deferred.
+
+## Round 8: same-turn contradiction follow-up
+
+Round 8 used an 8-item high-count taxon subset and a predeclared decision tree:
+
+1. Contradictions collapse under `TRUE_GREATER` / `TRUE_LESS` → phrasing /
+   subject-reversal artifact → methods critique.
+2. Contradictions persist → genuine same-turn incoherence.
+3. Partial collapse → report how much of the apparent effect was subject-
+   reversal.
+
+**Arm A** kept R7 outside anchors and replaced first-turn labels with
+`TRUE_GREATER` / `TRUE_LESS`. **Arm B** kept ambiguous `greater` / `less` labels
+but placed low/high anchors at equal distance from p50 (`matched_distance`) to
+test whether the high-side contradiction skew was an artifact of uneven
+outside-anchor lengths.
+
+Whole-interval contradiction rates on the same 8 items:
+
+| Model | R7 (ambiguous labels) | Arm A (`TRUE_*`) | Arm B (matched distance) |
+|---|---|---|---|
+| Claude Haiku 4.5 | 12/32 (38%) | 11/32 (34%) | 10/32 (31%) |
+| GPT-4o mini | 4/32 (12%) | 2/32 (6%) | 3/32 (9%) |
+| Claude Sonnet 4.5 | 12/32 (38%) | **0/32 (0%)** | 12/32 (38%) |
+| GPT-4o | 12/32 (38%) | 10/32 (31%) | 13/32 (41%) |
+| Claude Sonnet 5 | — | 5/30 (17%) | — |
+| Claude Opus 4.5 | — | **0/32 (0%)** | — |
+
+Sonnet 5 had a 95% parse rate on Arm A; the denominator is parsed anchored
+comparisons.
+
+**What this means.** The outcome is not one fork for all models. Sonnet 4.5 and
+Opus 4.5 match outcome 1: under clearer labels, same-turn contradictions
+disappear, so their R7 contradictions look like a comparative-phrasing artifact.
+Haiku 4.5 and GPT-4o match outcome 2 more closely: clearer labels barely moved
+the rate. Sonnet 5 is partial (17%, still high-side only).
+
+Arm B did not remove the high-versus-low asymmetry when labels stayed
+ambiguous. For Haiku, Sonnet 4.5, and GPT-4o, high anchors still produced most
+of the contradictions after equalizing distance from p50. That asymmetry looks
+positional, not an artifact of uneven outside-anchor lengths.
+
+Machine-readable summaries are in `results/r8_*.json`. The frozen plan is
+[`R8_CONTRADICTION_PLAN.md`](R8_CONTRADICTION_PLAN.md).
 
 ## When a historical benchmark ages
 
@@ -342,27 +384,23 @@ reserve larger runs for a stronger second iteration.
 
 ## Next iteration
 
-The next version should prioritize design improvements over raw scale:
+Rounds 7 and 8 already covered the matched two-turn control, stronger anchors,
+stratified taxon pilot, clearer comparative labels, and matched-distance
+asymmetry check. Remaining design priorities:
 
-1. Add a two-turn no-anchor control.
-2. Separate timeless J&K items from time-sensitive historical stimuli.
-3. Make anchor intensity explicit and ensure low/high anchors bracket each
-   model's baseline.
-4. Preselect a stratified 18-item taxon pilot and exclude collapsed anchors.
-5. Preserve provenance as a factor, without assuming its pilot mean will
-   replicate.
-6. Analyze first-turn/control consistency and same-conversation consistency
-   separately.
-7. Decide in advance whether the primary endpoint is plausible anchoring,
+1. Separate timeless J&K items from time-sensitive historical stimuli.
+2. Decide in advance whether the primary endpoint is plausible anchoring,
    arbitrary anchoring, or their difference.
-8. Add direction-neutral, forced-`greater`, and forced-`less` sham controls to
+3. Add direction-neutral, forced-`greater`, and forced-`less` sham controls to
    test whether the model's own token changes its subsequent estimate.
-9. Use unambiguous `TRUE_GREATER` and `TRUE_LESS` labels in a small protocol
-   check before changing the main task.
-10. Run current frontier models only after the revised protocol survives the
-   cheaper pilot.
+4. Prefer `TRUE_GREATER` / `TRUE_LESS` for any future comparative-step arm where
+   same-turn consistency matters, especially for models that collapsed under
+   Round 8 Arm A.
+5. Treat contradiction rates as model-specific rather than pooling a single
+   protocol diagnosis across providers.
 
 The main lesson is that a useful evaluation does not need a positive headline.
-This run found limited anchoring, no evidence of false confidence, an aging-
-stimulus confound, cross-turn inconsistency, and several concrete ways to
-improve the protocol.
+This series found limited anchoring, no evidence of false confidence, an aging-
+stimulus confound, cross-turn inconsistency that is partly a methods artifact
+and partly model-heterogeneous, and several concrete ways to improve the
+protocol.

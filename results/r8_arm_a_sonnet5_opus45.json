@@ -1,0 +1,90 @@
+{
+  "models": [
+    {
+      "run": {
+        "log": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-07-31T04-11-24-00-00_elicit-anchored_2RtScUoSKazYhJfDGkDt5M.eval",
+        "model": "anthropic/claude-opus-4-5-20251101",
+        "created": "2026-07-31T04:11:24+00:00",
+        "samples": 40
+      },
+      "anchored_comparisons": 32,
+      "p50_consistent": 32,
+      "whole_interval_contradicted": 0,
+      "by_direction": {
+        "high": {
+          "n": 16,
+          "p50_consistent": 16,
+          "whole_interval_contradicted": 0
+        },
+        "low": {
+          "n": 16,
+          "p50_consistent": 16,
+          "whole_interval_contradicted": 0
+        }
+      },
+      "by_provenance": {
+        "arb": {
+          "full_item_n": 8,
+          "full_mean_ai": -0.04023832070707071,
+          "full_median_ai": -0.02727272727272727,
+          "consistent_pair_n": 8,
+          "consistent_mean_ai": -0.04023832070707071,
+          "consistent_median_ai": -0.02727272727272727,
+          "mean_ai_drop_when_restricted_to_consistent": 0.0
+        },
+        "plaus": {
+          "full_item_n": 8,
+          "full_mean_ai": -0.01667906746031746,
+          "full_median_ai": 0.0,
+          "consistent_pair_n": 8,
+          "consistent_mean_ai": -0.01667906746031746,
+          "consistent_median_ai": 0.0,
+          "mean_ai_drop_when_restricted_to_consistent": 0.0
+        }
+      }
+    },
+    {
+      "run": {
+        "log": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-07-31T04-10-53-00-00_elicit-anchored_XJgdSQimmGU5jKhcExFCiy.eval",
+        "model": "anthropic/claude-sonnet-5",
+        "created": "2026-07-31T04:10:53+00:00",
+        "samples": 40
+      },
+      "anchored_comparisons": 30,
+      "p50_consistent": 23,
+      "whole_interval_contradicted": 5,
+      "by_direction": {
+        "high": {
+          "n": 14,
+          "p50_consistent": 7,
+          "whole_interval_contradicted": 5
+        },
+        "low": {
+          "n": 16,
+          "p50_consistent": 16,
+          "whole_interval_contradicted": 0
+        }
+      },
+      "by_provenance": {
+        "arb": {
+          "full_item_n": 7,
+          "full_mean_ai": -0.046798029556650245,
+          "full_median_ai": 0.0,
+          "consistent_pair_n": 2,
+          "consistent_mean_ai": -0.16379310344827586,
+          "consistent_median_ai": -0.16379310344827586,
+          "mean_ai_drop_when_restricted_to_consistent": 0.11699507389162561
+        },
+        "plaus": {
+          "full_item_n": 7,
+          "full_mean_ai": 0.022026741731175227,
+          "full_median_ai": 0.0,
+          "consistent_pair_n": 5,
+          "consistent_mean_ai": 0.01083743842364532,
+          "consistent_median_ai": 0.0,
+          "mean_ai_drop_when_restricted_to_consistent": 0.011189303307529907
+        }
+      }
+    }
+  ]
+}

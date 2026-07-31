@@ -135,6 +135,47 @@ def derive_outside_anchors(
     return low, high
 
 
+def derive_matched_distance_anchors(
+    lower: float,
+    point: float,
+    upper: float,
+    scale: AnswerScale = "linear",
+    strength: float = 2.0,
+    round_values: bool = True,
+) -> tuple[float, float]:
+    """Place low/high anchors at equal distance from p50.
+
+    Distance is the mean of the two outside-anchor distances from
+    ``derive_outside_anchors``. This preserves the R7 intensity while removing
+    asymmetric side lengths, so high-vs-low contradiction rates can be compared
+    as a positional effect.
+    """
+    low_out, high_out = derive_outside_anchors(
+        lower,
+        point,
+        upper,
+        scale=scale,
+        strength=strength,
+        round_values=False,
+    )
+    if scale == "log":
+        if min(low_out, point, high_out) <= 0:
+            raise ValueError("log-scale anchors require positive bounds")
+        mid = math.log10(point)
+        d = 0.5 * (
+            (mid - math.log10(low_out)) + (math.log10(high_out) - mid)
+        )
+        low = 10.0 ** (mid - d)
+        high = 10.0 ** (mid + d)
+    else:
+        d = 0.5 * ((point - low_out) + (high_out - point))
+        low = point - d
+        high = point + d
+    if round_values:
+        low, high = _round_anchor(low, scale), _round_anchor(high, scale)
+    return low, high
+
+
 def percentile_anchor(
     quantile_fn: Callable[[float], float],
     low_q: float = 0.15,

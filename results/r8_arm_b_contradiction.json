@@ -1,0 +1,90 @@
+{
+  "models": [
+    {
+      "run": {
+        "log": "logs/2026-07-29T04-38-10-00-00_elicit-anchored_jLvvpFZqFDGBxLNPV6Uqn5.eval",
+        "model": "anthropic/claude-haiku-4-5-20251001",
+        "created": "2026-07-29T04:38:10+00:00",
+        "samples": 40
+      },
+      "anchored_comparisons": 32,
+      "p50_consistent": 18,
+      "whole_interval_contradicted": 10,
+      "by_direction": {
+        "high": {
+          "n": 16,
+          "p50_consistent": 3,
+          "whole_interval_contradicted": 9
+        },
+        "low": {
+          "n": 16,
+          "p50_consistent": 15,
+          "whole_interval_contradicted": 1
+        }
+      },
+      "by_provenance": {
+        "arb": {
+          "full_item_n": 8,
+          "full_mean_ai": 0.18177083333333335,
+          "full_median_ai": 0.0,
+          "consistent_pair_n": 1,
+          "consistent_mean_ai": 1.35,
+          "consistent_median_ai": 1.35,
+          "mean_ai_drop_when_restricted_to_consistent": -1.1682291666666667
+        },
+        "plaus": {
+          "full_item_n": 8,
+          "full_mean_ai": 0.30186011904761906,
+          "full_median_ai": 0.15833333333333333,
+          "consistent_pair_n": 1,
+          "consistent_mean_ai": 1.35,
+          "consistent_median_ai": 1.35,
+          "mean_ai_drop_when_restricted_to_consistent": -1.048139880952381
+        }
+      }
+    },
+    {
+      "run": {
+        "log": "logs/2026-07-29T04-38-37-00-00_elicit-anchored_77QmhPnnuzUB5J7asUhgjS.eval",
+        "model": "openai/gpt-4o-mini",
+        "created": "2026-07-29T04:38:37+00:00",
+        "samples": 40
+      },
+      "anchored_comparisons": 32,
+      "p50_consistent": 19,
+      "whole_interval_contradicted": 3,
+      "by_direction": {
+        "high": {
+          "n": 16,
+          "p50_consistent": 9,
+          "whole_interval_contradicted": 1
+        },
+        "low": {
+          "n": 16,
+          "p50_consistent": 10,
+          "whole_interval_contradicted": 2
+        }
+      },
+      "by_provenance": {
+        "arb": {
+          "full_item_n": 8,
+          "full_mean_ai": 0.35,
+          "full_median_ai": 0.2,
+          "consistent_pair_n": 2,
+          "consistent_mean_ai": 0.75,
+          "consistent_median_ai": 0.75,
+          "mean_ai_drop_when_restricted_to_consistent": -0.4
+        },
+        "plaus": {
+          "full_item_n": 8,
+          "full_mean_ai": 0.565625,
+          "full_median_ai": 0.5,
+          "consistent_pair_n": 2,
+          "consistent_mean_ai": 0.375,
+          "consistent_median_ai": 0.375,
+          "mean_ai_drop_when_restricted_to_consistent": 0.19062500000000004
+        }
+      }
+    }
+  ]
+}

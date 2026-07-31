@@ -31,12 +31,17 @@ from inspect_ai.scorer import Score, Scorer, Target, mean, scorer, stderr
 from inspect_ai.solver import Generate, TaskState, generate, solver
 
 from src import DATA_DIR, DEFAULT_PRIOR_B_PATH, ROOT
-from src.anchors import derive_anchors, derive_outside_anchors
+from src.anchors import (
+    derive_anchors,
+    derive_matched_distance_anchors,
+    derive_outside_anchors,
+)
 from src.inspect_util import load_prompt
 from src.schema import canonical_model_id, load_items, parse_ci_triple, relative_width
 
 PROVENANCES = ("arb", "plaus")
 DIRECTIONS = ("low", "high")
+COMPARATIVE_LABELS = ("greater_less", "true_greater_less")
 
 
 # --------------------------------------------------------------------------- #
@@ -69,13 +74,22 @@ def _taxon_anchors(
                 scale,
                 strength=anchor_strength,
             )
+        elif anchor_method == "matched_distance":
+            low, high = derive_matched_distance_anchors(
+                float(row.lower),
+                float(row.point),
+                float(row.upper),
+                scale,
+                strength=anchor_strength,
+            )
         elif anchor_method == "quantile":
             low, high = derive_anchors(
                 float(row.lower), float(row.point), float(row.upper), scale
             )
         else:
             raise ValueError(
-                f"anchor_method must be 'outside' or 'quantile', got {anchor_method!r}"
+                "anchor_method must be 'outside', 'matched_distance', or "
+                f"'quantile', got {anchor_method!r}"
             )
         out[str(row.item_id)] = (low, high, scale)
     if not out:
@@ -109,6 +123,17 @@ def _anchor_str(value: float) -> str:
     return str(int(value)) if float(value).is_integer() else str(value)
 
 
+def _compare_prompt_name(provenance: str, comparative_labels: str) -> str:
+    if comparative_labels == "true_greater_less":
+        return f"anchor_compare_{provenance}_true.txt"
+    if comparative_labels == "greater_less":
+        return f"anchor_compare_{provenance}.txt"
+    raise ValueError(
+        "comparative_labels must be 'greater_less' or 'true_greater_less', "
+        f"got {comparative_labels!r}"
+    )
+
+
 def _sample(
     *,
     item_id: str,
@@ -120,6 +145,7 @@ def _sample(
     provenance: str | None,
     direction: str | None,
     matched_control: bool = False,
+    comparative_labels: str = "greater_less",
     extra: dict | None = None,
 ) -> Sample:
     base_meta = {
@@ -131,6 +157,7 @@ def _sample(
         "provenance": provenance,
         "direction": direction,
         "matched_control": matched_control,
+        "comparative_labels": comparative_labels,
         **(extra or {}),
     }
     if condition == "control":
@@ -155,7 +182,7 @@ def _sample(
             },
         )
     # anchored: Turn 1 = comparative; Turn 2 prompt carried in metadata
-    compare_tmpl = load_prompt(f"anchor_compare_{provenance}.txt")
+    compare_tmpl = load_prompt(_compare_prompt_name(provenance, comparative_labels))
     return Sample(
         input=compare_tmpl.format(question=question, anchor=_anchor_str(anchor)),
         id=f"{item_id}::{condition}::s{seed}",
@@ -172,9 +199,15 @@ def anchored_dataset(
     anchor_strength: float = 2.0,
     matched_control: bool = False,
     subset_path: str | None = None,
+    comparative_labels: str = "greater_less",
 ) -> MemoryDataset:
     if seeds < 1:
         raise ValueError(f"seeds must be at least 1, got {seeds}")
+    if comparative_labels not in COMPARATIVE_LABELS:
+        raise ValueError(
+            "comparative_labels must be 'greater_less' or 'true_greater_less', "
+            f"got {comparative_labels!r}"
+        )
 
     samples: list[Sample] = []
 
@@ -198,16 +231,19 @@ def anchored_dataset(
         for seed in range(seeds):
             for item_id, item in items.items():
                 low, high, scale = anchors[item_id]
+                shared = {
+                    "baseline_model": canonical_model_id(baseline_model),
+                    "anchor_method": anchor_method,
+                    "anchor_strength": anchor_strength,
+                    "subset_path": subset_path,
+                    "comparative_labels": comparative_labels,
+                }
                 samples.append(_sample(item_id=item_id, question=item.question,
                                        condition="control", scale=scale, seed=seed,
                                        anchor=None, provenance=None, direction=None,
                                        matched_control=matched_control,
-                                       extra={
-                                           "baseline_model": canonical_model_id(baseline_model),
-                                           "anchor_method": anchor_method,
-                                           "anchor_strength": anchor_strength,
-                                           "subset_path": subset_path,
-                                       }))
+                                       comparative_labels=comparative_labels,
+                                       extra=shared))
                 for prov in PROVENANCES:
                     for dirn, aval in (("low", low), ("high", high)):
                         samples.append(_sample(
@@ -215,12 +251,8 @@ def anchored_dataset(
                             condition=f"{dirn}_{prov}", scale=scale, seed=seed,
                             anchor=aval, provenance=prov, direction=dirn,
                             matched_control=matched_control,
-                            extra={
-                                "baseline_model": canonical_model_id(baseline_model),
-                                "anchor_method": anchor_method,
-                                "anchor_strength": anchor_strength,
-                                "subset_path": subset_path,
-                            },
+                            comparative_labels=comparative_labels,
+                            extra=shared,
                         ))
 
     elif item_set == "jk":
@@ -230,6 +262,7 @@ def anchored_dataset(
                 samples.append(_sample(item_id=row["id"], question=row["question"],
                                        condition="control", scale=scale, seed=seed,
                                        anchor=None, provenance=None, direction=None,
+                                       comparative_labels=comparative_labels,
                                        extra={"human_ai": row.get("human_ai")}))
                 for prov in PROVENANCES:
                     for dirn in DIRECTIONS:
@@ -237,6 +270,7 @@ def anchored_dataset(
                             item_id=row["id"], question=row["question"],
                             condition=f"{dirn}_{prov}", scale=scale, seed=seed,
                             anchor=float(row[f"{dirn}_anchor"]), provenance=prov, direction=dirn,
+                            comparative_labels=comparative_labels,
                             extra={"human_ai": row.get("human_ai"),
                                    "calibration_median": row.get("calibration_median")},
                         ))
@@ -293,6 +327,7 @@ def anchored_ci_scorer() -> Scorer:
             "anchor_method": m.get("anchor_method"),
             "anchor_strength": m.get("anchor_strength"),
             "subset_path": m.get("subset_path"),
+            "comparative_labels": m.get("comparative_labels", "greater_less"),
         }
         if triple is None:
             return Score(value=0.0, answer=state.output.completion,
@@ -320,13 +355,25 @@ def elicit_anchored(
     anchor_strength: float = 2.0,
     matched_control: bool = False,
     subset_path: str | None = None,
+    comparative_labels: str = "greater_less",
 ) -> Task:
     """Build the anchoring task.
 
     ``seeds`` is retained as a pairing/repeat label for compatibility with the
     surrounding eval suite. It does not seed provider-side generation. Keep it
     at 1 for the deterministic portfolio run.
+
+    ``comparative_labels`` selects the first-turn response contract:
+    ``greater_less`` (R6/R7) or ``true_greater_less`` (R8 Arm A).
     """
+    eval_name = "anchoring-r6"
+    if item_set == "taxon":
+        eval_name = (
+            "anchoring-r8"
+            if comparative_labels == "true_greater_less"
+            or anchor_method == "matched_distance"
+            else "anchoring-r7"
+        )
     return Task(
         dataset=anchored_dataset(
             item_set,
@@ -336,16 +383,18 @@ def elicit_anchored(
             anchor_strength=anchor_strength,
             matched_control=matched_control,
             subset_path=subset_path,
+            comparative_labels=comparative_labels,
         ),
         solver=anchored_two_turn(),
         scorer=anchored_ci_scorer(),
         config=GenerateConfig(temperature=temperature),
         metadata={
-            "eval": "anchoring-r7" if item_set == "taxon" else "anchoring-r6",
+            "eval": eval_name,
             "item_set": item_set,
             "anchor_method": anchor_method if item_set == "taxon" else None,
             "anchor_strength": anchor_strength if item_set == "taxon" else None,
             "matched_control": matched_control,
             "subset_path": subset_path,
+            "comparative_labels": comparative_labels,
         },
     )
