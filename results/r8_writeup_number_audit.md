@@ -9,10 +9,10 @@ Percentages in the write-up are rounded (e.g. 12/32 = 37.5% → 38%).
 
 | Model | Source | Count | Write-up |
 |---|---|---|---|
-| Haiku 4.5 | R7 90-sample log → 8-item filter | 12/32 | 12/32 (38%) |
-| GPT-4o mini | R7 90-sample log → 8-item filter | 4/32 | 4/32 (12%) |
-| Sonnet 4.5 | R7 90-sample log → 8-item filter | 12/32 | 12/32 (38%) |
-| GPT-4o | R7 90-sample log → 8-item filter | 12/32 | 12/32 (38%) |
+| Haiku 4.5 | Round 7 taxon pilot → 8-item filter | 12/32 | 12/32 (38%) |
+| GPT-4o mini | Round 7 taxon pilot → 8-item filter | 4/32 | 4/32 (12%) |
+| Sonnet 4.5 | Round 7 taxon pilot → 8-item filter | 12/32 | 12/32 (38%) |
+| GPT-4o | Round 7 taxon pilot → 8-item filter | 12/32 | 12/32 (38%) |
 | Sonnet 5 | R8 rerun `greater_less` + outside | 7/32 | 7/32 (22%) |
 | Opus 4.5 | R8 rerun `greater_less` + outside | 1/32 | 1/32 (3%) |
 

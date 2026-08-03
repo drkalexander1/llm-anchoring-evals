@@ -168,7 +168,8 @@ interval pointed in opposite directions. For example, a model could say that
 the true answer was “greater” than a high anchor and then provide a p10–p90
 interval entirely below that anchor.
 
-Across the 240 anchored R6 responses:
+Across the 240 anchored Round 6 (J&K bridge) responses—a different arm from
+the Round 7 taxon pilot used later in Round 8:
 
 - 192 comparisons, or 80.0%, agreed with the p50 produced in the same
   conversation;
@@ -204,11 +205,17 @@ Round 8 used an 8-item high-count taxon subset and a predeclared decision tree:
 3. Partial collapse → report how much of the apparent effect was subject-
    reversal.
 
-**Arm A** kept R7 outside anchors and replaced first-turn labels with
+**Arm A** kept Round 7 outside anchors and replaced first-turn labels with
 `TRUE_GREATER` / `TRUE_LESS`. **Arm B** kept ambiguous `greater` / `less` labels
 but placed low/high anchors at equal distance from p50 (`matched_distance`) to
 test whether the high-side contradiction skew was an artifact of uneven
 outside-anchor lengths.
+
+The frozen plan locked the first paid Arm A/B runs to Haiku 4.5 and GPT-4o mini
+and deferred expansion until the fork was classified. After that locked pair
+showed persistence rather than collapse, the same arms were extended to Sonnet
+4.5 and GPT-4o, then ambiguous-label baselines and Arm A to Sonnet 5 and Opus
+4.5.
 
 Whole-interval contradiction rates on the same 8 items:
 
@@ -223,8 +230,9 @@ Whole-interval contradiction rates on the same 8 items:
 
 Rates are whole-interval contradictions on the same 8-item subset. For Haiku,
 Sonnet 4.5, GPT-4o, and GPT-4o mini, the ambiguous-label column is the Round 7
-90-sample logs filtered to those 8 items. For Sonnet 5 and Opus 4.5, it is a
-matched Round 8 rerun with `greater` / `less`, outside anchors, and the matched
+taxon-pilot logs (90 samples per model) filtered to those 8 items—not the
+Round 6 J&K bridge audit above. For Sonnet 5 and Opus 4.5, it is a matched
+Round 8 rerun with `greater` / `less`, outside anchors, and the matched
 two-turn control. Sonnet 5 Arm A had a 95% parse rate; that denominator is
 parsed anchored comparisons (30 rather than 32). Percentages are rounded.
 
@@ -374,19 +382,24 @@ reserve larger runs for a stronger second iteration.
 ## Limitations
 
 - There are only 15 J&K items and one response per condition.
-- The four models are not release-matched, so this is not a clean provider
-  comparison.
+- The series now spans six models that are not release-matched, so this is not
+  a clean provider comparison.
+- Round 8's headline contradiction rates rest on an 8-item high-count subset
+  with one response per cell (typically 32 anchored comparisons per
+  model-arm; 30 for Sonnet 5 Arm A after parse failures). That is exploratory,
+  not a powered consistency study.
 - Temperature 0 reduces sampling variation but does not guarantee identical
-  outputs across providers.
+  outputs across providers; some newer Claude models omit temperature.
 - Human anchoring indices are group statistics; model values come from one
   response per condition.
 - Several J&K quantities and their human-calibrated anchors are time-sensitive.
 - Full-set means are sensitive to cases where both anchors fall on the same
   side of a model's baseline belief.
-- First-turn categorical answers can conflict with same-conversation intervals;
-  the current data cannot determine whether this reflects referent ambiguity,
-  token priming, reconsideration, or another generation effect.
-- Control and treatment differ in conversation length.
+- First-turn categorical answers can conflict with same-conversation intervals.
+  Round 8 addresses label ambiguity for some models but cannot yet separate
+  token priming from reconsideration without sham-token controls.
+- Control and treatment differed in conversation length until the Round 7
+  matched two-turn control; earlier Round 6 J&K estimates retain that gap.
 - The power analysis uses the unfiltered, zero-inflated pilot and a normal
   approximation; it should be revised before a confirmatory run.
 - Results generalize only to the tested prompts, models, and snapshots.
