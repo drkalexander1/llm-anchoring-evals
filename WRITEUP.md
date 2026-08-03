@@ -6,8 +6,9 @@ The finding from this series is a same-turn contradiction fork. In the two-step
 anchoring protocol, models sometimes say “greater” or “less” on turn one and
 then emit an interval on the opposite side of the anchor. Round 8 tested whether
 clearer `TRUE_GREATER` / `TRUE_LESS` labels collapse that pattern. They do for
-some models and not others: Sonnet 4.5 and Opus 4.5 went to zero contradictions,
-while Haiku 4.5 and GPT-4o largely did not. Sonnet 5 was partial. High-side
+some models and not others: Sonnet 4.5 fell from 12/32 to 0/32, Haiku 4.5 and
+GPT-4o barely moved, and Sonnet 5 was partial (7/32 → 5/30). Opus 4.5 was already
+near zero under ambiguous labels on this subset (1/32 → 0/32). High-side
 asymmetry survived equalizing low/high anchor distance when labels stayed
 ambiguous.
 
@@ -211,30 +212,38 @@ outside-anchor lengths.
 
 Whole-interval contradiction rates on the same 8 items:
 
-| Model | R7 (ambiguous labels) | Arm A (`TRUE_*`) | Arm B (matched distance) |
+| Model | Ambiguous labels | Arm A (`TRUE_*`) | Arm B (matched distance) |
 |---|---|---|---|
 | Claude Haiku 4.5 | 12/32 (38%) | 11/32 (34%) | 10/32 (31%) |
 | GPT-4o mini | 4/32 (12%) | 2/32 (6%) | 3/32 (9%) |
 | Claude Sonnet 4.5 | 12/32 (38%) | **0/32 (0%)** | 12/32 (38%) |
 | GPT-4o | 12/32 (38%) | 10/32 (31%) | 13/32 (41%) |
-| Claude Sonnet 5 | — | 5/30 (17%) | — |
-| Claude Opus 4.5 | — | **0/32 (0%)** | — |
+| Claude Sonnet 5 | 7/32 (22%) | 5/30 (17%) | — |
+| Claude Opus 4.5 | 1/32 (3%) | **0/32 (0%)** | — |
 
-Sonnet 5 had a 95% parse rate on Arm A; the denominator is parsed anchored
-comparisons.
+Rates are whole-interval contradictions on the same 8-item subset. For Haiku,
+Sonnet 4.5, GPT-4o, and GPT-4o mini, the ambiguous-label column is the Round 7
+90-sample logs filtered to those 8 items. For Sonnet 5 and Opus 4.5, it is a
+matched Round 8 rerun with `greater` / `less`, outside anchors, and the matched
+two-turn control. Sonnet 5 Arm A had a 95% parse rate; that denominator is
+parsed anchored comparisons (30 rather than 32). Percentages are rounded.
 
-**What this means.** The outcome is not one fork for all models. Sonnet 4.5 and
-Opus 4.5 match outcome 1: under clearer labels, same-turn contradictions
-disappear, so their R7 contradictions look like a comparative-phrasing artifact.
-Haiku 4.5 and GPT-4o match outcome 2 more closely: clearer labels barely moved
-the rate. Sonnet 5 is partial (17%, still high-side only).
+**What this means.** The outcome is not one fork for all models. Sonnet 4.5 is
+the clean outcome-1 case: 12/32 under ambiguous labels to **0/32** under
+`TRUE_*`, so its Round 7 contradictions look like a comparative-phrasing
+artifact. Haiku 4.5 and GPT-4o match outcome 2 more closely: clearer labels
+barely moved the rate. Sonnet 5 is partial (7/32 → 5/30), still high-side only.
+Opus 4.5 was already nearly contradiction-free under ambiguous labels on this
+subset (1/32) and stayed at 0/32 under `TRUE_*`—so Arm A does not show a Sonnet
+4.5-style collapse for Opus; there was almost nothing to collapse.
 
 Arm B did not remove the high-versus-low asymmetry when labels stayed
 ambiguous. For Haiku, Sonnet 4.5, and GPT-4o, high anchors still produced most
 of the contradictions after equalizing distance from p50. That asymmetry looks
 positional, not an artifact of uneven outside-anchor lengths.
 
-Machine-readable summaries are in `results/r8_*.json`. The frozen plan is
+Machine-readable summaries are in `results/r8_*.json` (including
+`results/r8_r7style_sonnet5_opus45.json`). The frozen plan is
 [`R8_CONTRADICTION_PLAN.md`](R8_CONTRADICTION_PLAN.md).
 
 ## When a historical benchmark ages
