@@ -23,7 +23,8 @@ Freeze this before looking at Arm A results:
    - Headline: what fraction of the R7 anchoring effect was subject-reversal?
    - Report full-set AI vs consistent-pair-only AI from R7 and Arm A
 
-Sham-token controls (`ready` / forced `greater` / forced `less`) are deferred.
+Sham-token controls (`ready` / forced `greater` / forced `less`) are next:
+they separate token priming from reconsideration after Round 8's label test.
 
 ## Arms
 

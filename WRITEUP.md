@@ -2,35 +2,28 @@
 
 ## Summary
 
-I built a small behavioral evaluation to test whether irrelevant numerical
-anchors change an LLM's estimate or its stated uncertainty. The evaluation
-adapts the two-step anchoring procedure used by Jacowitz and Kahneman (1995):
-first ask whether the true answer is greater or less than an anchor, then ask
-for the model's own p10, p50, and p90 estimate.
+The finding from this series is a same-turn contradiction fork. In the two-step
+anchoring protocol, models sometimes say “greater” or “less” on turn one and
+then emit an interval on the opposite side of the anchor. Round 8 tested whether
+clearer `TRUE_GREATER` / `TRUE_LESS` labels collapse that pattern. They do for
+some models and not others: Sonnet 4.5 and Opus 4.5 went to zero contradictions,
+while Haiku 4.5 and GPT-4o largely did not. Sonnet 5 was partial. High-side
+asymmetry survived equalizing low/high anchor distance when labels stayed
+ambiguous.
 
-I ran the evaluation with Claude Sonnet 4.5, Claude Haiku 4.5, GPT-4o, and
-GPT-4o mini using Inspect AI. Each model received the same 15 published
-questions under five conditions: an unanchored control plus low and high
-anchors described as either random numbers or analyst estimates.
-
-The main result was not broad anchoring. The median anchoring index was zero in
-every model and provenance condition, meaning that at least half of the items
-produced identical estimates under low and high anchors. Raw means were higher
-when the number was attributed to an analyst, but that pattern was driven by a
-small number of items and did not survive a baseline-bracketing sensitivity
-check.
-
-The run also challenged the original hypothesis that anchors would create false
-confidence. Intervals generally widened slightly after anchoring instead of
-narrowing. More broadly, it showed that a 30-year-old behavioral benchmark can
-be useful as a protocol bridge while still needing modernized stimuli.
-
-A later human audit exposed another protocol question. In some cases, a model's
-first-turn “greater” or “less” response was contradicted by the interval it gave
-immediately afterward. Round 8 tested whether clearer labels collapse that
-pattern. The answer is model-heterogeneous: Sonnet 4.5 and Opus 4.5 went to
-zero contradictions under `TRUE_GREATER` / `TRUE_LESS`, while Haiku 4.5 and
-GPT-4o largely did not.
+The abstract for the earlier arms is simpler: irrelevant anchors mostly did not
+move these LLMs the way they move people. I adapted Jacowitz and Kahneman
+(1995) in Inspect AI across Claude Sonnet 4.5, Claude Haiku 4.5, GPT-4o, and
+GPT-4o mini on 15 published questions with unanchored controls and low/high
+anchors framed as random numbers or analyst estimates. Relative to the J&K
+human item-level mean of 0.484, model anchoring was much smaller. Separately,
+within each model the median anchoring index was zero—so at least half the
+items did not move—which is why nonzero means are fragile and why an apparent
+analyst-source advantage did not survive baseline-bracketing. Intervals also
+widened slightly rather than narrowing, against the false-confidence
+hypothesis. A 30-year-old behavioral benchmark remains useful as a protocol
+bridge, but it needs modernized stimuli and, after Round 8, model-specific
+consistency checks.
 
 ## Why this question?
 
@@ -196,7 +189,9 @@ index is computed from the second-turn p50 estimates under low and high anchors,
 not from the categorical answers. However, if producing “greater” or “less”
 changes the following estimate, then part of the measured effect could come
 from self-generated language rather than the numeric anchor alone. Round 8
-tested the label-ambiguity piece; sham-token controls remain deferred.
+tested the label-ambiguity piece. The next step is sham-token controls
+(direction-neutral `ready`, forced-`greater`, and forced-`less`) to separate
+token priming from reconsideration.
 
 ## Round 8: same-turn contradiction follow-up
 
@@ -272,28 +267,33 @@ age.
 
 ## What the run suggests
 
-Four findings are worth carrying forward.
+Five findings are worth carrying forward.
 
-First, the models anchored much less than the J&K human sample. Human item-level
-AI had a mean of 0.484 and median of 0.43. The model medians were zero, including
-after pooling across models. Plausible framing affected a minority of cases,
-but the full-set mean overstated how typical that effect was.
+First, as a human comparison: the models anchored much less than the J&K sample.
+Human item-level AI had a mean of 0.484 and median of 0.43; pooled and
+per-model model effects were far smaller.
 
-Second, the models did not reproduce the human item-level pattern. Human–AI rank
+Second, as a within-model distributional fact: the median anchoring index was
+zero in every model and provenance condition, so at least half the items did
+not move. That zero inflation is what makes full-set means fragile. Plausible
+framing affected a minority of cases, and the apparent provenance advantage did
+not survive baseline-bracketing.
+
+Third, the models did not reproduce the human item-level pattern. Human–AI rank
 correlations were weak or negative except for a small positive correlation in
 Sonnet's plausible condition. With 15 items and one response per condition,
 these correlations are exploratory.
 
-Third, anchoring did not create false precision in this run. Intervals stayed
+Fourth, anchoring did not create false precision in this run. Intervals stayed
 similar or widened. One interpretation is that the extra context introduced
 additional uncertainty. Another is that conversation structure—not anchoring
-alone—changed the response. A protocol-matched control is needed to distinguish
-those explanations.
+alone—changed the response. Round 7's matched two-turn control addresses part
+of that protocol gap.
 
-Fourth, the two turns should not be assumed to express one internally stable
-judgment. The same-conversation contradictions are a meaningful protocol
-finding, but they are not, on their own, evidence of task misunderstanding or
-of a particular anchoring mechanism.
+Fifth, the two turns should not be assumed to express one internally stable
+judgment. Round 8 shows that some of the same-conversation contradictions are a
+comparative-phrasing artifact and some are not; the remaining ambiguity between
+token priming and reconsideration is the next experiment, not a side note.
 
 ## What the evaluation exposed
 
@@ -384,23 +384,26 @@ reserve larger runs for a stronger second iteration.
 
 ## Next iteration
 
+**Next:** sham-token controls. Round 8 separated label ambiguity from residual
+incoherence for some models, but it cannot tell token priming from
+reconsideration. The load-bearing follow-up is a direction-neutral `ready` arm
+plus forced-`greater` and forced-`less` arms on the same items and models.
+
 Rounds 7 and 8 already covered the matched two-turn control, stronger anchors,
 stratified taxon pilot, clearer comparative labels, and matched-distance
-asymmetry check. Remaining design priorities:
+asymmetry check. After the sham-token arms, remaining design priorities:
 
-1. Separate timeless J&K items from time-sensitive historical stimuli.
-2. Decide in advance whether the primary endpoint is plausible anchoring,
-   arbitrary anchoring, or their difference.
-3. Add direction-neutral, forced-`greater`, and forced-`less` sham controls to
-   test whether the model's own token changes its subsequent estimate.
-4. Prefer `TRUE_GREATER` / `TRUE_LESS` for any future comparative-step arm where
+1. Prefer `TRUE_GREATER` / `TRUE_LESS` for any future comparative-step arm where
    same-turn consistency matters, especially for models that collapsed under
    Round 8 Arm A.
-5. Treat contradiction rates as model-specific rather than pooling a single
+2. Treat contradiction rates as model-specific rather than pooling a single
    protocol diagnosis across providers.
+3. Separate timeless J&K items from time-sensitive historical stimuli.
+4. Decide in advance whether the primary endpoint is plausible anchoring,
+   arbitrary anchoring, or their difference.
 
 The main lesson is that a useful evaluation does not need a positive headline.
-This series found limited anchoring, no evidence of false confidence, an aging-
-stimulus confound, cross-turn inconsistency that is partly a methods artifact
-and partly model-heterogeneous, and several concrete ways to improve the
-protocol.
+This series found a model-heterogeneous contradiction fork, limited anchoring
+relative to humans, sparse within-model movement that makes means fragile, no
+evidence of false confidence, an aging-stimulus confound, and a clear next
+protocol test.
