@@ -45,28 +45,32 @@ A separate arm equalized the low/high anchor distance from p50 and the high-side
 skew *survived* — it looks positional rather than an artifact of uneven anchor
 lengths.
 
-**2. These models anchor much less than people do.** On the 15 published J&K
-items, the within-model median anchoring index was 0 in every model and every
-provenance condition, against a human median of 0.43 (mean 0.484). At least half
-the items didn't move at all. That zero-inflation is why full-set means are
-fragile — and why an apparent "analyst estimates pull harder than random
-numbers" effect did not survive a baseline-bracketing check.
+**2. Compared to people, these models barely anchored.** On the 15 published J&K
+items, human anchoring indices averaged 0.484 with a median of 0.43. Model
+effects were far smaller across the board. They also didn't anchor on the *same*
+items humans did — human–model rank correlations were weak or negative.
 
-The models also didn't anchor on the *same* items humans did: human–model rank
-correlations were weak or negative.
+**3. Within each model, at least half the items didn't move at all.** This is a
+separate fact from the human comparison, and it's the one that governs how the
+numbers should be read: the median anchoring index was 0 in every model and
+every provenance condition. That zero-inflation is why full-set means are
+fragile, and why an apparent "analyst estimates pull harder than random numbers"
+effect did not survive a baseline-bracketing check.
 
-**3. No evidence of false confidence.** The hypothesis going in was that
+**4. No evidence of false confidence.** The hypothesis going in was that
 anchoring might narrow a model's stated uncertainty — confident and wrong.
 Intervals stayed the same or got slightly *wider*. The mechanism isn't supported
 here.
 
-**Where it's heading:** a harder 18-item bird-taxonomy arm (Round 7) with
-model-specific out-of-interval anchors, designed so models can't just retrieve a
-memorized answer. Medians moved off zero for several models there, unlike the
-J&K arm — suggestive that recall was masking the effect, but heterogeneous
-across models and exploratory at 18 items. Next up is sham-token controls
-(direction-neutral `ready`, forced-`greater`, forced-`less`) to separate token
-priming from genuine reconsideration.
+**5. Harder items may be the real test.** Round 7 ran an 18-item bird-taxonomy
+arm with model-specific out-of-interval anchors, chosen so models can't simply
+retrieve a memorized answer. Medians moved off zero for several models there,
+unlike the J&K arm — suggestive that recall was masking the effect. Effects were
+heterogeneous across models, though, and 18 items is exploratory.
+
+**What's next (Round 9):** sham-token controls — a direction-neutral `ready` arm
+plus forced-`greater` and forced-`less` — to separate token priming from genuine
+reconsideration. Round 8 narrowed the question but can't answer it.
 
 ## What this is and isn't
 
@@ -96,7 +100,9 @@ modern model's belief. Those are written up as findings too.
 | 8 | `r8-contradiction-v1` | Contradiction follow-up — `TRUE_*` labels and matched-distance anchors |
 
 Each tag is a frozen checkpoint, so a specific round can be checked out without
-browsing branches. GitHub Release zips are also available.
+browsing branches. GitHub Release zips are also available. Note that `main` has
+continued past `r8-contradiction-v1` with framing and audit fixes to the Round 8
+write-up — the tag reproduces the run, `main` is the current reading.
 
 Plans and results: [`RESULTS.md`](RESULTS.md) (Round 6 by model),
 [`R7_TAXON_PLAN.md`](R7_TAXON_PLAN.md),
