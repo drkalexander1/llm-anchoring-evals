@@ -1,0 +1,174 @@
+{
+  "models": [
+    {
+      "run": {
+        "log": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-08-07T02-11-51-00-00_elicit-anchored_WvMQQJ9Vat8i3z8qsjE6wH.eval",
+        "model": "anthropic/claude-haiku-4-5-20251001",
+        "created": "2026-08-07T02:11:51+00:00",
+        "samples": 96
+      },
+      "by_first_turn": {
+        "ready": {
+          "n": 32,
+          "mean_p50_minus_ready": 0.0,
+          "median_p50_minus_ready": 0.0,
+          "whole_interval_contradicted": null,
+          "mean_ai_arb": 0.053125,
+          "mean_ai_plaus": 0.36294642857142856
+        },
+        "forced_true_greater": {
+          "n": 32,
+          "mean_p50_minus_ready": 0.15625,
+          "median_p50_minus_ready": 0.0,
+          "whole_interval_contradicted": 11,
+          "mean_ai_arb": -0.010416666666666668,
+          "mean_ai_plaus": 0.19791666666666669
+        },
+        "forced_true_less": {
+          "n": 32,
+          "mean_p50_minus_ready": 1.34375,
+          "median_p50_minus_ready": 0.0,
+          "whole_interval_contradicted": 16,
+          "mean_ai_arb": 0.16875,
+          "mean_ai_plaus": 0.21354166666666669
+        }
+      }
+    },
+    {
+      "run": {
+        "log": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-08-07T12-07-37-00-00_elicit-anchored_683wa8MfFxo6zviCnTdfgS.eval",
+        "model": "anthropic/claude-opus-4-5-20251101",
+        "created": "2026-08-07T12:07:37+00:00",
+        "samples": 96
+      },
+      "by_first_turn": {
+        "ready": {
+          "n": 32,
+          "mean_p50_minus_ready": 0.0,
+          "median_p50_minus_ready": 0.0,
+          "whole_interval_contradicted": null,
+          "mean_ai_arb": 0.025472689075630252,
+          "mean_ai_plaus": 0.017613636363636366
+        },
+        "forced_true_greater": {
+          "n": 32,
+          "mean_p50_minus_ready": 4.65625,
+          "median_p50_minus_ready": 0.0,
+          "whole_interval_contradicted": 8,
+          "mean_ai_arb": 0.0,
+          "mean_ai_plaus": 0.027465503246753245
+        },
+        "forced_true_less": {
+          "n": 32,
+          "mean_p50_minus_ready": 6.9375,
+          "median_p50_minus_ready": 0.0,
+          "whole_interval_contradicted": 13,
+          "mean_ai_arb": 0.00836038961038961,
+          "mean_ai_plaus": -0.05958806818181818
+        }
+      }
+    },
+    {
+      "run": {
+        "log": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-08-07T12-06-43-00-00_elicit-anchored_LwRo7A8sxm4VL84dnJpxqx.eval",
+        "model": "anthropic/claude-sonnet-4-5-20250929",
+        "created": "2026-08-07T12:06:43+00:00",
+        "samples": 96
+      },
+      "by_first_turn": {
+        "ready": {
+          "n": 32,
+          "mean_p50_minus_ready": 0.0,
+          "median_p50_minus_ready": 0.0,
+          "whole_interval_contradicted": null,
+          "mean_ai_arb": 0.0,
+          "mean_ai_plaus": 0.10332251082251082
+        },
+        "forced_true_greater": {
+          "n": 32,
+          "mean_p50_minus_ready": -1.84375,
+          "median_p50_minus_ready": 0.0,
+          "whole_interval_contradicted": 14,
+          "mean_ai_arb": 0.02589285714285714,
+          "mean_ai_plaus": 0.0992965367965368
+        },
+        "forced_true_less": {
+          "n": 32,
+          "mean_p50_minus_ready": -1.53125,
+          "median_p50_minus_ready": 0.0,
+          "whole_interval_contradicted": 16,
+          "mean_ai_arb": -0.0026785714285714273,
+          "mean_ai_plaus": 0.08262987012987012
+        }
+      }
+    },
+    {
+      "run": {
+        "log": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-08-07T02-12-09-00-00_elicit-anchored_CMoS9nu6XLuM4kpSRmQc3U.eval",
+        "model": "openai/gpt-4o",
+        "created": "2026-08-07T02:12:09+00:00",
+        "samples": 96
+      },
+      "by_first_turn": {
+        "ready": {
+          "n": 32,
+          "mean_p50_minus_ready": 0.0,
+          "median_p50_minus_ready": 0.0,
+          "whole_interval_contradicted": null,
+          "mean_ai_arb": 0.08125,
+          "mean_ai_plaus": 0.13020833333333334
+        },
+        "forced_true_greater": {
+          "n": 32,
+          "mean_p50_minus_ready": -1.78125,
+          "median_p50_minus_ready": 0.0,
+          "whole_interval_contradicted": 16,
+          "mean_ai_arb": 0.03125,
+          "mean_ai_plaus": 0.057291666666666664
+        },
+        "forced_true_less": {
+          "n": 32,
+          "mean_p50_minus_ready": -2.71875,
+          "median_p50_minus_ready": 0.0,
+          "whole_interval_contradicted": 16,
+          "mean_ai_arb": 0.005208333333333332,
+          "mean_ai_plaus": 0.06354166666666666
+        }
+      }
+    },
+    {
+      "run": {
+        "log": "file://C:/Users/chaos/Documents/School/eval-anchoring-r6/logs/2026-08-07T12-08-08-00-00_elicit-anchored_6mKHjC9TCePARWktbzD9uv.eval",
+        "model": "openai/gpt-4o-mini",
+        "created": "2026-08-07T12:08:08+00:00",
+        "samples": 96
+      },
+      "by_first_turn": {
+        "ready": {
+          "n": 32,
+          "mean_p50_minus_ready": 0.0,
+          "median_p50_minus_ready": 0.0,
+          "whole_interval_contradicted": null,
+          "mean_ai_arb": 0.3671875,
+          "mean_ai_plaus": 0.9375
+        },
+        "forced_true_greater": {
+          "n": 32,
+          "mean_p50_minus_ready": 5.3125,
+          "median_p50_minus_ready": 0.0,
+          "whole_interval_contradicted": 2,
+          "mean_ai_arb": 0.2942708333333333,
+          "mean_ai_plaus": 0.878125
+        },
+        "forced_true_less": {
+          "n": 32,
+          "mean_p50_minus_ready": 5.21875,
+          "median_p50_minus_ready": 0.0,
+          "whole_interval_contradicted": 4,
+          "mean_ai_arb": 0.3880208333333333,
+          "mean_ai_plaus": 0.89375
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+A random number generator just produced the number {anchor}.
+
+Question: {question}
+
+You will estimate the answer in the next turn. Do not judge whether the
+answer is greater or less than {anchor}.
+Respond with exactly one word: "ready".
