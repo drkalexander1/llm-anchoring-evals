@@ -175,6 +175,32 @@ def test_dataset_rejects_unknown_comparative_labels() -> None:
         )
 
 
+def test_r9_sham_factorial_uses_forced_true_tokens() -> None:
+    dataset = anchored_dataset(
+        "taxon",
+        "taxonomy-r3/claude-haiku-4-5@2026-07-02",
+        1,
+        anchor_method="outside",
+        anchor_strength=2,
+        subset_path="data/contradiction_subset_r8.yaml",
+        first_turn_mode="sham",
+    )
+
+    # 8 items × 3 first-turns × 2 provenances × 2 directions
+    assert len(dataset) == 96
+    assert all(sample.metadata["condition"] != "control" for sample in dataset)
+    first_turns = {sample.metadata["first_turn"] for sample in dataset}
+    assert first_turns == {"ready", "forced_true_greater", "forced_true_less"}
+
+    forced = next(
+        s for s in dataset if s.metadata["first_turn"] == "forced_true_greater"
+    )
+    ready = next(s for s in dataset if s.metadata["first_turn"] == "ready")
+    assert "TRUE_GREATER" in str(forced.input)
+    assert "ready" in str(ready.input).lower()
+    assert "TRUE_GREATER" not in str(ready.input)
+
+
 def test_analysis_summary_computes_effects_and_consistency() -> None:
     rows = [
         {

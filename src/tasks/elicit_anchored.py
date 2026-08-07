@@ -42,6 +42,9 @@ from src.schema import canonical_model_id, load_items, parse_ci_triple, relative
 PROVENANCES = ("arb", "plaus")
 DIRECTIONS = ("low", "high")
 COMPARATIVE_LABELS = ("greater_less", "true_greater_less")
+# Round 9 sham first-turns (anchored cells only; no unanchored control).
+SHAM_FIRST_TURNS = ("ready", "forced_true_greater", "forced_true_less")
+FIRST_TURN_MODES = ("comparative", "sham")
 
 
 # --------------------------------------------------------------------------- #
@@ -134,6 +137,19 @@ def _compare_prompt_name(provenance: str, comparative_labels: str) -> str:
     )
 
 
+def _first_turn_prompt_name(provenance: str, first_turn: str) -> str:
+    if first_turn == "ready":
+        return f"anchor_ready_{provenance}.txt"
+    if first_turn == "forced_true_greater":
+        return f"anchor_force_true_greater_{provenance}.txt"
+    if first_turn == "forced_true_less":
+        return f"anchor_force_true_less_{provenance}.txt"
+    raise ValueError(
+        "first_turn must be 'ready', 'forced_true_greater', or "
+        f"'forced_true_less', got {first_turn!r}"
+    )
+
+
 def _sample(
     *,
     item_id: str,
@@ -146,6 +162,7 @@ def _sample(
     direction: str | None,
     matched_control: bool = False,
     comparative_labels: str = "greater_less",
+    first_turn: str = "comparative",
     extra: dict | None = None,
 ) -> Sample:
     base_meta = {
@@ -158,6 +175,7 @@ def _sample(
         "direction": direction,
         "matched_control": matched_control,
         "comparative_labels": comparative_labels,
+        "first_turn": first_turn,
         **(extra or {}),
     }
     if condition == "control":
@@ -181,6 +199,16 @@ def _sample(
                 "matched_control": False,
             },
         )
+    if first_turn in SHAM_FIRST_TURNS:
+        tmpl = load_prompt(_first_turn_prompt_name(str(provenance), first_turn))
+        return Sample(
+            input=tmpl.format(question=question, anchor=_anchor_str(float(anchor))),
+            id=f"{item_id}::{condition}::{first_turn}::s{seed}",
+            metadata={
+                **base_meta,
+                "estimate_prompt": load_prompt("anchor_estimate.txt"),
+            },
+        )
     # anchored: Turn 1 = comparative; Turn 2 prompt carried in metadata
     compare_tmpl = load_prompt(_compare_prompt_name(provenance, comparative_labels))
     return Sample(
@@ -200,6 +228,7 @@ def anchored_dataset(
     matched_control: bool = False,
     subset_path: str | None = None,
     comparative_labels: str = "greater_less",
+    first_turn_mode: str = "comparative",
 ) -> MemoryDataset:
     if seeds < 1:
         raise ValueError(f"seeds must be at least 1, got {seeds}")
@@ -208,6 +237,13 @@ def anchored_dataset(
             "comparative_labels must be 'greater_less' or 'true_greater_less', "
             f"got {comparative_labels!r}"
         )
+    if first_turn_mode not in FIRST_TURN_MODES:
+        raise ValueError(
+            "first_turn_mode must be 'comparative' or 'sham', "
+            f"got {first_turn_mode!r}"
+        )
+    if first_turn_mode == "sham" and item_set != "taxon":
+        raise ValueError("first_turn_mode='sham' is only supported for item_set=taxon")
 
     samples: list[Sample] = []
 
@@ -228,6 +264,9 @@ def anchored_dataset(
             }
         else:
             items = available_items
+        first_turns = (
+            SHAM_FIRST_TURNS if first_turn_mode == "sham" else ("comparative",)
+        )
         for seed in range(seeds):
             for item_id, item in items.items():
                 low, high, scale = anchors[item_id]
@@ -237,23 +276,30 @@ def anchored_dataset(
                     "anchor_strength": anchor_strength,
                     "subset_path": subset_path,
                     "comparative_labels": comparative_labels,
+                    "first_turn_mode": first_turn_mode,
                 }
-                samples.append(_sample(item_id=item_id, question=item.question,
-                                       condition="control", scale=scale, seed=seed,
-                                       anchor=None, provenance=None, direction=None,
-                                       matched_control=matched_control,
-                                       comparative_labels=comparative_labels,
-                                       extra=shared))
-                for prov in PROVENANCES:
-                    for dirn, aval in (("low", low), ("high", high)):
-                        samples.append(_sample(
-                            item_id=item_id, question=item.question,
-                            condition=f"{dirn}_{prov}", scale=scale, seed=seed,
-                            anchor=aval, provenance=prov, direction=dirn,
-                            matched_control=matched_control,
-                            comparative_labels=comparative_labels,
-                            extra=shared,
-                        ))
+                if first_turn_mode == "comparative":
+                    samples.append(_sample(
+                        item_id=item_id, question=item.question,
+                        condition="control", scale=scale, seed=seed,
+                        anchor=None, provenance=None, direction=None,
+                        matched_control=matched_control,
+                        comparative_labels=comparative_labels,
+                        first_turn="comparative",
+                        extra=shared,
+                    ))
+                for first_turn in first_turns:
+                    for prov in PROVENANCES:
+                        for dirn, aval in (("low", low), ("high", high)):
+                            samples.append(_sample(
+                                item_id=item_id, question=item.question,
+                                condition=f"{dirn}_{prov}", scale=scale, seed=seed,
+                                anchor=aval, provenance=prov, direction=dirn,
+                                matched_control=matched_control,
+                                comparative_labels=comparative_labels,
+                                first_turn=first_turn,
+                                extra=shared,
+                            ))
 
     elif item_set == "jk":
         for seed in range(seeds):
@@ -286,12 +332,18 @@ def anchored_dataset(
 @solver
 def anchored_two_turn():
     async def solve(state: TaskState, generate: Generate) -> TaskState:
-        # Turn 1 (comparative) is already the sample input; generate greater/less.
+        # Turn 1 is already the sample input; generate acknowledgement / token.
         state = await generate(state)
+        first_turn = state.metadata.get("first_turn", "comparative")
         if state.metadata.get("condition") == "control":
             if not state.metadata.get("estimate_prompt"):
                 return state  # R6 single-turn control.
             state.metadata["control_acknowledgement"] = state.output.completion.strip()
+        elif first_turn in SHAM_FIRST_TURNS:
+            state.metadata["sham_answer"] = state.output.completion.strip()
+            # Keep comparative_answer populated for forced TRUE_* arms so
+            # existing consistency helpers can score them.
+            state.metadata["comparative_answer"] = state.output.completion.strip()
         else:
             state.metadata["comparative_answer"] = state.output.completion.strip()
         # Turn 2: elicit the model's own CI in the same context.
@@ -328,6 +380,9 @@ def anchored_ci_scorer() -> Scorer:
             "anchor_strength": m.get("anchor_strength"),
             "subset_path": m.get("subset_path"),
             "comparative_labels": m.get("comparative_labels", "greater_less"),
+            "first_turn": m.get("first_turn", "comparative"),
+            "first_turn_mode": m.get("first_turn_mode", "comparative"),
+            "sham_answer": m.get("sham_answer"),
         }
         if triple is None:
             return Score(value=0.0, answer=state.output.completion,
@@ -356,6 +411,7 @@ def elicit_anchored(
     matched_control: bool = False,
     subset_path: str | None = None,
     comparative_labels: str = "greater_less",
+    first_turn_mode: str = "comparative",
 ) -> Task:
     """Build the anchoring task.
 
@@ -365,15 +421,21 @@ def elicit_anchored(
 
     ``comparative_labels`` selects the first-turn response contract:
     ``greater_less`` (R6/R7) or ``true_greater_less`` (R8 Arm A).
+
+    ``first_turn_mode='sham'`` builds Round 9 ready / forced-TRUE_* arms
+    (anchored cells only).
     """
     eval_name = "anchoring-r6"
     if item_set == "taxon":
-        eval_name = (
-            "anchoring-r8"
-            if comparative_labels == "true_greater_less"
+        if first_turn_mode == "sham":
+            eval_name = "anchoring-r9"
+        elif (
+            comparative_labels == "true_greater_less"
             or anchor_method == "matched_distance"
-            else "anchoring-r7"
-        )
+        ):
+            eval_name = "anchoring-r8"
+        else:
+            eval_name = "anchoring-r7"
     return Task(
         dataset=anchored_dataset(
             item_set,
@@ -384,6 +446,7 @@ def elicit_anchored(
             matched_control=matched_control,
             subset_path=subset_path,
             comparative_labels=comparative_labels,
+            first_turn_mode=first_turn_mode,
         ),
         solver=anchored_two_turn(),
         scorer=anchored_ci_scorer(),
@@ -396,5 +459,6 @@ def elicit_anchored(
             "matched_control": matched_control,
             "subset_path": subset_path,
             "comparative_labels": comparative_labels,
+            "first_turn_mode": first_turn_mode,
         },
     )

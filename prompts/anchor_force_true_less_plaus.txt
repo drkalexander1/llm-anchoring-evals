@@ -1,0 +1,7 @@
+An analyst estimated that the answer to the following question is about {anchor}.
+
+Question: {question}
+
+For this turn only, ignore whether the true answer is actually greater or less
+than {anchor}. Respond with exactly one token: "TRUE_LESS".
+Do not estimate the answer yet.

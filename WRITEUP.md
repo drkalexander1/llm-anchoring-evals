@@ -2,15 +2,22 @@
 
 ## Summary
 
-The finding from this series is a same-turn contradiction fork. In the two-step
-anchoring protocol, models sometimes say “greater” or “less” on turn one and
-then emit an interval on the opposite side of the anchor. Round 8 tested whether
-clearer `TRUE_GREATER` / `TRUE_LESS` labels collapse that pattern. They do for
-some models and not others: Sonnet 4.5 fell from 12/32 to 0/32, Haiku 4.5 and
-GPT-4o barely moved, and Sonnet 5 was partial (7/32 → 5/30). Opus 4.5 was already
-near zero under ambiguous labels on this subset (1/32 → 0/32). High-side
-asymmetry survived equalizing low/high anchor distance when labels stayed
-ambiguous.
+The finding from this series is a same-turn contradiction fork, plus a negative
+result on one clean mechanism explanation for it. In the two-step anchoring
+protocol, models sometimes say “greater” or “less” on turn one and then emit an
+interval on the opposite side of the anchor. Round 8 tested whether clearer
+`TRUE_GREATER` / `TRUE_LESS` labels collapse that pattern. They do for some
+models and not others: Sonnet 4.5 fell from 12/32 to 0/32, Haiku 4.5 and GPT-4o
+barely moved, and Sonnet 5 was partial (7/32 → 5/30). Opus 4.5 was already near
+zero under ambiguous labels on this subset (1/32 → 0/32). High-side asymmetry
+survived equalizing low/high anchor distance when labels stayed ambiguous.
+
+Round 9 then asked whether forcing the first-turn token itself moves the later
+estimate (token priming). On the same 8-item subset, forced `TRUE_GREATER` and
+`TRUE_LESS` did **not** pull p50 in opposite directions relative to a matched
+`ready` arm. Medians of the shift were zero for every model; means were sparse
+and often ordered the wrong way for priming. So directional commitment to the
+uttered token is not a good account of the two-step effects measured here.
 
 The abstract for the earlier arms is simpler: irrelevant anchors mostly did not
 move these LLMs the way they move people. I adapted Jacowitz and Kahneman
@@ -23,8 +30,8 @@ items did not move—which is why nonzero means are fragile and why an apparent
 analyst-source advantage did not survive baseline-bracketing. Intervals also
 widened slightly rather than narrowing, against the false-confidence
 hypothesis. A 30-year-old behavioral benchmark remains useful as a protocol
-bridge, but it needs modernized stimuli and, after Round 8, model-specific
-consistency checks.
+bridge, but it needs modernized stimuli and, after Rounds 8–9, model-specific
+consistency checks rather than a single pooled protocol story.
 
 ## Why this question?
 
@@ -179,21 +186,17 @@ the Round 7 taxon pilot used later in Round 8:
   high-analyst-source responses, compared with 2 of 60 low-arbitrary and none
   of the 60 low-analyst-source responses.
 
-The high-versus-low asymmetry makes this more than a formatting footnote, but
-the current run cannot identify its cause. A model may reverse the comparison's
-referent, treat the forced one-word answer as a weak local output rather than a
-stable commitment, reconsider the question on the second turn, or be influenced
-by having generated the token “greater” or “less.” The data do not distinguish
-among these explanations.
+The high-versus-low asymmetry makes this more than a formatting footnote.
+Candidate causes include reversing the comparison’s referent, treating the
+one-word answer as a weak local output, reconsidering on the second turn, or
+being pulled by the uttered token. Round 8 tested label ambiguity; Round 9
+tested token priming (see below). Neither yields a single pooled explanation.
 
 This finding also does not automatically invalidate the anchoring index. The
 index is computed from the second-turn p50 estimates under low and high anchors,
-not from the categorical answers. However, if producing “greater” or “less”
-changes the following estimate, then part of the measured effect could come
-from self-generated language rather than the numeric anchor alone. Round 8
-tested the label-ambiguity piece. The next step is sham-token controls
-(direction-neutral `ready`, forced-`greater`, and forced-`less`) to separate
-token priming from reconsideration.
+not from the categorical answers. Round 9’s sham arms argue against a simple
+“said greater, therefore estimated higher” contamination pathway on the later
+taxon subset; they do not by themselves rewrite every Round 6 index.
 
 ## Round 8: same-turn contradiction follow-up
 
@@ -254,6 +257,167 @@ Machine-readable summaries are in `results/r8_*.json` (including
 `results/r8_r7style_sonnet5_opus45.json`). The frozen plan is
 [`R8_CONTRADICTION_PLAN.md`](R8_CONTRADICTION_PLAN.md).
 
+## Round 9: sham-token controls
+
+Round 8 established that clearer `TRUE_GREATER` / `TRUE_LESS` labels collapse
+same-turn contradictions for some models and not others. What it could not
+establish is whether the first-turn token *itself* moves the second-turn
+estimate — whether emitting “greater” then pulls the estimate up because the
+model said so. If that were true, part of what Rounds 6–7 measured as anchoring
+could be self-generated language rather than the numeric anchor.
+
+Round 9 tests that directly. Each arm is two turns of matched length, on the
+same 8-item high-count taxon subset as Round 8, with outside anchors at
+`strength=2` and both provenances retained:
+
+- **ready** — direction-neutral acknowledgement, then the standard estimate
+  prompt (reference condition).
+- **forced TRUE_GREATER** — instruct the model to emit that token regardless of
+  belief, then estimate.
+- **forced TRUE_LESS** — same, opposite token.
+
+The forced arms are shams: the token is not a sincere comparative judgment, so
+any directional effect on the estimate is attributable to having uttered it.
+
+### How to read this section
+
+The primary result is eliminating a hypothesis. That is the intended use of the
+design. Where a mechanism is ruled out, the space of explanations for earlier
+two-step effects narrows; it does not by itself invent a new positive mechanism.
+
+### Predeclared branches
+
+Frozen in [`R9_SHAM_TOKEN_PLAN.md`](R9_SHAM_TOKEN_PLAN.md) before paid runs:
+
+1. **Token priming** — forced-greater and forced-less pull p50 in opposite
+   directions relative to `ready`.
+2. **Residual incoherence** — forced arms match `ready` on location; contradictions
+   persist where they did under Round 8 Arm A.
+3. **Model-heterogeneous** — mixed; report per model; no pooled mechanism claim.
+
+Stage 1 locked Haiku 4.5 and GPT-4o (the clear Round 8 persist cases). After
+that pair was classified, Stage 2 added Sonnet 4.5, Opus 4.5, and GPT-4o mini.
+Each model contributed 96 samples (32 per first-turn arm). Sonnet 5 was not run
+in Round 9.
+
+### Results
+
+Mean signed p50 shift relative to `ready` (raw species-count units). Every
+**median** shift was 0:
+
+| Model | Forced TRUE_GREATER | Forced TRUE_LESS |
+|---|---|---|
+| Claude Haiku 4.5 | +0.16 | +1.34 |
+| Claude Sonnet 4.5 | −1.84 | −1.53 |
+| Claude Opus 4.5 | +4.66 | +6.94 |
+| GPT-4o | −1.78 | −2.72 |
+| GPT-4o mini | +5.31 | +5.22 |
+
+Share of cells with no p50 change at all vs `ready`:
+
+| Model | Forced GREATER | Forced LESS |
+|---|---|---|
+| Claude Haiku 4.5 | 38% | 44% |
+| Claude Opus 4.5 | 62% | 66% |
+| Claude Sonnet 4.5 | 75% | 72% |
+| GPT-4o | 81% | 75% |
+| GPT-4o mini | 78% | 81% |
+
+Whole-interval contradiction rates (interval on the wrong side of the
+*first-turn token*). For forced arms the token is imposed; for Round 8 Arm A it
+was a sincere `TRUE_*` judgment:
+
+| Model | Round 8 Arm A (sincere) | R9 forced GREATER | R9 forced LESS |
+|---|---|---|---|
+| Claude Haiku 4.5 | 11/32 (34%) | 11/32 (34%) | 16/32 (50%) |
+| GPT-4o | 10/32 (31%) | 16/32 (50%) | 16/32 (50%) |
+| GPT-4o mini | 2/32 (6%) | 2/32 (6%) | 4/32 (12%) |
+| Claude Sonnet 4.5 | 0/32 (0%) | 14/32 (44%) | 16/32 (50%) |
+| Claude Opus 4.5 | 0/32 (0%) | 8/32 (25%) | 13/32 (41%) |
+
+Machine-readable summary: `results/r9_sham_all_models_summary.json`.
+
+### Token priming is not supported
+
+Token priming predicts that forced-GREATER p50 shifts exceed forced-LESS shifts
+(relative to `ready`). They do not, for four of five models.
+
+Haiku, Sonnet 4.5, and Opus all estimate *higher* after forced LESS than after
+forced GREATER (wrong order for priming). GPT-4o mini’s GREATER vs LESS gap is
+only 0.09 in the priming direction. Only GPT-4o shows the predicted ordering
+(GREATER mean shift less negative than LESS), and even there medians are zero
+and most cells do not move.
+
+So this round does **not** support directional commitment to the uttered token
+as an account of second-turn location on this subset. That removes one
+contamination pathway that Round 6 had left open for two-step protocols. It does
+**not** automatically sanitize every Round 6/7 anchoring index (different items,
+and sincere vs forced first turns are not the same manipulation); it does say
+the simple “said greater, therefore estimated higher” story fails here.
+
+### What the forced arms did instead
+
+Within each model, **both** forced arms tend to shift mean p50 in the **same**
+direction relative to `ready` — up for Haiku, Opus, and GPT-4o mini; down for
+Sonnet 4.5 and GPT-4o. Whatever the forced turn does, it is not mainly a
+function of which token was emitted. The sign looks model-specific.
+
+Median zero is not “the manipulation did nothing.” Haiku moves on a majority of
+cells (about 56–62% nonzero); the other models move on roughly 19–38%. Nonzero
+jumps are coarse integers (median |Δ| often 4–20 species), matching the Round 7
+pattern that taxon p50s on this subset are sticky integers rather than smooth
+beliefs. Movements cancel across items, so aggregates look inert while
+item-level records are noisy — the same aggregate-vs-transcript lesson as
+earlier rounds.
+
+### Residual incoherence: uneven
+
+For Haiku, forced-GREATER contradictions match sincere Round 8 Arm A exactly
+(11/32): persistence after removing both label ambiguity and sincere token
+choice. GPT-4o rises from 10/32 to 16/32 under either forced token — less
+coherent when the token is insincere. GPT-4o mini stays low.
+
+Sonnet 4.5 and Opus 4.5 are different: sincere Arm A was 0/32, but forced arms
+produce many “contradictions.” That is expected if the model ignores an imposed
+token and estimates from the question — the interval then routinely disagrees
+with the sham label. Those rates are not evidence that sincere Arm A collapse
+reversed; they show the forced-token consistency metric is measuring something
+else for models that already refused to contradict under sincere `TRUE_*`.
+
+### Which branch applied
+
+**Branch 3, model-heterogeneous.** Sign of mean shift flips across models;
+non-moving share spans 38–81%; contradiction response to an insincere token
+differs sharply between persist models (Haiku/GPT-4o) and collapse models
+(Sonnet/Opus). No single mechanism statement covers the set.
+
+Together with Round 8, two independent manipulations both favor
+model-specific protocol diagnoses over a pooled provider claim.
+
+### Secondary readout: anchoring index by sham arm
+
+Under plausible-provenance anchors, mean AI was higher under `ready` than under
+either forced arm for Haiku (0.363 vs 0.198 / 0.214) and GPT-4o (0.130 vs 0.057
+/ 0.064). Arbitrary-provenance AI is not consistent across forced arms. One
+candidate reading is that a forced token substitutes for engagement with the
+anchor. That is means-only on 32 cells per arm and is recorded as a hypothesis,
+not a result.
+
+### Round 9 limitations
+
+- **`ready` is the reference for every Δp50.** These data alone cannot separate
+  “forced arms moved” from “`ready` sits off-center.” Comparing forced p50s to
+  Round 8 Arm A p50s on the same cells would help; that contrast is not the
+  primary table above.
+- **Means are in raw item units.** Opus and GPT-4o mini combine high zero shares
+  with large means — leverage from a minority of big jumps. Do not quote those
+  means as standardized effect sizes.
+- **Coarseness.** On this high-count subset, p50s are integers; nonzero moves
+  jump by multiple species. That limits sensitivity to tiny priming but does not
+  manufacture the high exact-zero rates (those are repeated identical integers).
+- Eight items, one response per cell, five Round 9 models, not release-matched.
+  Exploratory throughout.
+
 ## When a historical benchmark ages
 
 The Berkeley female-professor question produced the clearest mismatch. Its
@@ -308,9 +472,11 @@ alone—changed the response. Round 7's matched two-turn control addresses part
 of that protocol gap.
 
 Fifth, the two turns should not be assumed to express one internally stable
-judgment. Round 8 shows that some of the same-conversation contradictions are a
-comparative-phrasing artifact and some are not; the remaining ambiguity between
-token priming and reconsideration is the next experiment, not a side note.
+judgment. Round 8 shows that some same-conversation contradictions are a
+comparative-phrasing artifact and some are not. Round 9 then rules out a clean
+token-priming account of second-turn location on this subset: forced
+`TRUE_GREATER` / `TRUE_LESS` do not pull p50 in opposite directions relative to
+`ready`. Residual same-turn incoherence remains model-specific.
 
 ## What the evaluation exposed
 
@@ -396,8 +562,9 @@ reserve larger runs for a stronger second iteration.
 - Full-set means are sensitive to cases where both anchors fall on the same
   side of a model's baseline belief.
 - First-turn categorical answers can conflict with same-conversation intervals.
-  Round 8 addresses label ambiguity for some models but cannot yet separate
-  token priming from reconsideration without sham-token controls.
+  Round 8 addresses label ambiguity for some models; Round 9’s sham arms argue
+  against directional token priming on the 8-item subset, but do not explain
+  every remaining contradiction.
 - Control and treatment differed in conversation length until the Round 7
   matched two-turn control; earlier Round 6 J&K estimates retain that gap.
 - The power analysis uses the unfiltered, zero-inflated pilot and a normal
@@ -406,26 +573,28 @@ reserve larger runs for a stronger second iteration.
 
 ## Next iteration
 
-**Next:** sham-token controls. Round 8 separated label ambiguity from residual
-incoherence for some models, but it cannot tell token priming from
-reconsideration. The load-bearing follow-up is a direction-neutral `ready` arm
-plus forced-`greater` and forced-`less` arms on the same items and models.
+Rounds 7–9 covered the matched two-turn control, stronger anchors, stratified
+taxon pilot, clearer comparative labels, matched-distance asymmetry, and
+sham-token controls. Token priming is largely eliminated as a directional
+mechanism on the Round 8/9 subset; the remaining open questions are narrower.
 
-Rounds 7 and 8 already covered the matched two-turn control, stronger anchors,
-stratified taxon pilot, clearer comparative labels, and matched-distance
-asymmetry check. After the sham-token arms, remaining design priorities:
+**Load-bearing follow-ups:**
 
-1. Prefer `TRUE_GREATER` / `TRUE_LESS` for any future comparative-step arm where
+1. Compare forced-arm p50s to Round 8 Arm A (sincere `TRUE_*`) on the same
+   cells, so model-specific signs relative to `ready` are not the only
+   baseline.
+2. Prefer `TRUE_GREATER` / `TRUE_LESS` for any future comparative-step arm where
    same-turn consistency matters, especially for models that collapsed under
    Round 8 Arm A.
-2. Treat contradiction rates as model-specific rather than pooling a single
-   protocol diagnosis across providers.
-3. Separate timeless J&K items from time-sensitive historical stimuli.
-4. Decide in advance whether the primary endpoint is plausible anchoring,
+3. Treat contradiction rates and sham responses as model-specific rather than
+   pooling a single protocol diagnosis across providers.
+4. Separate timeless J&K items from time-sensitive historical stimuli.
+5. Decide in advance whether the primary endpoint is plausible anchoring,
    arbitrary anchoring, or their difference.
+6. Optional: run Sonnet 5 on the Round 9 sham arms for completeness with Round 8.
 
 The main lesson is that a useful evaluation does not need a positive headline.
-This series found a model-heterogeneous contradiction fork, limited anchoring
-relative to humans, sparse within-model movement that makes means fragile, no
-evidence of false confidence, an aging-stimulus confound, and a clear next
-protocol test.
+This series found a model-heterogeneous contradiction fork, a negative result
+on token priming, limited anchoring relative to humans, sparse within-model
+movement that makes means fragile, no evidence of false confidence, and an
+aging-stimulus confound.
