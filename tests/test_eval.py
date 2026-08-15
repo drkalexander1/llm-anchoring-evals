@@ -165,6 +165,24 @@ def test_r8_true_labels_and_matched_distance_scaffold() -> None:
     assert "TRUE_GREATER" in true_plaus and "TRUE_LESS" in true_plaus
 
 
+def test_r10_jk_true_labels() -> None:
+    dataset = anchored_dataset(
+        "jk",
+        None,
+        1,
+        comparative_labels="true_greater_less",
+    )
+    assert len(dataset) == 75
+    anchored = [sample for sample in dataset if sample.metadata["anchor"] is not None]
+    assert len(anchored) == 60
+    assert all(
+        sample.metadata["comparative_labels"] == "true_greater_less"
+        for sample in dataset
+    )
+    assert all("TRUE_GREATER" in str(sample.input) for sample in anchored)
+    assert all("TRUE_LESS" in str(sample.input) for sample in anchored)
+
+
 def test_dataset_rejects_unknown_comparative_labels() -> None:
     with pytest.raises(ValueError, match="comparative_labels"):
         anchored_dataset(

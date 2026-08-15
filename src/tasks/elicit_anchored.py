@@ -426,7 +426,9 @@ def elicit_anchored(
     (anchored cells only).
     """
     eval_name = "anchoring-r6"
-    if item_set == "taxon":
+    if item_set == "jk" and comparative_labels == "true_greater_less":
+        eval_name = "anchoring-r10"
+    elif item_set == "taxon":
         if first_turn_mode == "sham":
             eval_name = "anchoring-r9"
         elif (

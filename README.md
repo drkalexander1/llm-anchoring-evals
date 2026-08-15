@@ -6,10 +6,10 @@ sounds when it says it?
 This is a series of [Inspect AI](https://inspect.aisi.org.uk/) evaluations
 adapting Jacowitz & Kahneman's (1995) two-step anchoring protocol to language
 models: ask whether the answer is greater or less than an anchor, then ask the
-model for its own p10/p50/p90 interval. Three rounds have completed across six
-models.
+model for its own p10/p50/p90 interval. Four rounds have completed across six
+models (Sonnet 5 was in Round 8 only).
 
-The full narrative — motivation, design, findings, failures, next iteration —
+The full narrative — motivation, design, findings, failures, and what is left —
 is in [`WRITEUP.md`](WRITEUP.md).
 
 ## What it found
@@ -68,9 +68,16 @@ retrieve a memorized answer. Medians moved off zero for several models there,
 unlike the J&K arm — suggestive that recall was masking the effect. Effects were
 heterogeneous across models, though, and 18 items is exploratory.
 
-**What's next (Round 9):** sham-token controls — a direction-neutral `ready` arm
-plus forced-`greater` and forced-`less` — to separate token priming from genuine
-reconsideration. Round 8 narrowed the question but can't answer it.
+**6. Saying “greater” does not pull the later estimate up.** Round 9 forced
+`TRUE_GREATER` / `TRUE_LESS` (or a direction-neutral `ready`) on the same
+8-item subset. Forced tokens did **not** pull p50 in opposite directions.
+Medians of the shift vs `ready` were zero for every model; means were often
+ordered the wrong way for token priming. So directional commitment to the
+uttered token is not a good account of the two-step effects measured here.
+Sonnet 5 was not run in Round 9.
+
+Round 10 is a confirmatory wrap-up: `TRUE_*` labels on the original J&K items,
+testing whether the binder / non-binder split travels off the taxon subset.
 
 ## What this is and isn't
 
@@ -98,15 +105,17 @@ modern model's belief. Those are written up as findings too.
 | 6 | `r6-jk-v1` | J&K bridge — 15 published items, original human anchors, unanchored control, arbitrary vs. analyst provenance |
 | 7 | `r7-taxon-v1` | Staged taxon pilot — 18 bird-taxonomy items, model-specific outside anchors, matched two-turn control |
 | 8 | `r8-contradiction-v1` | Contradiction follow-up — `TRUE_*` labels and matched-distance anchors |
+| 9 | `r9-sham-token-v1` | Sham-token controls — `ready` vs forced `TRUE_GREATER` / `TRUE_LESS` |
 
 Each tag is a frozen checkpoint, so a specific round can be checked out without
-browsing branches. GitHub Release zips are also available. Note that `main` has
-continued past `r8-contradiction-v1` with framing and audit fixes to the Round 8
-write-up — the tag reproduces the run, `main` is the current reading.
+browsing branches. GitHub Release zips are also available. `r8-contradiction-v1`
+is the pre-R9 `main` tip (write-up polish included); `r9-sham-token-v1` is the
+R9 freeze. `main` matches that freeze after the merge.
 
 Plans and results: [`RESULTS.md`](RESULTS.md) (Round 6 by model),
 [`R7_TAXON_PLAN.md`](R7_TAXON_PLAN.md),
 [`R8_CONTRADICTION_PLAN.md`](R8_CONTRADICTION_PLAN.md),
+[`R9_SHAM_TOKEN_PLAN.md`](R9_SHAM_TOKEN_PLAN.md),
 [`POWER_ANALYSIS.md`](POWER_ANALYSIS.md). Machine-readable summaries are under
 `results/`.
 
@@ -218,7 +227,7 @@ flagged and excluded from the primary aggregate. The full 54-item arm would be
 - `src/tasks/elicit_anchored.py` — Inspect task and two-turn solver
 - `src/anchoring_metrics.py` — anchoring and interval-width metrics
 - `scripts/analyze_jk.py` — log extraction and analysis
-- `scripts/analyze_contradiction.py` — Round 8 contradiction decomposition
+- `scripts/analyze_contradiction.py` — Round 8/9 contradiction decomposition
 - `scripts/build_human_audit.py` — reproducible raw-output verification sample
 - `scripts/select_taxon_subset.py`, `scripts/select_contradiction_subset.py` —
   predeclared subset selection
