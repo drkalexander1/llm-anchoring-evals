@@ -1,0 +1,30 @@
+# Frozen before scoring Round 6 anchoring indices on the split.
+# Rule: did the *quantity itself* have to be the same in 1995 as now?
+# This is not the yaml `crispness` field (epistemic), and not the
+# model-specific bracketing check already in WRITEUP.md.
+name: jk_temporal_split_r10
+rule: >
+  Timeless if a correct 1995 answer is still the correct 2026 answer
+  (physical/historical fact). Time-sensitive if the true value can have
+  moved with population, institutions, or consumption. Borderline UN
+  membership is time-sensitive so the timeless set stays clean.
+timeless:
+  - jk_mississippi_length
+  - jk_everest_height
+  - jk_sf_nyc_distance
+  - jk_tallest_redwood
+  - jk_telephone_year
+  - jk_lincoln_presidency
+  - jk_cat_speed  # biology; not a calendar series
+time_sensitive:
+  - jk_meat_per_year
+  - jk_un_members
+  - jk_berkeley_female_professors
+  - jk_chicago_population
+  - jk_babies_per_day
+  - jk_gas_per_month
+  - jk_berkeley_bars
+  - jk_ca_state_colleges
+notes:
+  - Human item-level AI on this split is a property of J&K (1995), reported for context.
+  - Model AI is scored from existing Round 6 logs only; no new J&K generations.

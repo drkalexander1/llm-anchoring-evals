@@ -6,10 +6,10 @@ sounds when it says it?
 This is a series of [Inspect AI](https://inspect.aisi.org.uk/) evaluations
 adapting Jacowitz & Kahneman's (1995) two-step anchoring protocol to language
 models: ask whether the answer is greater or less than an anchor, then ask the
-model for its own p10/p50/p90 interval. Three rounds have completed across six
-models.
+model for its own p10/p50/p90 interval. Five rounds have completed across six
+models (Sonnet 5 is in Rounds 8 and 10).
 
-The full narrative — motivation, design, findings, failures, next iteration —
+The full narrative — motivation, design, findings, failures, and what is left —
 is in [`WRITEUP.md`](WRITEUP.md).
 
 ## What it found
@@ -68,9 +68,19 @@ retrieve a memorized answer. Medians moved off zero for several models there,
 unlike the J&K arm — suggestive that recall was masking the effect. Effects were
 heterogeneous across models, though, and 18 items is exploratory.
 
-**What's next (Round 9):** sham-token controls — a direction-neutral `ready` arm
-plus forced-`greater` and forced-`less` — to separate token priming from genuine
-reconsideration. Round 8 narrowed the question but can't answer it.
+**6. Saying “greater” does not pull the later estimate up.** Round 9 forced
+`TRUE_GREATER` / `TRUE_LESS` (or a direction-neutral `ready`) on the same
+8-item subset. Forced tokens did **not** pull p50 in opposite directions.
+Medians of the shift vs `ready` were zero for every model; means were often
+ordered the wrong way for token priming. So directional commitment to the
+uttered token is not a good account of the two-step effects measured here.
+Sonnet 5 was not run in Round 9; Round 10 ran the sham arms (partial binder).
+
+**7. The binder / non-binder split travels.** The prediction was committed
+before the runs. On the original 15 J&K items, `TRUE_*` labels dropped Sonnet
+4.5 from 7/60 to 2/60 and left Haiku 4.5 at 9/60 → 11/60. Clearer labels are a
+portable fix for Sonnet-style binding failures, not a general methods patch.
+Frozen prediction: [`R10_CLOSE_PLAN.md`](R10_CLOSE_PLAN.md).
 
 ## What this is and isn't
 
@@ -98,15 +108,19 @@ modern model's belief. Those are written up as findings too.
 | 6 | `r6-jk-v1` | J&K bridge — 15 published items, original human anchors, unanchored control, arbitrary vs. analyst provenance |
 | 7 | `r7-taxon-v1` | Staged taxon pilot — 18 bird-taxonomy items, model-specific outside anchors, matched two-turn control |
 | 8 | `r8-contradiction-v1` | Contradiction follow-up — `TRUE_*` labels and matched-distance anchors |
+| 9 | `r9-sham-token-v1` | Sham-token controls — `ready` vs forced `TRUE_GREATER` / `TRUE_LESS` |
+| 10 | `r10-close-v1` | J&K confirmatory — `TRUE_*` on the original 15 items; split travels |
 
 Each tag is a frozen checkpoint, so a specific round can be checked out without
-browsing branches. GitHub Release zips are also available. Note that `main` has
-continued past `r8-contradiction-v1` with framing and audit fixes to the Round 8
-write-up — the tag reproduces the run, `main` is the current reading.
+browsing branches. GitHub Release zips are also available. `r8-contradiction-v1`
+is the pre-R9 `main` tip; `r9-sham-token-v1` is the R9 freeze; `r10-close-v1`
+is the series wrap-up (prediction committed before the J&K `TRUE_*` runs).
 
 Plans and results: [`RESULTS.md`](RESULTS.md) (Round 6 by model),
 [`R7_TAXON_PLAN.md`](R7_TAXON_PLAN.md),
 [`R8_CONTRADICTION_PLAN.md`](R8_CONTRADICTION_PLAN.md),
+[`R9_SHAM_TOKEN_PLAN.md`](R9_SHAM_TOKEN_PLAN.md),
+[`R10_CLOSE_PLAN.md`](R10_CLOSE_PLAN.md),
 [`POWER_ANALYSIS.md`](POWER_ANALYSIS.md). Machine-readable summaries are under
 `results/`.
 
@@ -218,11 +232,15 @@ flagged and excluded from the primary aggregate. The full 54-item arm would be
 - `src/tasks/elicit_anchored.py` — Inspect task and two-turn solver
 - `src/anchoring_metrics.py` — anchoring and interval-width metrics
 - `scripts/analyze_jk.py` — log extraction and analysis
-- `scripts/analyze_contradiction.py` — Round 8 contradiction decomposition
+- `scripts/analyze_contradiction.py` — Round 8/9 contradiction decomposition
+- `scripts/analyze_r10.py` — Round 10 J&K `TRUE_*` vs Round 6 comparison
+- `scripts/analyze_jk_temporal.py` — timeless vs time-sensitive J&K AI split
+- `scripts/analyze_sham.py` — sham-token p50 shifts and forced-token contradictions
 - `scripts/build_human_audit.py` — reproducible raw-output verification sample
 - `scripts/select_taxon_subset.py`, `scripts/select_contradiction_subset.py` —
   predeclared subset selection
 - `data/jk_items.yaml` — published J&K items and human indices
+- `data/jk_temporal_split.yaml` — frozen timeless / time-sensitive codebook
 - `prompts/` — control, comparison, and estimation prompts
 - `results/` — machine-readable summaries and the human audit worksheet
 - `tests/` — correctness and dataset checks

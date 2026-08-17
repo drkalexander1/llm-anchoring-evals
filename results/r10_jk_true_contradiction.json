@@ -1,0 +1,54 @@
+{
+  "models": [
+    {
+      "model": "anthropic/claude-haiku-4-5-20251001",
+      "run": {
+        "log": "logs/2026-08-15T01-41-46-00-00_elicit-anchored_2qX2mfsX84KwxBBhmk2jke.eval",
+        "model": "anthropic/claude-haiku-4-5-20251001",
+        "created": "2026-08-15T01:41:46+00:00",
+        "samples": 75
+      },
+      "anchored_comparisons": 60,
+      "whole_interval_contradicted": 11,
+      "by_direction": {
+        "high": {
+          "n": 30,
+          "whole_interval_contradicted": 10
+        },
+        "low": {
+          "n": 30,
+          "whole_interval_contradicted": 1
+        }
+      },
+      "r6_ambiguous": {
+        "whole_interval_contradicted": 9,
+        "n": 60
+      }
+    },
+    {
+      "model": "anthropic/claude-sonnet-4-5-20250929",
+      "run": {
+        "log": "logs/2026-08-15T01-41-48-00-00_elicit-anchored_e9ZQoD9BfgebybuTRGBnJG.eval",
+        "model": "anthropic/claude-sonnet-4-5-20250929",
+        "created": "2026-08-15T01:41:48+00:00",
+        "samples": 75
+      },
+      "anchored_comparisons": 60,
+      "whole_interval_contradicted": 2,
+      "by_direction": {
+        "high": {
+          "n": 30,
+          "whole_interval_contradicted": 1
+        },
+        "low": {
+          "n": 30,
+          "whole_interval_contradicted": 1
+        }
+      },
+      "r6_ambiguous": {
+        "whole_interval_contradicted": 7,
+        "n": 60
+      }
+    }
+  ]
+}
