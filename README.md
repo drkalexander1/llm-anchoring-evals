@@ -76,11 +76,11 @@ ordered the wrong way for token priming. So directional commitment to the
 uttered token is not a good account of the two-step effects measured here.
 Sonnet 5 was not run in Round 9; Round 10 ran the sham arms (partial binder).
 
-**7. The binder / non-binder split travels.** On the original 15 J&K items,
-`TRUE_*` labels dropped Sonnet 4.5 from 7/60 to 2/60 and left Haiku 4.5 at
-9/60 → 11/60. Clearer labels are a portable fix for Sonnet-style binding
-failures, not a general methods patch. Frozen prediction:
-[`R10_CLOSE_PLAN.md`](R10_CLOSE_PLAN.md).
+**7. The binder / non-binder split travels.** The prediction was committed
+before the runs. On the original 15 J&K items, `TRUE_*` labels dropped Sonnet
+4.5 from 7/60 to 2/60 and left Haiku 4.5 at 9/60 → 11/60. Clearer labels are a
+portable fix for Sonnet-style binding failures, not a general methods patch.
+Frozen prediction: [`R10_CLOSE_PLAN.md`](R10_CLOSE_PLAN.md).
 
 ## What this is and isn't
 
@@ -109,12 +109,12 @@ modern model's belief. Those are written up as findings too.
 | 7 | `r7-taxon-v1` | Staged taxon pilot — 18 bird-taxonomy items, model-specific outside anchors, matched two-turn control |
 | 8 | `r8-contradiction-v1` | Contradiction follow-up — `TRUE_*` labels and matched-distance anchors |
 | 9 | `r9-sham-token-v1` | Sham-token controls — `ready` vs forced `TRUE_GREATER` / `TRUE_LESS` |
-| 10 | (branch `r10-close`) | J&K confirmatory — `TRUE_*` on the original 15 items; split travels |
+| 10 | `r10-close-v1` | J&K confirmatory — `TRUE_*` on the original 15 items; split travels |
 
 Each tag is a frozen checkpoint, so a specific round can be checked out without
 browsing branches. GitHub Release zips are also available. `r8-contradiction-v1`
-is the pre-R9 `main` tip (write-up polish included); `r9-sham-token-v1` is the
-R9 freeze. Round 10 is on `r10-close` until it is merged and tagged.
+is the pre-R9 `main` tip; `r9-sham-token-v1` is the R9 freeze; `r10-close-v1`
+is the series wrap-up (prediction committed before the J&K `TRUE_*` runs).
 
 Plans and results: [`RESULTS.md`](RESULTS.md) (Round 6 by model),
 [`R7_TAXON_PLAN.md`](R7_TAXON_PLAN.md),

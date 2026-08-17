@@ -20,10 +20,12 @@ and often ordered the wrong way for priming. So directional commitment to the
 uttered token is not a good account of the two-step effects measured here.
 
 Round 10 asked whether the binder / non-binder split was an artifact of the
-8-item taxon subset. On the original 15 J&K items, `TRUE_*` labels dropped
-Sonnet 4.5 from 7/60 to 2/60 and left Haiku 4.5 at 9/60 → 11/60. The split
-travels: clearer labels are a portable fix for Sonnet-style binding failures,
-not a general methods patch.
+8-item taxon subset. The prediction was frozen in
+[`R10_CLOSE_PLAN.md`](R10_CLOSE_PLAN.md) and committed (`f09a6c2`) **before**
+the J&K `TRUE_*` runs: Sonnet 4.5 should drop; Haiku 4.5 should not. It held.
+On the original 15 J&K items, `TRUE_*` labels dropped Sonnet 4.5 from 7/60 to
+2/60 and left Haiku 4.5 at 9/60 → 11/60. The split travels: clearer labels are
+a portable fix for Sonnet-style binding failures, not a general methods patch.
 
 The abstract for the earlier arms is simpler: irrelevant anchors mostly did not
 move these LLMs the way they move people. I adapted Jacowitz and Kahneman
@@ -430,7 +432,8 @@ Rounds 8–9 identified a binder / non-binder split on one 8-item taxon subset.
 That is not enough to claim a reason. Round 10 predeclared a change on a
 **new setting** — the original 15 J&K items from Round 6 — and checked it.
 
-Frozen in [`R10_CLOSE_PLAN.md`](R10_CLOSE_PLAN.md) before paid runs:
+Frozen in [`R10_CLOSE_PLAN.md`](R10_CLOSE_PLAN.md) and committed on
+`r10-close` (`f09a6c2`) before any Round 10 generations:
 
 - **Sonnet 4.5 (binder):** whole-interval contradictions drop hard from 7/60
   toward 0 under `TRUE_*`.
