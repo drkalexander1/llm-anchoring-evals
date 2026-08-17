@@ -6,8 +6,8 @@ sounds when it says it?
 This is a series of [Inspect AI](https://inspect.aisi.org.uk/) evaluations
 adapting Jacowitz & Kahneman's (1995) two-step anchoring protocol to language
 models: ask whether the answer is greater or less than an anchor, then ask the
-model for its own p10/p50/p90 interval. Four rounds have completed across six
-models (Sonnet 5 was in Round 8 only).
+model for its own p10/p50/p90 interval. Five rounds have completed across six
+models (Sonnet 5 is in Rounds 8 and 10).
 
 The full narrative — motivation, design, findings, failures, and what is left —
 is in [`WRITEUP.md`](WRITEUP.md).
@@ -74,10 +74,13 @@ heterogeneous across models, though, and 18 items is exploratory.
 Medians of the shift vs `ready` were zero for every model; means were often
 ordered the wrong way for token priming. So directional commitment to the
 uttered token is not a good account of the two-step effects measured here.
-Sonnet 5 was not run in Round 9.
+Sonnet 5 was not run in Round 9; Round 10 ran the sham arms (partial binder).
 
-Round 10 is a confirmatory wrap-up: `TRUE_*` labels on the original J&K items,
-testing whether the binder / non-binder split travels off the taxon subset.
+**7. The binder / non-binder split travels.** On the original 15 J&K items,
+`TRUE_*` labels dropped Sonnet 4.5 from 7/60 to 2/60 and left Haiku 4.5 at
+9/60 → 11/60. Clearer labels are a portable fix for Sonnet-style binding
+failures, not a general methods patch. Frozen prediction:
+[`R10_CLOSE_PLAN.md`](R10_CLOSE_PLAN.md).
 
 ## What this is and isn't
 
@@ -106,16 +109,18 @@ modern model's belief. Those are written up as findings too.
 | 7 | `r7-taxon-v1` | Staged taxon pilot — 18 bird-taxonomy items, model-specific outside anchors, matched two-turn control |
 | 8 | `r8-contradiction-v1` | Contradiction follow-up — `TRUE_*` labels and matched-distance anchors |
 | 9 | `r9-sham-token-v1` | Sham-token controls — `ready` vs forced `TRUE_GREATER` / `TRUE_LESS` |
+| 10 | (branch `r10-close`) | J&K confirmatory — `TRUE_*` on the original 15 items; split travels |
 
 Each tag is a frozen checkpoint, so a specific round can be checked out without
 browsing branches. GitHub Release zips are also available. `r8-contradiction-v1`
 is the pre-R9 `main` tip (write-up polish included); `r9-sham-token-v1` is the
-R9 freeze. `main` matches that freeze after the merge.
+R9 freeze. Round 10 is on `r10-close` until it is merged and tagged.
 
 Plans and results: [`RESULTS.md`](RESULTS.md) (Round 6 by model),
 [`R7_TAXON_PLAN.md`](R7_TAXON_PLAN.md),
 [`R8_CONTRADICTION_PLAN.md`](R8_CONTRADICTION_PLAN.md),
 [`R9_SHAM_TOKEN_PLAN.md`](R9_SHAM_TOKEN_PLAN.md),
+[`R10_CLOSE_PLAN.md`](R10_CLOSE_PLAN.md),
 [`POWER_ANALYSIS.md`](POWER_ANALYSIS.md). Machine-readable summaries are under
 `results/`.
 
@@ -228,10 +233,14 @@ flagged and excluded from the primary aggregate. The full 54-item arm would be
 - `src/anchoring_metrics.py` — anchoring and interval-width metrics
 - `scripts/analyze_jk.py` — log extraction and analysis
 - `scripts/analyze_contradiction.py` — Round 8/9 contradiction decomposition
+- `scripts/analyze_r10.py` — Round 10 J&K `TRUE_*` vs Round 6 comparison
+- `scripts/analyze_jk_temporal.py` — timeless vs time-sensitive J&K AI split
+- `scripts/analyze_sham.py` — sham-token p50 shifts and forced-token contradictions
 - `scripts/build_human_audit.py` — reproducible raw-output verification sample
 - `scripts/select_taxon_subset.py`, `scripts/select_contradiction_subset.py` —
   predeclared subset selection
 - `data/jk_items.yaml` — published J&K items and human indices
+- `data/jk_temporal_split.yaml` — frozen timeless / time-sensitive codebook
 - `prompts/` — control, comparison, and estimation prompts
 - `results/` — machine-readable summaries and the human audit worksheet
 - `tests/` — correctness and dataset checks

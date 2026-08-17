@@ -19,6 +19,12 @@ estimate (token priming). On the same 8-item subset, forced `TRUE_GREATER` and
 and often ordered the wrong way for priming. So directional commitment to the
 uttered token is not a good account of the two-step effects measured here.
 
+Round 10 asked whether the binder / non-binder split was an artifact of the
+8-item taxon subset. On the original 15 J&K items, `TRUE_*` labels dropped
+Sonnet 4.5 from 7/60 to 2/60 and left Haiku 4.5 at 9/60 → 11/60. The split
+travels: clearer labels are a portable fix for Sonnet-style binding failures,
+not a general methods patch.
+
 The abstract for the earlier arms is simpler: irrelevant anchors mostly did not
 move these LLMs the way they move people. I adapted Jacowitz and Kahneman
 (1995) in Inspect AI across Claude Sonnet 4.5, Claude Haiku 4.5, GPT-4o, and
@@ -30,7 +36,7 @@ items did not move—which is why nonzero means are fragile and why an apparent
 analyst-source advantage did not survive baseline-bracketing. Intervals also
 widened slightly rather than narrowing, against the false-confidence
 hypothesis. A 30-year-old behavioral benchmark remains useful as a protocol
-bridge, but it needs modernized stimuli and, after Rounds 8–9, model-specific
+bridge, but it needs modernized stimuli and, after Rounds 8–10, model-specific
 consistency checks rather than a single pooled protocol story.
 
 ## Why this question?
@@ -418,6 +424,101 @@ not a result.
 - Eight items, one response per cell, five Round 9 models, not release-matched.
   Exploratory throughout.
 
+## Round 10: confirmatory wrap-up
+
+Rounds 8–9 identified a binder / non-binder split on one 8-item taxon subset.
+That is not enough to claim a reason. Round 10 predeclared a change on a
+**new setting** — the original 15 J&K items from Round 6 — and checked it.
+
+Frozen in [`R10_CLOSE_PLAN.md`](R10_CLOSE_PLAN.md) before paid runs:
+
+- **Sonnet 4.5 (binder):** whole-interval contradictions drop hard from 7/60
+  toward 0 under `TRUE_*`.
+- **Haiku 4.5 (non-binder):** the rate stays in the same ballpark as 9/60.
+
+Existing Round 6 logs are the ambiguous-label baseline. Same items, anchors,
+provenances, and two-turn anchored protocol; only the first-turn contract
+changes. Held-out R7 taxon items were rejected as the test set: almost all of
+the original contradictions lived on the high-count 8, so a “collapse” there
+could have been a floor effect.
+
+### Results
+
+| Model | Round 6 (`greater`/`less`) | Round 10 (`TRUE_*`) |
+|---|---|---|
+| Claude Sonnet 4.5 | 7/60 (12%), high 6/30 | **2/60 (3%)**, high 1/30 |
+| Claude Haiku 4.5 | 9/60 (15%), high 9/30 | **11/60 (18%)**, high 10/30 |
+
+Parse rate 100% on both 75-sample runs. Machine-readable summary:
+`results/r10_jk_true_contradiction.json`.
+
+### Which cell of the 2×2 applied
+
+**Sonnet drops, Haiku stays.** The split travels off the taxon subset.
+
+Sonnet 4.5 is not the taxon-style 12/32 → 0/32. Seven events became two, still
+mostly high-side. That is a real drop toward zero on modest counts, not a
+clean wipe. Haiku did not collapse; it ticked up. So `TRUE_*` is a portable
+fix for Sonnet-style binding failures, not a general methods patch for
+same-turn incoherence.
+
+GPT-4o was not run. The plan added it only if the primary pair was ambiguous.
+It was not.
+
+### Secondary: Sonnet 5 sham
+
+Same R9 arms on the 8-item taxon subset. Parse rate 97.9% (94/96). Arm A was
+5/30 (17%), all high-side.
+
+| Arm | Mean Δp50 vs `ready` | Exact zeros | Forced-token contradictions |
+|---|---|---|---|
+| Forced TRUE_GREATER | −1.45 | 68% | 11/32 (34%) |
+| Forced TRUE_LESS | +0.43 | 63% | 15/31 (48%) |
+
+Median Δp50 is 0. Forced GREATER is *lower* than forced LESS, so token priming
+is the wrong order here too. Forced-token “contradictions” jump relative to
+sincere Arm A, the same pattern as Sonnet 4.5 (0/32 sincere → 14–16/32 sham):
+the model mostly ignores an imposed token. Call it a **partial binder** — not
+Haiku’s 11/32 matching Arm A exactly.
+
+Machine-readable: `results/r10_sham_all_models_summary.json`.
+
+### Secondary: timeless vs time-sensitive J&K items
+
+Frozen codebook [`data/jk_temporal_split.yaml`](data/jk_temporal_split.yaml)
+(7 timeless, 8 time-sensitive) before looking at split means. This is not the
+bracketing check below. Human item-level AI is similar on both subsets (0.46
+vs 0.51). Model means are not:
+
+| Model | Timeless plaus. mean AI | Aging plaus. mean AI |
+|---|---|---|
+| Claude Haiku 4.5 | 0.000 | 0.217 |
+| Claude Sonnet 4.5 | 0.013 | 0.503 |
+| GPT-4o | 0.145 | 0.053 |
+| GPT-4o mini | 0.006 | 0.448 |
+
+Medians are 0 on the timeless set for every model. Arbitrary-provenance means
+are also near zero on timeless items. GPT-4o is the exception on aging
+(near-zero there too). So the sparse full-set means were mostly aging
+stimuli, not a small timeless anchoring effect that happened to look like
+Berkeley. Humans in 1995 anchored on both kinds of item; these models did not.
+
+`results/r10_jk_temporal_split.json`.
+
+### Round 10 limitations
+
+- Seven and nine events are a weak signal. This is an out-of-sample protocol
+  test, not a powered replication of the taxon rates.
+- Confirmatory `TRUE_*` is two models on J&K. It does not classify Opus,
+  GPT-4o, or mini on that setting, and it does not explain *why* Haiku fails
+  to bind.
+- Sonnet 5 sham had two parse failures (denominator 31 on `ready` / forced
+  LESS). Forced-token contradictions are not sincere Arm A.
+- The temporal split is 7 vs 8 items, one response per cell. Exploratory.
+  Cat speed is locked timeless (biology); UN members are locked time-sensitive.
+- J&K still uses the unmatched single-turn control on the unanchored arm;
+  the contradiction comparison uses only the two-turn anchored cells.
+
 ## When a historical benchmark ages
 
 The Berkeley female-professor question produced the clearest mismatch. Its
@@ -442,6 +543,10 @@ model-item cases remained:
 - plausible anchors: mean AI 0.056, median 0.
 
 Under this check, the apparent plausible-provenance advantage disappears.
+A separate Round 10 split, using a predeclared timeless vs time-sensitive
+codebook rather than each model’s baseline, reaches the same qualitative
+point: model means sit on the aging items; timeless medians are 0.
+
 That makes the honest conclusion narrower: these models usually did not move,
 and the nonzero effects were sparse, heterogeneous, and sensitive to stimulus
 age.
@@ -476,7 +581,9 @@ judgment. Round 8 shows that some same-conversation contradictions are a
 comparative-phrasing artifact and some are not. Round 9 then rules out a clean
 token-priming account of second-turn location on this subset: forced
 `TRUE_GREATER` / `TRUE_LESS` do not pull p50 in opposite directions relative to
-`ready`. Residual same-turn incoherence remains model-specific.
+`ready`. Round 10 then showed that the binder / non-binder split is not a
+taxon-subset artifact: on J&K, Sonnet 4.5 dropped under `TRUE_*` and Haiku did
+not. Residual same-turn incoherence remains model-specific.
 
 ## What the evaluation exposed
 
@@ -563,8 +670,9 @@ reserve larger runs for a stronger second iteration.
   side of a model's baseline belief.
 - First-turn categorical answers can conflict with same-conversation intervals.
   Round 8 addresses label ambiguity for some models; Round 9’s sham arms argue
-  against directional token priming on the 8-item subset, but do not explain
-  every remaining contradiction.
+  against directional token priming on the 8-item subset; Round 10 shows that
+  the remaining split travels to J&K. It still does not explain every
+  Haiku/GPT-4o contradiction.
 - Control and treatment differed in conversation length until the Round 7
   matched two-turn control; earlier Round 6 J&K estimates retain that gap.
 - The power analysis uses the unfiltered, zero-inflated pilot and a normal
@@ -573,28 +681,25 @@ reserve larger runs for a stronger second iteration.
 
 ## Next iteration
 
-Rounds 7–9 covered the matched two-turn control, stronger anchors, stratified
-taxon pilot, clearer comparative labels, matched-distance asymmetry, and
-sham-token controls. Token priming is largely eliminated as a directional
-mechanism on the Round 8/9 subset; the remaining open questions are narrower.
+Rounds 7–10 covered the matched two-turn control, stronger anchors, stratified
+taxon pilot, clearer comparative labels, matched-distance asymmetry,
+sham-token controls, and a confirmatory `TRUE_*` test on J&K. The binder /
+non-binder split is the wrap-up claim: it was predicted in a new setting and
+held. Token priming is not supported. What remains is narrower than a new
+round.
 
-**Load-bearing follow-ups:**
+**If anything else is worth doing, it is not load-bearing for this series:**
 
-1. Compare forced-arm p50s to Round 8 Arm A (sincere `TRUE_*`) on the same
-   cells, so model-specific signs relative to `ready` are not the only
-   baseline.
-2. Prefer `TRUE_GREATER` / `TRUE_LESS` for any future comparative-step arm where
-   same-turn consistency matters, especially for models that collapsed under
-   Round 8 Arm A.
-3. Treat contradiction rates and sham responses as model-specific rather than
-   pooling a single protocol diagnosis across providers.
-4. Separate timeless J&K items from time-sensitive historical stimuli.
-5. Decide in advance whether the primary endpoint is plausible anchoring,
-   arbitrary anchoring, or their difference.
-6. Optional: run Sonnet 5 on the Round 9 sham arms for completeness with Round 8.
+1. Prefer `TRUE_GREATER` / `TRUE_LESS` for any future comparative-step arm where
+   same-turn consistency matters, especially for binder models.
+2. Treat contradiction rates as model-specific rather than pooling a single
+   protocol diagnosis across providers.
+3. Optional desk work: Arm A vs R9 `ready` p50s on the taxon subset.
+4. A persist-model test of *why* Haiku fails to bind would be a new evaluation,
+   not a missing R10 cell.
 
 The main lesson is that a useful evaluation does not need a positive headline.
-This series found a model-heterogeneous contradiction fork, a negative result
-on token priming, limited anchoring relative to humans, sparse within-model
-movement that makes means fragile, no evidence of false confidence, and an
-aging-stimulus confound.
+This series found a model-heterogeneous contradiction fork that travels off
+its discovery subset, a negative result on token priming, limited anchoring
+relative to humans, sparse within-model movement that makes means fragile, no
+evidence of false confidence, and an aging-stimulus confound.

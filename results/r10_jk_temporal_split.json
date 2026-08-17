@@ -1,0 +1,186 @@
+{
+  "codebook": "data\\jk_temporal_split.yaml",
+  "timeless_ids": [
+    "jk_mississippi_length",
+    "jk_everest_height",
+    "jk_sf_nyc_distance",
+    "jk_tallest_redwood",
+    "jk_telephone_year",
+    "jk_lincoln_presidency",
+    "jk_cat_speed"
+  ],
+  "time_sensitive_ids": [
+    "jk_meat_per_year",
+    "jk_un_members",
+    "jk_berkeley_female_professors",
+    "jk_chicago_population",
+    "jk_babies_per_day",
+    "jk_gas_per_month",
+    "jk_berkeley_bars",
+    "jk_ca_state_colleges"
+  ],
+  "human_mean_ai_timeless": 0.45714285714285713,
+  "human_mean_ai_time_sensitive": 0.5075000000000001,
+  "models": [
+    {
+      "model": "anthropic/claude-haiku-4-5-20251001",
+      "log": "logs/2026-07-19T00-16-01-00-00_elicit-anchored_8xfppijosgfPddtsh9kRAw.eval",
+      "timeless": {
+        "arb": {
+          "n_pairs": 7,
+          "n_nonzero": 0,
+          "mean_ai": 0.0,
+          "median_ai": 0.0,
+          "valid_baseline_n": 5,
+          "valid_baseline_mean_ai": 0.0
+        },
+        "plaus": {
+          "n_pairs": 7,
+          "n_nonzero": 0,
+          "mean_ai": 0.0,
+          "median_ai": 0.0,
+          "valid_baseline_n": 5,
+          "valid_baseline_mean_ai": 0.0
+        }
+      },
+      "time_sensitive": {
+        "arb": {
+          "n_pairs": 8,
+          "n_nonzero": 2,
+          "mean_ai": 0.0818452380952381,
+          "median_ai": 0.0,
+          "valid_baseline_n": 5,
+          "valid_baseline_mean_ai": 0.016666666666666666
+        },
+        "plaus": {
+          "n_pairs": 8,
+          "n_nonzero": 3,
+          "mean_ai": 0.21696428571428572,
+          "median_ai": 0.0,
+          "valid_baseline_n": 5,
+          "valid_baseline_mean_ai": 0.13
+        }
+      }
+    },
+    {
+      "model": "anthropic/claude-sonnet-4-5-20250929",
+      "log": "logs/2026-07-19T00-16-00-00-00_elicit-anchored_nWZcPxM86ZNVhK9KEeQx9E.eval",
+      "timeless": {
+        "arb": {
+          "n_pairs": 7,
+          "n_nonzero": 2,
+          "mean_ai": 0.013104238258877434,
+          "median_ai": 0.0,
+          "valid_baseline_n": 5,
+          "valid_baseline_mean_ai": 0.018345933562428408
+        },
+        "plaus": {
+          "n_pairs": 7,
+          "n_nonzero": 2,
+          "mean_ai": 0.013421698576337751,
+          "median_ai": 0.0,
+          "valid_baseline_n": 5,
+          "valid_baseline_mean_ai": 0.018790378006872853
+        }
+      },
+      "time_sensitive": {
+        "arb": {
+          "n_pairs": 8,
+          "n_nonzero": 4,
+          "mean_ai": 0.35953618546617044,
+          "median_ai": 0.0,
+          "valid_baseline_n": 6,
+          "valid_baseline_mean_ai": 0.55874665998664
+        },
+        "plaus": {
+          "n_pairs": 8,
+          "n_nonzero": 3,
+          "mean_ai": 0.503422619047619,
+          "median_ai": 0.0,
+          "valid_baseline_n": 6,
+          "valid_baseline_mean_ai": -0.04305555555555555
+        }
+      }
+    },
+    {
+      "model": "openai/gpt-4o",
+      "log": "logs/2026-07-19T00-16-00-00-00_elicit-anchored_5shGmD4FJVGuLNDUoHtRLp.eval",
+      "timeless": {
+        "arb": {
+          "n_pairs": 7,
+          "n_nonzero": 2,
+          "mean_ai": 0.03400140872126529,
+          "median_ai": 0.0,
+          "valid_baseline_n": 5,
+          "valid_baseline_mean_ai": 0.004123711340206186
+        },
+        "plaus": {
+          "n_pairs": 7,
+          "n_nonzero": 2,
+          "mean_ai": 0.14548248703336109,
+          "median_ai": 0.0,
+          "valid_baseline_n": 5,
+          "valid_baseline_mean_ai": 0.012371134020618558
+        }
+      },
+      "time_sensitive": {
+        "arb": {
+          "n_pairs": 8,
+          "n_nonzero": 2,
+          "mean_ai": -0.112468671679198,
+          "median_ai": 0.0,
+          "valid_baseline_n": 5,
+          "valid_baseline_mean_ai": 0.010526315789473684
+        },
+        "plaus": {
+          "n_pairs": 8,
+          "n_nonzero": 2,
+          "mean_ai": 0.053125000000000006,
+          "median_ai": 0.0,
+          "valid_baseline_n": 5,
+          "valid_baseline_mean_ai": 0.005
+        }
+      }
+    },
+    {
+      "model": "openai/gpt-4o-mini",
+      "log": "logs/2026-07-19T00-16-00-00-00_elicit-anchored_9KocfCjQPAgdfqXFhXNGGL.eval",
+      "timeless": {
+        "arb": {
+          "n_pairs": 7,
+          "n_nonzero": 3,
+          "mean_ai": -0.024412143461896935,
+          "median_ai": 0.0,
+          "valid_baseline_n": 5,
+          "valid_baseline_mean_ai": 0.009301260022909508
+        },
+        "plaus": {
+          "n_pairs": 7,
+          "n_nonzero": 1,
+          "mean_ai": 0.006349206349206349,
+          "median_ai": 0.0,
+          "valid_baseline_n": 5,
+          "valid_baseline_mean_ai": 0.008888888888888889
+        }
+      },
+      "time_sensitive": {
+        "arb": {
+          "n_pairs": 8,
+          "n_nonzero": 5,
+          "mean_ai": 0.12947994987468672,
+          "median_ai": 0.05,
+          "valid_baseline_n": 5,
+          "valid_baseline_mean_ai": 0.1119298245614035
+        },
+        "plaus": {
+          "n_pairs": 8,
+          "n_nonzero": 6,
+          "mean_ai": 0.44791681577440595,
+          "median_ai": 0.3217267869071476,
+          "valid_baseline_n": 5,
+          "valid_baseline_mean_ai": 0.3395240480961924
+        }
+      }
+    }
+  ]
+}

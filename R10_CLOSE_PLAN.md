@@ -64,15 +64,36 @@ powered replication of the 12/32 taxon rates.
 - `anthropic/claude-haiku-4-5-20251001`
 
 Do not add GPT-4o unless the primary pair is ambiguous (both move a little).
-Do not run Sonnet 5 sham as the headline of this round.
 
-## Secondary (desk, not the fork classifier)
+## Secondary (same round, not the 2×2 classifier)
 
-After the confirmatory arm is written against the table above:
+Locked before scoring. These do not change the confirmatory prediction.
 
-- Arm A vs R9 `ready` p50 on the taxon subset (logs already exist).
-- Optional timeless vs time-sensitive J&K sensitivity on Round 6 AI, with a
-  codebook frozen before looking at split means. Not the R10 headline.
+### Sonnet 5 sham
+
+Same R9 arms on `data/contradiction_subset_r8.yaml`. Classifies the leftover
+partial Arm A case (7/32 → 5/30): binder (ignore imposed token) vs non-binder
+(contradict either way). Not a new mechanism test.
+
+```powershell
+inspect eval src/tasks/elicit_anchored.py `
+  --model anthropic/claude-sonnet-5 `
+  -T item_set=taxon `
+  -T baseline_model=taxonomy-r3/claude-sonnet-5@2026-07-02 `
+  -T subset_path=data/contradiction_subset_r8.yaml `
+  -T anchor_method=outside `
+  -T anchor_strength=2 `
+  -T first_turn_mode=sham `
+  -T seeds=1 `
+  -T temperature=0
+```
+
+### J&K timeless vs time-sensitive split
+
+Codebook: [`data/jk_temporal_split.yaml`](data/jk_temporal_split.yaml).
+Score Round 6 AI on each subset. Distinct from the already-reported
+bracketing check (drop cases where unanchored p50 sits outside the 1995
+anchors). Exploratory; 7 vs 8 items.
 
 ## Cost
 
@@ -101,9 +122,10 @@ Same for `anthropic/claude-haiku-4-5-20251001`.
 - Both logs + machine-readable contradiction comparison vs Round 6
 - Short write-up stating which cell of the 2×2 applied
 - Tag `r10-close-v1` when frozen
+- Secondary write-up: Sonnet 5 sham classification; J&K temporal split
 
 ## Out of scope
 
 New first-turn manipulations, residual-incoherence experiments on persist
-models, new high-count taxon items (unless this pair is ambiguous), Sonnet 5
-sham as the primary result.
+models, new high-count taxon items (unless this pair is ambiguous). Sonnet 5
+sham is secondary, not the 2×2 classifier.
